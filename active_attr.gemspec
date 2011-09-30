@@ -5,8 +5,8 @@ require "active_attr/version"
 Gem::Specification.new do |s|
   s.name        = "active_attr"
   s.version     = ActiveAttr::VERSION
-  s.authors     = ["Chris Griego"]
-  s.email       = ["cgriego@gmail.com"]
+  s.authors     = ["Chris Griego", "Ben Poweski"]
+  s.email       = ["cgriego@gmail.com", "bpoweski@gmail.com"]
   s.homepage    = "https://github.com/cgriego/active_attr"
   s.summary     = %q{What ActiveModel left out}
   s.description = %q{Create plain old ruby models without reinventing the wheel.}
