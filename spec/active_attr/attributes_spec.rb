@@ -6,11 +6,11 @@ module ActiveAttr
     subject do
       Class.new do
         include Attributes
-        active_attr :name
+        attribute :name
       end
     end
 
-    describe ".active_attr" do
+    describe ".attribute" do
       it "creates an attribute with no options" do
         subject.attributes.should include(AttributeDefinition.new(:name))
       end

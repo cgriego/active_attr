@@ -6,7 +6,7 @@ module ActiveAttr
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def active_attr(name)
+      def attribute(name)
         attributes << AttributeDefinition.new(name)
       end
 
