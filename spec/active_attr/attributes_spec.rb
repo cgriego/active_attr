@@ -133,5 +133,13 @@ module ActiveAttr
         expect { subject.write_attribute("name", "Ben") }.to change(subject, :attributes).from({}).to("name" => "Ben")
       end
     end
+
+    describe "#inspect" do
+      let(:instance) { subject.new.tap { |obj| obj.name = "Ben" }  }
+
+      it "includes the class name and all attribute values" do
+        instance.inspect.should == %q{#<Foo name: "Ben", amount: nil>}
+      end
+    end
   end
 end

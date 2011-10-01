@@ -22,6 +22,14 @@ module ActiveAttr
       attributes == other.attributes
     end
 
+    def inspect
+      attribute_descriptions = self.class.attributes.map do |attribute|
+        "#{attribute.name.to_s}: #{read_attribute(attribute.name).inspect}"
+      end
+
+      "#<#{self.class.name} #{attribute_descriptions.join(', ')}>"
+    end
+
     module ClassMethods
       def attribute(name, opts={})
         attribute_definition = AttributeDefinition.new(name, opts)
