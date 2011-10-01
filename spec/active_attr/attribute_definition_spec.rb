@@ -41,7 +41,7 @@ module ActiveAttr
       end
 
       it "raises a TypeError when the attribute name does not respond to #to_sym" do
-        expect { described_class.new(Object.new) }.to raise_error(TypeError)
+        expect { described_class.new(Object.new) }.to raise_error(TypeError, "can't convert Object into Symbol")
       end
 
       it "sets the type using the options" do

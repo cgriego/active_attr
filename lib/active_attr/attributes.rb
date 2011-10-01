@@ -18,7 +18,7 @@ module ActiveAttr
     end
 
     def ==(other)
-      return false unless other.instance_of?(self.class)
+      return false unless other.instance_of? self.class
       attributes == other.attributes
     end
 
