@@ -1,5 +1,5 @@
-require "active_support/concern"
 require "active_model"
+require "active_support/concern"
 
 module ActiveAttr
   # Provides the minimum functionality to pass the ActiveModel lint tests
@@ -13,8 +13,8 @@ module ActiveAttr
   module Model
     extend ActiveSupport::Concern
     extend ActiveModel::Naming
-    include ActiveModel::Validations
     include ActiveModel::Conversion
+    include ActiveModel::Validations
 
     def persisted?
       false

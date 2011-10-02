@@ -3,7 +3,7 @@ require "active_attr/attributes"
 
 module ActiveAttr
   describe Attributes do
-    let(:klass) do
+    let(:model_class) do
       Class.new do
         include Attributes
         attribute :name
@@ -69,7 +69,7 @@ module ActiveAttr
     end
 
     describe "#==" do
-      let(:klass) do
+      let(:model_class) do
         Class.new do
           include Attributes
           attribute :name
@@ -80,10 +80,10 @@ module ActiveAttr
         end
       end
 
-      subject { klass.new("Ben") }
+      subject { model_class.new("Ben") }
 
       it "returns true when all attributes are equal" do
-        should == klass.new("Ben")
+        should == model_class.new("Ben")
       end
 
       it "returns false when compared to another type" do
@@ -111,19 +111,19 @@ module ActiveAttr
 
     describe "#read_attribute" do
       let(:name) { "Bob" }
-      subject { klass.new.tap { |s| s.write_attribute(:name, name) } }
+      subject { model_class.new.tap { |s| s.write_attribute(:name, name) } }
 
       it "returns the attribute using a Symbol" do
         subject.read_attribute(:name).should == name
       end
 
       it "returns the attribute using a String" do
-        subject.read_attribute("name").should == name
+        subject.read_attribute('name').should == name
       end
     end
 
     describe "#write_attribute" do
-      subject { klass.new }
+      subject { model_class.new }
 
       it "raises ArgumentError with one argument" do
         expect { subject.write_attribute(:name) }.to raise_error(ArgumentError)
@@ -138,7 +138,7 @@ module ActiveAttr
       end
 
       it "assigns sets an attribute using a String and value" do
-        expect { subject.write_attribute("name", "Ben") }.to change(subject, :attributes).from({}).to("name" => "Ben")
+        expect { subject.write_attribute('name', "Ben") }.to change(subject, :attributes).from({}).to("name" => "Ben")
       end
     end
   end

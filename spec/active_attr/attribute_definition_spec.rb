@@ -29,7 +29,7 @@ module ActiveAttr
       end
 
       it "converts a String attribute name to a Symbol" do
-        described_class.new("amount").name.should == :amount
+        described_class.new('amount').name.should == :amount
       end
 
       it "raises a TypeError when the attribute name does not respond to #to_sym" do

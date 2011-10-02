@@ -3,7 +3,7 @@ require "active_attr/model"
 
 module ActiveAttr
   describe Model do
-    let(:klass) do
+    let(:model_class) do
       Class.new do
         include Model
 
@@ -13,7 +13,7 @@ module ActiveAttr
       end
     end
 
-    subject { klass.new }
-    it_should_behave_like 'ActiveModel'
+    subject { model_class.new }
+    it_should_behave_like "ActiveModel"
   end
 end

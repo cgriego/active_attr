@@ -1,5 +1,5 @@
-require "active_support/concern"
 require "active_attr/attribute_definition"
+require "active_support/concern"
 
 module ActiveAttr
   # Attributes provides a set of class methods for defining an attributes schema.  Additionally,
