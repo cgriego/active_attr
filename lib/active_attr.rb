@@ -10,6 +10,9 @@ module ActiveAttr
 
   autoload :AttributeDefinition
   autoload :Attributes
+  autoload :Error
   autoload :MassAssignment
+  autoload :StrictMassAssignment
+  autoload :UnknownAttributesError
   autoload :VERSION
 end
