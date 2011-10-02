@@ -1,11 +1,11 @@
 require "spec_helper"
-require "active_attr/model"
+require "active_attr/basic_model"
 
 module ActiveAttr
-  describe Model do
+  describe BasicModel do
     let(:model_class) do
       Class.new do
-        include Model
+        include BasicModel
 
         def self.name
           "Foo"

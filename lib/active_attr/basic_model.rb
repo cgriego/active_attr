@@ -6,11 +6,11 @@ module ActiveAttr
   #
   # @example Usage
   #   class Person
-  #     include ActiveAttr::Model
+  #     include ActiveAttr::BasicModel
   #   end
   #
   # @since 0.2.0
-  module Model
+  module BasicModel
     extend ActiveSupport::Concern
     extend ActiveModel::Naming
     include ActiveModel::Conversion
