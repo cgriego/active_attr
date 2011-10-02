@@ -32,7 +32,7 @@ module ActiveAttr
     def assign_attributes(new_attributes, options={})
       unknown_attribute_names = (new_attributes || {}).reject do |name, value|
         respond_to? "#{name}="
-      end.map { |name, value| name }.sort
+      end.map { |name, value| name.to_s }.sort
 
       if unknown_attribute_names.any?
         raise UnknownAttributesError, "unknown attribute(s): #{unknown_attribute_names.join(", ")}"
