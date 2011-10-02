@@ -60,11 +60,11 @@ module ActiveAttr
 
     describe ".inspect" do
       it "renders the class name" do
-        subject.inspect.should match 'Foo'
+        subject.inspect.should match "Foo"
       end
 
       it "renders the attribute name and type" do
-        subject.inspect.should match subject.attributes.map { |a| "#{a.name}: #{a.type}" }.join(', ')
+        subject.inspect.should match subject.attributes.map { |a| "#{a.name}: #{a.type}" }.join(", ")
       end
     end
 
@@ -101,6 +101,14 @@ module ActiveAttr
       end
     end
 
+    describe "#inspect" do
+      let(:instance) { subject.new.tap { |obj| obj.name = "Ben" }  }
+
+      it "includes the class name and all attribute values" do
+        instance.inspect.should == %q{#<Foo name: "Ben", amount: nil>}
+      end
+    end
+
     describe "#read_attribute" do
       let(:name) { "Bob" }
       subject { klass.new.tap { |s| s.write_attribute(:name, name) } }
@@ -131,14 +139,6 @@ module ActiveAttr
 
       it "assigns sets an attribute using a String and value" do
         expect { subject.write_attribute("name", "Ben") }.to change(subject, :attributes).from({}).to("name" => "Ben")
-      end
-    end
-
-    describe "#inspect" do
-      let(:instance) { subject.new.tap { |obj| obj.name = "Ben" }  }
-
-      it "includes the class name and all attribute values" do
-        instance.inspect.should == %q{#<Foo name: "Ben", amount: nil>}
       end
     end
   end

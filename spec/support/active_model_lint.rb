@@ -8,7 +8,7 @@ shared_examples_for "ActiveModel" do
   before { @model = subject }
 
   ActiveModel::Lint::Tests.public_instance_methods.map(&:to_s).grep(/^test/).each do |test|
-    example test.gsub('_',' ') do
+    example test.gsub("_", " ") do
       send test
     end
   end

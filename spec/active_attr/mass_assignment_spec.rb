@@ -54,43 +54,6 @@ module ActiveAttr
       end
     end
 
-    describe "#initialize" do
-      it "raises ArgumentError when called with three arguments" do
-        expect { subject.new({}, {}, nil) }.to raise_error ArgumentError
-      end
-
-      it "does not raise when called with two arguments" do
-        expect { subject.new({}, {}) }.not_to raise_error
-      end
-
-      it "does not raise when called with a single argument" do
-        expect { subject.new({}) }.not_to raise_error
-      end
-
-      it "does not raise when called with no arguments" do
-        expect { subject.new }.not_to raise_error
-      end
-
-      def mass_assign_attributes(attributes)
-        subject.new(attributes)
-      end
-
-      it_should_behave_like "a mass assigning method"
-    end
-
-    describe "#attributes=" do
-      it "raises ArgumentError when called with two arguments" do
-        expect { person.send(:attributes=, {}, {}) }.to raise_error ArgumentError
-      end
-
-      def mass_assign_attributes(attributes)
-        person.attributes = attributes
-        person
-      end
-
-      it_should_behave_like "a mass assigning method"
-    end
-
     describe "#assign_attributes" do
       it "raises ArgumentError when called with three arguments" do
         expect { subject.new.assign_attributes({}, {}, nil) }.to raise_error ArgumentError
@@ -111,6 +74,43 @@ module ActiveAttr
       def mass_assign_attributes(attributes)
         person.assign_attributes attributes
         person
+      end
+
+      it_should_behave_like "a mass assigning method"
+    end
+
+    describe "#attributes=" do
+      it "raises ArgumentError when called with two arguments" do
+        expect { person.send(:attributes=, {}, {}) }.to raise_error ArgumentError
+      end
+
+      def mass_assign_attributes(attributes)
+        person.attributes = attributes
+        person
+      end
+
+      it_should_behave_like "a mass assigning method"
+    end
+
+    describe "#initialize" do
+      it "raises ArgumentError when called with three arguments" do
+        expect { subject.new({}, {}, nil) }.to raise_error ArgumentError
+      end
+
+      it "does not raise when called with two arguments" do
+        expect { subject.new({}, {}) }.not_to raise_error
+      end
+
+      it "does not raise when called with a single argument" do
+        expect { subject.new({}) }.not_to raise_error
+      end
+
+      it "does not raise when called with no arguments" do
+        expect { subject.new }.not_to raise_error
+      end
+
+      def mass_assign_attributes(attributes)
+        subject.new(attributes)
       end
 
       it_should_behave_like "a mass assigning method"

@@ -7,14 +7,14 @@ module ActiveAttr
       name == attribute.name && type == attribute.type
     end
 
-    def to_s
-      [name, type].join(': ')
-    end
-
     def initialize(name, options={})
       raise TypeError, "can't convert #{name.class} into Symbol" unless name.respond_to? :to_sym
       @name = name.to_sym
       @type = options[:type] || Object
+    end
+
+    def to_s
+      [name, type].join(": ")
     end
   end
 end

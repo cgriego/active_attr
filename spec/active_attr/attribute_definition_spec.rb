@@ -1,17 +1,9 @@
-require 'spec_helper'
-require 'active_attr/attribute_definition'
+require "spec_helper"
+require "active_attr/attribute_definition"
 
 module ActiveAttr
   describe AttributeDefinition do
     subject { described_class.new(:amount) }
-
-    describe "#name" do
-      it { should respond_to(:name) }
-    end
-
-    describe "#type" do
-      it { should respond_to(:name) }
-    end
 
     describe "#==" do
       it "returns true when the attribute name is equal" do
@@ -37,7 +29,7 @@ module ActiveAttr
       end
 
       it "converts a String attribute name to a Symbol" do
-        described_class.new('amount').name.should == :amount
+        described_class.new("amount").name.should == :amount
       end
 
       it "raises a TypeError when the attribute name does not respond to #to_sym" do
@@ -53,10 +45,18 @@ module ActiveAttr
       end
     end
 
+    describe "#name" do
+      it { should respond_to(:name) }
+    end
+
     describe "#to_s" do
       it "renders the name and type" do
-        subject.to_s.should == [subject.name, subject.type].join(': ')
+        subject.to_s.should == [subject.name, subject.type].join(": ")
       end
+    end
+
+    describe "#type" do
+      it { should respond_to(:name) }
     end
   end
 end

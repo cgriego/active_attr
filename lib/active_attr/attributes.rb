@@ -1,25 +1,17 @@
-require 'active_support/concern'
-require 'active_attr/attribute_definition'
+require "active_support/concern"
+require "active_attr/attribute_definition"
 
 module ActiveAttr
   module Attributes
     extend ActiveSupport::Concern
 
-    def write_attribute(name, value)
-      attributes[name.to_s] = value
-    end
-
-    def read_attribute(name)
-      attributes[name.to_s]
+    def ==(other)
+      return false unless other.instance_of? self.class
+      attributes == other.attributes
     end
 
     def attributes
       @attributes ||= {}
-    end
-
-    def ==(other)
-      return false unless other.instance_of? self.class
-      attributes == other.attributes
     end
 
     def inspect
@@ -27,12 +19,20 @@ module ActiveAttr
         "#{attribute.name.to_s}: #{read_attribute(attribute.name).inspect}"
       end
 
-      "#<#{self.class.name} #{attribute_descriptions.join(', ')}>"
+      "#<#{self.class.name} #{attribute_descriptions.join(", ")}>"
+    end
+
+    def read_attribute(name)
+      attributes[name.to_s]
+    end
+
+    def write_attribute(name, value)
+      attributes[name.to_s] = value
     end
 
     module ClassMethods
-      def attribute(name, opts={})
-        attribute_definition = AttributeDefinition.new(name, opts)
+      def attribute(name, options={})
+        attribute_definition = AttributeDefinition.new(name, options)
         attributes << attribute_definition
         method_name = attribute_definition.name
 
@@ -45,7 +45,7 @@ module ActiveAttr
       end
 
       def inspect
-        "#{self.name}(#{attributes.map { |a| a.to_s }.join(', ')})"
+        "#{self.name}(#{attributes.map { |a| a.to_s }.join(", ")})"
       end
     end
   end
