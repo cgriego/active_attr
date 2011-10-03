@@ -14,7 +14,7 @@ module ActiveAttr
       Class.new do
         include Attributes
         attribute :name
-        attribute :amount, :type => Integer
+        attribute :amount
 
         def self.name
           "Foo"
@@ -27,10 +27,6 @@ module ActiveAttr
 
       it "creates an attribute with no options" do
         subject.attributes.should include(AttributeDefinition.new(:name))
-      end
-
-      it "creates an attribute with options" do
-        subject.attributes.should include(AttributeDefinition.new(:amount, :type => Integer))
       end
 
       it "defined an attribute reader that calls #read_attribute" do
@@ -64,7 +60,7 @@ module ActiveAttr
       end
 
       it "renders the attribute name and type" do
-        subject.inspect.should match subject.attributes.map { |a| "#{a.name}: #{a.type}" }.join(", ")
+        subject.inspect.should match subject.attributes.map { |a| a.name }.join(", ")
       end
     end
 

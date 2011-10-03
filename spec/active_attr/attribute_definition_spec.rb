@@ -13,10 +13,6 @@ module ActiveAttr
       it "returns false when another object is compared" do
         described_class.new(:amount).should_not == Struct.new(:name).new(:amount)
       end
-
-      it "returns false when the type of attribute differs" do
-        described_class.new(:amount, :type => Float).should_not == described_class.new(:amount, :type => Integer)
-      end
     end
 
     describe "#initialize" do
@@ -35,14 +31,6 @@ module ActiveAttr
       it "raises a TypeError when the attribute name does not respond to #to_sym" do
         expect { described_class.new(Object.new) }.to raise_error(TypeError, "can't convert Object into Symbol")
       end
-
-      it "sets the type using the options" do
-        described_class.new(:amount, :type => Float).type.should == Float
-      end
-
-      it "defaults the type to Object" do
-        subject.type.should == Object
-      end
     end
 
     describe "#name" do
@@ -50,13 +38,9 @@ module ActiveAttr
     end
 
     describe "#to_s" do
-      it "renders the name and type" do
-        subject.to_s.should == [subject.name, subject.type].join(": ")
+      it "renders the name" do
+        subject.to_s.should == subject.name
       end
-    end
-
-    describe "#type" do
-      it { should respond_to(:name) }
     end
   end
 end

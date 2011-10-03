@@ -86,12 +86,9 @@ module ActiveAttr
       # added to result of the attributes class method.
       #
       # @example Define an attribute.
-      #   attribute :name, :type => String
+      #   attribute :name
       #
       # @param [Symbol] name The name of the attribute.
-      # @param [Hash] options The options to pass to the attribute.
-      #
-      # @option options [Class] :type The type of the attribute.  A default of Object will be used unless given.
       def attribute(name, options={})
         attribute_definition = AttributeDefinition.new(name, options)
         attributes << attribute_definition
