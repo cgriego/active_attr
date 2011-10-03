@@ -2,6 +2,7 @@
 
 * ActiveAttr now autoloads nested classes and modules
 * Added Error
+* Added Matchers::HaveAttributeMatcher
 * Added StrictMassAssignment
 * Added UnknownAttributesError
 * Documented MassAssignment
