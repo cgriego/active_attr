@@ -39,7 +39,7 @@ module ActiveAttr
 
     describe "#to_s" do
       it "renders the name" do
-        subject.to_s.should == subject.name
+        subject.to_s.should == subject.name.to_s
       end
     end
   end
