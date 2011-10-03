@@ -43,7 +43,11 @@ module ActiveAttr
 
       describe "#attribute_name" do
         it "returns the value used to initialize the matcher" do
-          subject.attribute_name.should  == :name
+          subject.attribute_name.should == :name
+        end
+
+        it "converts the value used to initialize the matcher to a symbol" do
+          described_class.new('name').attribute_name.should == :name
         end
       end
 
@@ -58,6 +62,12 @@ module ActiveAttr
           negative_matcher.tap do |matcher|
             matcher.matches? model_class
           end.failure_message.should == "Expected Person to have attribute named age"
+        end
+      end
+
+      describe "#initialize" do
+        it "raises a TypeError when the attribute name does not respond to #to_sym" do
+          expect { described_class.new(Object.new) }.to raise_error(TypeError, "can't convert Object into Symbol")
         end
       end
 
