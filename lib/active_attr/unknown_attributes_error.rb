@@ -10,6 +10,8 @@ module ActiveAttr
   #   rescue ActiveAttr::UnknownAttributesError
   #     Person.new
   #   end
+  #
+  # @since 0.2.0
   class UnknownAttributesError < NoMethodError
     include Error
   end

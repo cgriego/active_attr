@@ -16,6 +16,8 @@ module ActiveAttr
     include ActiveModel::Conversion
     include ActiveModel::Validations
 
+    # @return [false]
+    # @since 0.2.0
     def persisted?
       false
     end

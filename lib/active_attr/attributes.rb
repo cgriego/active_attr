@@ -2,8 +2,8 @@ require "active_attr/attribute_definition"
 require "active_support/concern"
 
 module ActiveAttr
-  # Attributes provides a set of class methods for defining an attributes schema.  Additionally,
-  # implementations of
+  # Attributes provides a set of class methods for defining an attributes
+  # schema and instance methods for reading and writing attributes.
   #
   # @example Usage
   #   class Person
@@ -23,9 +23,11 @@ module ActiveAttr
     # @example Compare for equality.
     #   model == other
     #
-    # @param [Attributes] other The other model to compare with.
+    # @param [Attributes, Object] other The other model to compare with.
     #
     # @return [true, false] True if attributes are equal and other is instance of the same Class, false if not.
+    #
+    # @since 0.2.0
     def ==(other)
       return false unless other.instance_of? self.class
       attributes == other.attributes
@@ -37,6 +39,8 @@ module ActiveAttr
     #   person.attributes # => {"name"=>"Ben Poweski"}
     #
     # @return [Hash] The Hash of attributes
+    #
+    # @since 0.2.0
     def attributes
       @attributes ||= {}
     end
@@ -47,6 +51,8 @@ module ActiveAttr
     #   person.inspect
     #
     # @return [String] A nice pretty string to look at.
+    #
+    # @since 0.2.0
     def inspect
       attribute_descriptions = self.class.attributes.map do |attribute|
         "#{attribute.name.to_s}: #{read_attribute(attribute.name).inspect}"
@@ -64,6 +70,8 @@ module ActiveAttr
     # @param [String, Symbol] name The name of the attribute to get.
     #
     # @return [Object] The value of the attribute.
+    #
+    # @since 0.2.0
     def read_attribute(name)
       attributes[name.to_s]
     end
@@ -75,11 +83,13 @@ module ActiveAttr
     #
     # @param [String, Symbol] name The name of the attribute to update.
     # @param [Object] value The value to set for the attribute.
+    #
+    # @since 0.2.0
     def write_attribute(name, value)
       attributes[name.to_s] = value
     end
 
-    module ClassMethods #:nodoc:
+    module ClassMethods
       # Defines all the attributes that are to be returned from the attributes instance method.
       # For each attribute that is defined, a getter and setter will be
       # added as an instance method to the model. An AttributeDefinition instance will be
@@ -89,6 +99,8 @@ module ActiveAttr
       #   attribute :name
       #
       # @param [Symbol] name The name of the attribute.
+      #
+      # @since 0.2.0
       def attribute(name, options={})
         attribute_definition = AttributeDefinition.new(name, options)
         attributes << attribute_definition
@@ -104,6 +116,8 @@ module ActiveAttr
       #   Person.attributes
       #
       # @return [Array<AttributeDefinition>] The Array of AttributeDefinition instances
+      #
+      # @since 0.2.0
       def attributes
         @attributes ||= []
       end
@@ -114,6 +128,8 @@ module ActiveAttr
       #   Person.inspect
       #
       # @return [String] A nice pretty string to look at.
+      #
+      # @since 0.2.0
       def inspect
         "#{self.name}(#{attributes.map { |a| a.to_s }.join(", ")})"
       end
