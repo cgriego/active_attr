@@ -1,3 +1,5 @@
+# ActiveAttr 0.2.1 (unreleased) #
+
 # ActiveAttr 0.2.0 (October 3, 2011) #
 
 * ActiveAttr now autoloads nested classes and modules
