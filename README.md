@@ -10,7 +10,9 @@ the wheel.
 [1]: http://travis-ci.org/cgriego/active_attr
 [2]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
 
-## Attributes ##
+## Modules ##
+
+### Attributes ###
 
 Including the Attributes module into your class gives you a DSL for defining
 the attributes of your model.
@@ -27,7 +29,7 @@ the attributes of your model.
     p.last_name = "Griego"
     p.attributes #=> {"first_name"=>"Chris", "last_name"=>"Griego"}
 
-## BasicModel ##
+### BasicModel ###
 
 Including the BasicModel module into your class gives you the bare minimum
 required for your model to meet the ActiveModel API requirements.
@@ -41,7 +43,7 @@ required for your model to meet the ActiveModel API requirements.
     p.valid? #=> true
     p.errors.full_messages #=> []
 
-## MassAssignment ##
+### MassAssignment ###
 
 Including the MassAssignment module into your class gives you methods for bulk
 initializing and updating the attributes of your model. Any unknown attributes
@@ -51,9 +53,21 @@ attribute.
 
     class Person
       include ActiveAttr::MassAssignment
+      attr_accessor :first_name, :last_name
     end
 
     p = Person.new(:first_name => "Chris")
     p.attributes = { :last_name => "Griego" }
     p.first_name #=> "Chris"
     p.last_name #=> "Griego"
+
+## RSpec Integration ##
+
+ActiveAttr comes with matchers and RSpec integration to assist you in testing
+your models.
+
+    require "active_attr/rspec"
+
+    describe Person do
+      it { should have_attribute(:first_name) }
+    end
