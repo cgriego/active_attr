@@ -86,19 +86,19 @@ module ActiveAttr
     end
 
     describe "#attributes" do
+      let(:instance) { model_class.new }
+
+      subject { instance.attributes }
+
       context "when no attributes are defined" do
-        subject { Class.new { include Attributes } }
+        let(:model_class) { Class.new { include Attributes } }
 
         it "returns an empty Hash" do
-          subject.new.attributes.should == {}
+          should == {}
         end
       end
 
       context "when an attribute is defined" do
-        let(:instance) { model_class.new }
-
-        subject { instance.attributes }
-
         it "returns the key value pairs" do
           instance.name = "Ben"
           should == {"name" => "Ben"}
@@ -111,6 +111,24 @@ module ActiveAttr
 
         it "returns all attributes" do
           should == {"name" => nil}
+        end
+      end
+
+      context "when a getter is overridden" do
+        let(:model_class) do
+          Class.new do
+            include Attributes
+            attribute :name
+
+            def name
+              "Benjamin"
+            end
+          end
+        end
+
+        it "uses the overridden implementation" do
+          instance.name = "Ben"
+          should == {"name" => "Benjamin"}
         end
       end
     end
