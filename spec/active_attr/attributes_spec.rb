@@ -95,6 +95,21 @@ module ActiveAttr
           subject.new.attributes.should == {}
         end
       end
+
+      context "when an attribute is defined" do
+        let(:instance) { model_class.new.tap { |m| m.name = "Ben"   } }
+
+        subject { instance.attributes }
+
+        it "returns the key value pairs" do
+          should == {"name" => "Ben"}
+        end
+
+        it "returns an immutable Hash" do
+          instance.attributes.merge!("name" => "Bob")
+          should_not == {"name" => "Bob"}
+        end
+      end
     end
 
     describe "#inspect" do
