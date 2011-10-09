@@ -38,12 +38,12 @@ module ActiveAttr
     # @example Get attributes
     #   person.attributes # => {"name"=>"Ben Poweski"}
     #
-    # @return [Hash] The Hash of attributes
+    # @return [Hash] The Hash of all attributes
     #
     # @since 0.2.0
     def attributes
-      @attributes ||= {}
-      Hash[@attributes.keys.map { |key| [key, send(key)] }]
+      attribute_names = self.class.attributes.map { |definition| definition.name.to_s }
+      Hash[attribute_names.map { |key| [key, send(key)] }]
     end
 
     # Returns the class name plus its attributes
@@ -74,6 +74,7 @@ module ActiveAttr
     #
     # @since 0.2.0
     def read_attribute(name)
+      @attributes ||= {}
       @attributes[name.to_s]
     end
 
