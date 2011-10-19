@@ -3,23 +3,9 @@ require "active_attr/attributes"
 
 module ActiveAttr
   describe Attributes do
-    let :attributeless do
-      Class.new do
-        include Attributes
-        def self.name
-          "Foo"
-        end
-      end
-    end
+    subject { model_class.new }
 
     let :model_class do
-      Class.new do
-        include Attributes
-        attribute :name
-      end
-    end
-
-    subject do
       Class.new do
         include Attributes
         attribute :name
@@ -28,46 +14,54 @@ module ActiveAttr
         def self.name
           "Foo"
         end
+
+        def initialize(name=nil)
+          write_attribute(:name, name)
+        end
+      end
+    end
+
+    let :attributeless do
+      Class.new do
+        include Attributes
+
+        def self.name
+          "Foo"
+        end
       end
     end
 
     describe ".attribute" do
-      let(:instance) { subject.new }
-
       it "creates an attribute with no options" do
-        subject.attributes.should include(AttributeDefinition.new(:name))
+        model_class.attributes.should include(AttributeDefinition.new(:name))
       end
 
       it "defined an attribute reader that calls #read_attribute" do
-        instance.should_receive(:read_attribute).with(:name)
-        instance.name
+        subject.should_receive(:read_attribute).with(:name)
+        subject.name
       end
 
       it "defines an attribute writer method that calls #write_attribute" do
-        instance.should_receive(:write_attribute).with(:name, "Ben")
-        instance.name = "Ben"
+        subject.should_receive(:write_attribute).with(:name, "Ben")
+        subject.name = "Ben"
       end
     end
 
     describe ".attributes" do
-      it { should respond_to(:attributes) }
+      it { model_class.should respond_to(:attributes) }
 
       context "when no attributes exist" do
-        subject { Class.new { include Attributes }.attributes }
-
-        it "returns an empty Array" do
-          should == []
-        end
+        it { attributeless.attributes.should be_empty }
       end
     end
 
     describe ".inspect" do
       it "renders the class name" do
-        subject.inspect.should match /^Foo\(.*\)$/
+        model_class.inspect.should match /^Foo\(.*\)$/
       end
 
       it "renders the attribute names in alphabetical order" do
-        subject.inspect.should match "(amount, name)"
+        model_class.inspect.should match "(amount, name)"
       end
 
       it "doesn't format the inspection string for attributes if the model does not have any" do
@@ -76,17 +70,6 @@ module ActiveAttr
     end
 
     describe "#==" do
-      let :model_class do
-        Class.new do
-          include Attributes
-          attribute :name
-
-          def initialize(name)
-            write_attribute(:name, name)
-          end
-        end
-      end
-
       subject { model_class.new("Ben") }
 
       it "returns true when all attributes are equal" do
@@ -99,58 +82,49 @@ module ActiveAttr
     end
 
     describe "#attributes" do
-      let(:instance) { model_class.new }
-
-      subject { instance.attributes }
-
       context "when no attributes are defined" do
-        let(:model_class) { Class.new { include Attributes } }
-
         it "returns an empty Hash" do
-          should == {}
+          attributeless.new.attributes.should == {}
         end
       end
 
       context "when an attribute is defined" do
         it "returns the key value pairs" do
-          instance.name = "Ben"
-          should == {"name" => "Ben"}
+          subject.name = "Ben"
+          subject.attributes.should include("name" => "Ben")
         end
 
         it "returns a new Hash " do
-          instance.attributes.merge!("name" => "Bob")
-          should_not == {"name" => "Bob"}
+          subject.attributes.merge!("name" => "Bob")
+          subject.attributes.should_not include("name" => "Bob")
         end
 
         it "returns all attributes" do
-          should == {"name" => nil}
+          subject.attributes.keys.should =~ %w(amount name)
         end
       end
 
       context "when a getter is overridden" do
-        let :model_class do
-          Class.new do
-            include Attributes
-            attribute :name
-
+        before do
+          subject.extend Module.new {
             def name
               "Benjamin"
             end
-          end
+          }
         end
 
         it "uses the overridden implementation" do
-          instance.name = "Ben"
-          should == {"name" => "Benjamin"}
+          subject.name = "Ben"
+          subject.attributes.should include("name" => "Benjamin")
         end
       end
     end
 
     describe "#inspect" do
-      let(:instance) { subject.new.tap { |obj| obj.name = "Ben" }  }
+      before { subject.name = "Ben" }
 
       it "includes the class name and all attribute values in alphabetical order by attribute name" do
-        instance.inspect.should == %q{#<Foo amount: nil, name: "Ben">}
+        subject.inspect.should == %q{#<Foo amount: nil, name: "Ben">}
       end
 
       it "doesn't format the inspection string for attributes if the model does not have any" do
@@ -160,8 +134,6 @@ module ActiveAttr
 
     describe "#read_attribute" do
       context "when an attribute is not set" do
-        subject { model_class.new }
-
         it "returns nil" do
           subject.read_attribute(:name).should == nil
         end
@@ -170,7 +142,7 @@ module ActiveAttr
       context "when an attribute is set" do
         let(:name) { "Bob" }
 
-        subject { model_class.new.tap { |s| s.write_attribute(:name, name) } }
+        before { subject.write_attribute(:name, name) }
 
         it "returns the attribute using a Symbol" do
           subject.read_attribute(:name).should == name
@@ -183,8 +155,6 @@ module ActiveAttr
     end
 
     describe "#write_attribute" do
-      subject { model_class.new }
-
       it "raises ArgumentError with one argument" do
         expect { subject.write_attribute(:name) }.to raise_error(ArgumentError)
       end
@@ -194,11 +164,11 @@ module ActiveAttr
       end
 
       it "assigns sets an attribute using a Symbol and value" do
-        expect { subject.write_attribute(:name, "Ben") }.to change(subject, :attributes).from("name" => nil).to("name" => "Ben")
+        expect { subject.write_attribute(:name, "Ben") }.to change { subject.attributes["name"] }.from(nil).to("Ben")
       end
 
       it "assigns sets an attribute using a String and value" do
-        expect { subject.write_attribute('name', "Ben") }.to change(subject, :attributes).from("name" => nil).to("name" => "Ben")
+        expect { subject.write_attribute('name', "Ben") }.to change { subject.attributes["name"] }.from(nil).to("Ben")
       end
     end
   end
