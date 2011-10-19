@@ -23,7 +23,7 @@ module ActiveAttr
     # @example Compare for equality.
     #   model == other
     #
-    # @param [Attributes, Object] other The other model to compare with.
+    # @param [ActiveAttr::Attributes, Object] other The other model to compare with.
     #
     # @return [true, false] True if attributes are equal and other is instance of the same Class, false if not.
     #
@@ -118,7 +118,7 @@ module ActiveAttr
       # @example Get attribute definitions
       #   Person.attributes
       #
-      # @return [Array<AttributeDefinition>] The Array of AttributeDefinition instances
+      # @return [Array<ActiveAttr::AttributeDefinition>] The Array of AttributeDefinition instances
       #
       # @since 0.2.0
       def attributes

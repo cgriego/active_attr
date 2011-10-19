@@ -9,7 +9,7 @@ module ActiveAttr
     #
     # @param [Symbol, String, #to_sym] attribute_name
     #
-    # @return [HaveAttributeMatcher]
+    # @return [ActiveAttr::HaveAttributeMatcher]
     #
     # @since 0.2.0
     def have_attribute(attribute_name)

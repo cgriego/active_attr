@@ -15,7 +15,7 @@ module ActiveAttr
     # @example Compare for equality.
     #   attribute_definition == other
     #
-    # @param [AttributeDefinition, Object] other The other attribute definition to compare with.
+    # @param [ActiveAttr::AttributeDefinition, Object] other The other attribute definition to compare with.
     #
     # @return [true, false] True if attribute name is equal and other is instance of the same Class, false if not.
     #
@@ -32,7 +32,7 @@ module ActiveAttr
     #
     # @param [Symbol, String, #to_sym] attribute name
     #
-    # @return [AttributeDefinition]
+    # @return [ActiveAttr::AttributeDefinition]
     #
     # @since 0.2.0
     def initialize(name, options={})
