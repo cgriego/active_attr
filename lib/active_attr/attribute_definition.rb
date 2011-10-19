@@ -42,7 +42,7 @@ module ActiveAttr
       @name = name.to_sym
     end
 
-    # Returns the attribute name
+    # The attribute name
     #
     # @return [String] the attribute name
     #
@@ -51,5 +51,14 @@ module ActiveAttr
       name.to_s
     end
     alias_method :inspect, :to_s
+
+    # The attribute name
+    #
+    # @return [Symbol] the attribute name
+    #
+    # @since 0.2.1
+    def to_sym
+      name
+    end
   end
 end

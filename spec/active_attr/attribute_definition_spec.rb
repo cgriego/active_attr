@@ -66,5 +66,11 @@ module ActiveAttr
         subject.to_s.should == "amount"
       end
     end
+
+    describe "#to_sym" do
+      it "renders the name as a Symbol" do
+        subject.to_sym.should == :amount
+      end
+    end
   end
 end
