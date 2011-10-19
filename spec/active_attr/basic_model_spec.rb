@@ -3,7 +3,7 @@ require "active_attr/basic_model"
 
 module ActiveAttr
   describe BasicModel do
-    let(:model_class) do
+    let :model_class do
       Class.new do
         include BasicModel
 

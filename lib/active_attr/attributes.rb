@@ -55,11 +55,13 @@ module ActiveAttr
     #
     # @since 0.2.0
     def inspect
-      attribute_descriptions = self.class.attributes.map do |attribute|
+      attribute_descriptions = self.class.attributes.sort.map do |attribute|
         "#{attribute.name.to_s}: #{read_attribute(attribute.name).inspect}"
-      end
+      end.join(", ")
 
-      "#<#{self.class.name} #{attribute_descriptions.join(", ")}>"
+      attribute_descriptions = " " + attribute_descriptions unless attribute_descriptions.empty?
+
+      "#<#{self.class.name}#{attribute_descriptions}>"
     end
 
     # Read a value from the model's attributes. If the value does not exist
@@ -134,7 +136,9 @@ module ActiveAttr
       #
       # @since 0.2.0
       def inspect
-        "#{self.name}(#{attributes.map { |a| a.to_s }.join(", ")})"
+        inspected_attributes = attributes.sort.map { |attr| attr.inspect }
+        attributes_list = "(#{inspected_attributes.join(", ")})" unless inspected_attributes.empty?
+        "#{self.name}#{attributes_list}"
       end
     end
   end

@@ -3,7 +3,16 @@ require "active_attr/attributes"
 
 module ActiveAttr
   describe Attributes do
-    let(:model_class) do
+    let :attributeless do
+      Class.new do
+        include Attributes
+        def self.name
+          "Foo"
+        end
+      end
+    end
+
+    let :model_class do
       Class.new do
         include Attributes
         attribute :name
@@ -54,16 +63,20 @@ module ActiveAttr
 
     describe ".inspect" do
       it "renders the class name" do
-        subject.inspect.should match "Foo"
+        subject.inspect.should match /^Foo\(.*\)$/
       end
 
-      it "renders the attribute name and type" do
-        subject.inspect.should match subject.attributes.map { |a| a.name }.join(", ")
+      it "renders the attribute names in alphabetical order" do
+        subject.inspect.should match "(amount, name)"
+      end
+
+      it "doesn't format the inspection string for attributes if the model does not have any" do
+        attributeless.inspect.should == "Foo"
       end
     end
 
     describe "#==" do
-      let(:model_class) do
+      let :model_class do
         Class.new do
           include Attributes
           attribute :name
@@ -115,7 +128,7 @@ module ActiveAttr
       end
 
       context "when a getter is overridden" do
-        let(:model_class) do
+        let :model_class do
           Class.new do
             include Attributes
             attribute :name
@@ -136,8 +149,12 @@ module ActiveAttr
     describe "#inspect" do
       let(:instance) { subject.new.tap { |obj| obj.name = "Ben" }  }
 
-      it "includes the class name and all attribute values" do
-        instance.inspect.should == %q{#<Foo name: "Ben", amount: nil>}
+      it "includes the class name and all attribute values in alphabetical order by attribute name" do
+        instance.inspect.should == %q{#<Foo amount: nil, name: "Ben">}
+      end
+
+      it "doesn't format the inspection string for attributes if the model does not have any" do
+        attributeless.new.inspect.should == %q{#<Foo>}
       end
     end
 

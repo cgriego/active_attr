@@ -6,23 +6,25 @@ module ActiveAttr
   #
   # @since 0.2.0
   class AttributeDefinition
+    include Comparable
+
     # The attribute name
     # @since 0.2.0
     attr_reader :name
 
-    # Performs equality checking of the attribute definition
+    # Compare attribute definitions
     #
-    # @example Compare for equality.
-    #   attribute_definition == other
+    # @example
+    #   attribute_definition <=> other
     #
     # @param [ActiveAttr::AttributeDefinition, Object] other The other attribute definition to compare with.
     #
-    # @return [true, false] True if attribute name is equal and other is instance of the same Class, false if not.
+    # @return [-1, 0, 1, nil]
     #
-    # @since 0.2.0
-    def ==(attribute)
-      return false unless attribute.instance_of? self.class
-      name == attribute.name
+    # @since 0.2.1
+    def <=>(other)
+      return nil unless other.instance_of? self.class
+      self.name.to_s <=> other.name.to_s
     end
 
     # Creates a new AttributeDefinition
@@ -48,5 +50,6 @@ module ActiveAttr
     def to_s
       name.to_s
     end
+    alias_method :inspect, :to_s
   end
 end
