@@ -2,6 +2,8 @@
 
 * Added AttributeDefinition#<=>
 * Added AttributeDefinition#to_sym
+* Added Attributes#[]
+* Added Attributes#[]=
 * Attributes#attributes now returns the results of overridden getters
 * Attributes.inspect and Attributes#inspect are now in alphabetical order
 * Overridden attribute getters and setters can now call super

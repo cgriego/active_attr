@@ -90,6 +90,7 @@ module ActiveAttr
     def read_attribute(name)
       @attributes[name.to_s]
     end
+    alias_method :[], :read_attribute
     alias_method :attribute, :read_attribute
     private :attribute
 
@@ -105,6 +106,7 @@ module ActiveAttr
     def write_attribute(name, value)
       @attributes[name.to_s] = value
     end
+    alias_method :[]=, :write_attribute
     alias_method :attribute=, :write_attribute
     private :attribute=
 

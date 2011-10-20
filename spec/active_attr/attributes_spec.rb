@@ -155,43 +155,47 @@ module ActiveAttr
       end
     end
 
-    describe "#read_attribute" do
-      context "when an attribute is not set" do
-        it "returns nil" do
-          subject.read_attribute(:name).should == nil
-        end
-      end
-
-      context "when an attribute is set" do
-        let(:name) { "Bob" }
-
-        before { subject.write_attribute(:name, name) }
-
-        it "returns the attribute using a Symbol" do
-          subject.read_attribute(:name).should == name
+    [:[], :read_attribute].each do |method|
+      describe "##{method}" do
+        context "when an attribute is not set" do
+          it "returns nil" do
+            subject.send(method, :name).should == nil
+          end
         end
 
-        it "returns the attribute using a String" do
-          subject.read_attribute('name').should == name
+        context "when an attribute is set" do
+          let(:name) { "Bob" }
+
+          before { subject.write_attribute(:name, name) }
+
+          it "returns the attribute using a Symbol" do
+            subject.send(method, :name).should == name
+          end
+
+          it "returns the attribute using a String" do
+            subject.send(method, 'name').should == name
+          end
         end
       end
     end
 
-    describe "#write_attribute" do
-      it "raises ArgumentError with one argument" do
-        expect { subject.write_attribute(:name) }.to raise_error(ArgumentError)
-      end
+    [:[]=, :write_attribute].each do |method|
+      describe "##{method}" do
+        it "raises ArgumentError with one argument" do
+          expect { subject.send(method, :name) }.to raise_error(ArgumentError)
+        end
 
-      it "raises ArgumentError with no arguments" do
-        expect { subject.write_attribute }.to raise_error(ArgumentError)
-      end
+        it "raises ArgumentError with no arguments" do
+          expect { subject.send(method) }.to raise_error(ArgumentError)
+        end
 
-      it "assigns sets an attribute using a Symbol and value" do
-        expect { subject.write_attribute(:name, "Ben") }.to change { subject.attributes["name"] }.from(nil).to("Ben")
-      end
+        it "assigns sets an attribute using a Symbol and value" do
+          expect { subject.send(method, :name, "Ben") }.to change { subject.attributes["name"] }.from(nil).to("Ben")
+        end
 
-      it "assigns sets an attribute using a String and value" do
-        expect { subject.write_attribute('name', "Ben") }.to change { subject.attributes["name"] }.from(nil).to("Ben")
+        it "assigns sets an attribute using a String and value" do
+          expect { subject.send(method, 'name', "Ben") }.to change { subject.attributes["name"] }.from(nil).to("Ben")
+        end
       end
     end
   end
