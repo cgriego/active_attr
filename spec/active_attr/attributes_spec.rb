@@ -15,6 +15,14 @@ module ActiveAttr
           "Foo"
         end
 
+        def amount
+          super
+        end
+
+        def amount=(*args)
+          super
+        end
+
         def initialize(name=nil)
           super
           write_attribute(:name, name)
@@ -37,14 +45,28 @@ module ActiveAttr
         model_class.attributes.should include(AttributeDefinition.new(:name))
       end
 
-      it "defined an attribute reader that calls #read_attribute" do
-        subject.should_receive(:read_attribute).with(:name)
+      it "returns the attribute definition" do
+        Class.new(model_class).attribute(:address).should == AttributeDefinition.new(:address)
+      end
+
+      it "defines an attribute reader that calls #attribute" do
+        subject.should_receive(:attribute).with("name")
         subject.name
       end
 
-      it "defines an attribute writer method that calls #write_attribute" do
-        subject.should_receive(:write_attribute).with(:name, "Ben")
+      it "defines an attribute reader that can be called via super" do
+        subject.should_receive(:attribute).with("amount")
+        subject.amount
+      end
+
+      it "defines an attribute writer that calls #attribute=" do
+        subject.should_receive(:attribute=).with("name", "Ben")
         subject.name = "Ben"
+      end
+
+      it "defines an attribute writer that can be called via super" do
+        subject.should_receive(:attribute=).with("amount", 1)
+        subject.amount = 1
       end
     end
 

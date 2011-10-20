@@ -1,4 +1,5 @@
 require "active_attr/attribute_definition"
+require "active_model"
 require "active_support/concern"
 
 module ActiveAttr
@@ -17,6 +18,12 @@ module ActiveAttr
   # @since 0.2.0
   module Attributes
     extend ActiveSupport::Concern
+    include ActiveModel::AttributeMethods
+
+    included do
+      attribute_method_suffix ""
+      attribute_method_suffix "="
+    end
 
     # Performs equality checking on the result of attributes and its type.
     #
@@ -46,6 +53,7 @@ module ActiveAttr
       Hash[attribute_names.map { |key| [key, send(key)] }]
     end
 
+    # @since 0.2.1
     def initialize(*args)
       @attributes ||= {}
     end
@@ -82,6 +90,8 @@ module ActiveAttr
     def read_attribute(name)
       @attributes[name.to_s]
     end
+    alias_method :attribute, :read_attribute
+    private :attribute
 
     # Write a single attribute to the model's attribute hash.
     #
@@ -95,6 +105,8 @@ module ActiveAttr
     def write_attribute(name, value)
       @attributes[name.to_s] = value
     end
+    alias_method :attribute=, :write_attribute
+    private :attribute=
 
     module ClassMethods
       # Defines all the attributes that are to be returned from the attributes instance method.
@@ -109,12 +121,10 @@ module ActiveAttr
       #
       # @since 0.2.0
       def attribute(name, options={})
-        attribute_definition = AttributeDefinition.new(name, options)
-        attributes << attribute_definition
-        method_name = attribute_definition.name
-
-        define_method("#{method_name}=") { |value| write_attribute(name, value) }
-        define_method(method_name) { read_attribute(name) }
+        AttributeDefinition.new(name, options).tap do |attribute_definition|
+          attributes << attribute_definition
+          define_attribute_method attribute_definition.name
+        end
       end
 
       # Returns an Array of AttributeDefinition instances
