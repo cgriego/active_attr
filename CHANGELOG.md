@@ -1,4 +1,6 @@
-# ActiveAttr 0.2.1 (unreleased) #
+# ActiveAttr 0.2.2 (unreleased) #
+
+# ActiveAttr 0.2.1 (October 19, 2011) #
 
 * Added AttributeDefinition#<=>
 * Added AttributeDefinition#to_sym
