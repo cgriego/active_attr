@@ -1,5 +1,11 @@
 # ActiveAttr 0.2.1 (unreleased) #
 
+* Added AttributeDefinition#<=>
+* Added AttributeDefinition#to_sym
+* Attributes#attributes now returns the results of overridden getters
+* Overridden attribute getters and setters can now call super
+* Attributes.inspect and Attributes#inspect are now in alphabetical order
+
 # ActiveAttr 0.2.0 (October 3, 2011) #
 
 * ActiveAttr now autoloads nested classes and modules
