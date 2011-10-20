@@ -46,6 +46,10 @@ module ActiveAttr
       Hash[attribute_names.map { |key| [key, send(key)] }]
     end
 
+    def initialize(*args)
+      @attributes ||= {}
+    end
+
     # Returns the class name plus its attributes
     #
     # @example Inspect the model.
@@ -76,7 +80,6 @@ module ActiveAttr
     #
     # @since 0.2.0
     def read_attribute(name)
-      @attributes ||= {}
       @attributes[name.to_s]
     end
 
@@ -90,7 +93,6 @@ module ActiveAttr
     #
     # @since 0.2.0
     def write_attribute(name, value)
-      @attributes ||= {}
       @attributes[name.to_s] = value
     end
 

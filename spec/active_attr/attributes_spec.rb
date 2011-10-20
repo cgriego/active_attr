@@ -16,6 +16,7 @@ module ActiveAttr
         end
 
         def initialize(name=nil)
+          super
           write_attribute(:name, name)
         end
       end
