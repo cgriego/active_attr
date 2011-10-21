@@ -119,7 +119,7 @@ module ActiveAttr
       # @example Define an attribute.
       #   attribute :name
       #
-      # @param [Symbol] name The name of the attribute.
+      # @param (see AttributeDefinition#initialize)
       #
       # @since 0.2.0
       def attribute(name, options={})

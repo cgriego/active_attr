@@ -32,7 +32,7 @@ module ActiveAttr
     # @example Create an attribute defintion
     #   AttributeDefinition.new(:amount)
     #
-    # @param [Symbol, String, #to_sym] attribute name
+    # @param [Symbol, String, #to_sym] name attribute name
     #
     # @return [ActiveAttr::AttributeDefinition]
     #
