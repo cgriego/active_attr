@@ -1,5 +1,8 @@
 # ActiveAttr 0.2.2 (unreleased) #
 
+* Subclassing a model using Attributes will now copy the parent's attribute
+  definitions to the subclass
+
 # ActiveAttr 0.2.1 (October 19, 2011) #
 
 * Added AttributeDefinition#<=>

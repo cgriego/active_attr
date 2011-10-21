@@ -154,6 +154,29 @@ module ActiveAttr
         attributes_list = "(#{inspected_attributes.join(", ")})" unless inspected_attributes.empty?
         "#{self.name}#{attributes_list}"
       end
+
+      protected
+
+      # Assign a set of attribute definitions, used when subclassing models
+      #
+      # @param [Array<ActiveAttr::AttributeDefinition>] The Array of AttributeDefinition instances
+      #
+      # @since 0.2.2
+      def attributes=(attributes)
+        @attributes = attributes
+      end
+
+      private
+
+      # Ruby inherited hook to assign superclass attributes to subclasses
+      #
+      # @param [Class] subclass
+      #
+      # @since 0.2.2
+      def inherited(subclass)
+        super
+        subclass.attributes = attributes.dup
+      end
     end
   end
 end
