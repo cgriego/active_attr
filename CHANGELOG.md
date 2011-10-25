@@ -1,4 +1,4 @@
-# ActiveAttr 0.2.3 (unreleased) #
+# ActiveAttr 0.3.0 (unreleased) #
 
 # ActiveAttr 0.2.2 (November 2, 2011) #
 
