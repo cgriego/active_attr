@@ -54,6 +54,7 @@ module ActiveAttr
     # @since 0.1.0
     def initialize(attributes=nil, options={})
       assign_attributes attributes, options
+      super
     end
   end
 end

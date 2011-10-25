@@ -3,26 +3,18 @@ require "active_attr/attributes"
 
 module ActiveAttr
   describe Attributes do
-    describe "subclassing models" do
+    context "subclassing models" do
       let :parent_class do
         Class.new do
           include Attributes
 
           attribute :parent
-
-          def self.name
-            "Parent"
-          end
         end
       end
 
       let! :child_class do
         Class.new(parent_class) do
           attribute :child
-
-          def self.name
-            "Child"
-          end
         end
       end
 

@@ -77,6 +77,10 @@ shared_examples "#initialize", :initialize => true do
     subject.new(attributes)
   end
 
+  it "invokes the superclass initializer" do
+    subject.new.should be_initialized
+  end
+
   it "raises ArgumentError when called with three arguments" do
     expect { subject.new({}, {}, nil) }.to raise_error ArgumentError
   end

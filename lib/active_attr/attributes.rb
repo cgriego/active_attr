@@ -56,6 +56,7 @@ module ActiveAttr
     # @since 0.2.1
     def initialize(*args)
       @attributes ||= {}
+      super
     end
 
     # Returns the class name plus its attributes
