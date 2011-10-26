@@ -5,7 +5,6 @@ module ActiveAttr
   describe MassAssignment, :mass_assignment do
     subject do
       model_class.class_eval do
-        include InitializeVerifier
         include MassAssignment
       end
     end

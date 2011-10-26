@@ -5,7 +5,6 @@ module ActiveAttr
   describe StrictMassAssignment, :mass_assignment do
     subject do
       model_class.class_eval do
-        include InitializeVerifier
         include StrictMassAssignment
       end
     end
