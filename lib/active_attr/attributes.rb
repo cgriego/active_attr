@@ -54,7 +54,7 @@ module ActiveAttr
     end
 
     # @since 0.2.1
-    def initialize(*args)
+    def initialize(*)
       @attributes ||= {}
     end
 

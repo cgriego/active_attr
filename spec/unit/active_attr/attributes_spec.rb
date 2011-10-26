@@ -19,7 +19,7 @@ module ActiveAttr
           super
         end
 
-        def amount=(*args)
+        def amount=(*)
           super
         end
 
