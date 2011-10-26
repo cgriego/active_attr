@@ -125,7 +125,7 @@ module ActiveAttr
       # @since 0.2.0
       def attribute(name, options={})
         AttributeDefinition.new(name, options).tap do |attribute_definition|
-          attributes << attribute_definition
+          attributes << attribute_definition unless attributes.include? attribute_definition
           define_attribute_method attribute_definition.name
         end
       end

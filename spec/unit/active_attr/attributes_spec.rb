@@ -69,6 +69,14 @@ module ActiveAttr
         subject.should_receive(:attribute=).with("amount", 1)
         subject.amount = 1
       end
+
+      it "defining an attribute twice does not make appear in the" do
+        Class.new do
+          include Attributes
+          attribute :name
+          attribute :name
+        end.should have(1).attributes
+      end
     end
 
     describe ".attributes" do
