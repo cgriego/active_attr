@@ -22,29 +22,29 @@ module ActiveAttr
     # @since 0.2.0
     class HaveAttributeMatcher
       # @return [Symbol]
-      # @api private
+      # @private
       attr_reader :attribute_name
 
       # @return [String] Description
-      # @api private
+      # @private
       def description
         "have attribute named #{attribute_name}"
       end
 
       # @return [String] Failure message
-      # @api private
+      # @private
       def failure_message
         "Expected #{@model_class} to #{description}"
       end
 
       # @param [Symbol, String, #to_sym] attribute_name
-      # @api private
+      # @private
       def initialize(attribute_name)
         raise TypeError, "can't convert #{attribute_name.class} into Symbol" unless attribute_name.respond_to? :to_sym
         @attribute_name = attribute_name.to_sym
       end
 
-      # @api private
+      # @private
       def matches?(model_or_model_class)
         @model_class = class_from(model_or_model_class)
 
@@ -54,7 +54,7 @@ module ActiveAttr
       end
 
       # @return [String] Negative failure message
-      # @api private
+      # @private
       def negative_failure_message
         "Expected #{@model_class} to not #{description}"
       end
