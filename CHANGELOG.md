@@ -1,5 +1,6 @@
 # ActiveAttr 0.2.2 (unreleased) #
 
+* Fixed all instances of modules' #initialize not invoking its superclass
 * Fixed redefining an attribute appending a new AttributeDefinition
 * Subclassing a model using Attributes will now copy the parent's attribute
   definitions to the subclass

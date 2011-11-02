@@ -11,6 +11,7 @@ module ActiveAttr
   autoload :AttributeDefinition
   autoload :Attributes
   autoload :BasicModel
+  autoload :ChainableInitialization
   autoload :Error
   autoload :MassAssignment
   autoload :StrictMassAssignment

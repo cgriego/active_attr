@@ -1,4 +1,5 @@
 require "active_attr/attribute_definition"
+require "active_attr/chainable_initialization"
 require "active_model"
 require "active_support/concern"
 
@@ -18,6 +19,7 @@ module ActiveAttr
   # @since 0.2.0
   module Attributes
     extend ActiveSupport::Concern
+    include ActiveAttr::ChainableInitialization
     include ActiveModel::AttributeMethods
 
     included do
@@ -56,6 +58,7 @@ module ActiveAttr
     # @since 0.2.1
     def initialize(*)
       @attributes ||= {}
+      super
     end
 
     # Returns the class name plus its attributes

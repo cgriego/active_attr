@@ -1,6 +1,8 @@
 shared_examples "mass assignment class", :mass_assignment => true do
   let :model_class do
     Class.new do
+      include InitializationVerifier
+
       attr_accessor :first_name, :last_name, :middle_name
       private :middle_name=
 
@@ -75,6 +77,10 @@ end
 shared_examples "#initialize", :initialize => true do
   def mass_assign_attributes(attributes)
     subject.new(attributes)
+  end
+
+  it "invokes the superclass initializer" do
+    subject.new.should be_initialized
   end
 
   it "raises ArgumentError when called with three arguments" do

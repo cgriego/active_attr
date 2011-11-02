@@ -7,6 +7,7 @@ module ActiveAttr
 
     let :model_class do
       Class.new do
+        include InitializationVerifier
         include Attributes
         attribute :name
         attribute :amount
@@ -148,6 +149,12 @@ module ActiveAttr
           subject.name = "Ben"
           subject.attributes.should include("name" => "Benjamin")
         end
+      end
+    end
+
+    describe "#initialize" do
+      it "invokes the superclass initializer" do
+        should be_initialized
       end
     end
 

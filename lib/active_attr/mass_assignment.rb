@@ -1,3 +1,6 @@
+require "active_attr/chainable_initialization"
+require "active_support/concern"
+
 module ActiveAttr
   # MassAssignment allows you to bulk set and update attributes
   #
@@ -11,6 +14,9 @@ module ActiveAttr
   #
   # @since 0.1.0
   module MassAssignment
+    extend ActiveSupport::Concern
+    include ChainableInitialization
+
     # Mass update a model's attributes
     #
     # @example Assigning a hash
@@ -54,6 +60,7 @@ module ActiveAttr
     # @since 0.1.0
     def initialize(attributes=nil, options={})
       assign_attributes attributes, options
+      super
     end
   end
 end
