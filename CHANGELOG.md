@@ -1,5 +1,7 @@
 # ActiveAttr 0.3.0 (unreleased) #
 
+* Added BlockInitialization
+
 # ActiveAttr 0.2.2 (November 2, 2011) #
 
 * Fixed all instances of modules' #initialize not invoking its superclass

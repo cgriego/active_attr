@@ -24,10 +24,10 @@ the attributes of your model.
       attribute :last_name
     end
 
-    p = Person.new
-    p.first_name = "Chris"
-    p.last_name = "Griego"
-    p.attributes #=> {"first_name"=>"Chris", "last_name"=>"Griego"}
+    person = Person.new
+    person.first_name = "Chris"
+    person.last_name = "Griego"
+    person.attributes #=> {"first_name"=>"Chris", "last_name"=>"Griego"}
 
 ### BasicModel ###
 
@@ -39,9 +39,27 @@ required for your model to meet the ActiveModel API requirements.
     end
 
     Person.model_name.plural #=> "people"
-    p = Person.new
-    p.valid? #=> true
-    p.errors.full_messages #=> []
+    person = Person.new
+    person.valid? #=> true
+    person.errors.full_messages #=> []
+
+### BlockInitialization ###
+
+Including the BlockInitialization module into your class will yield the model
+instance to a block passed to when creating a new instance.
+
+    class Person
+      include ActiveAttr::BlockInitialization
+      attr_accessor :first_name, :last_name
+    end
+
+    person = Person.new do |p|
+      p.first_name = "Chris"
+      p.last_name = "Griego"
+    end
+
+    person.first_name #=> "Chris"
+    person.last_name #=> "Griego"
 
 ### MassAssignment ###
 
@@ -56,10 +74,10 @@ attribute.
       attr_accessor :first_name, :last_name
     end
 
-    p = Person.new(:first_name => "Chris")
-    p.attributes = { :last_name => "Griego" }
-    p.first_name #=> "Chris"
-    p.last_name #=> "Griego"
+    person = Person.new(:first_name => "Chris")
+    person.attributes = { :last_name => "Griego" }
+    person.first_name #=> "Chris"
+    person.last_name #=> "Griego"
 
 ## RSpec Integration ##
 
