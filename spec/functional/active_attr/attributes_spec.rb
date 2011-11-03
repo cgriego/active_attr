@@ -1,6 +1,7 @@
 require "spec_helper"
 require "active_attr/attributes"
 require "active_model"
+require "factory_girl"
 
 module ActiveAttr
   describe Attributes do
@@ -105,6 +106,41 @@ module ActiveAttr
       describe "#to_xml" do
         subject { Hash.from_xml(instance.to_xml)["person"] }
         include_examples "serialization method"
+      end
+    end
+
+    context "building with FactoryGirl" do
+      subject { FactoryGirl.build(:person) }
+
+      before do
+        Object.const_set("Person", model_class)
+
+        Factory.define :person, :class => :person do |model|
+          model.first_name "Chris"
+          model.last_name "Griego"
+        end
+      end
+
+      after do
+        FactoryGirl.factories.clear
+        Object.send :remove_const, "Person"
+      end
+
+      let :model_class do
+        Class.new do
+          include Attributes
+          attribute :first_name
+          attribute :last_name
+        end
+      end
+
+      it "builds an instance of the model class" do
+        should be_a_kind_of Person
+      end
+
+      it "sets the attributes" do
+        subject.first_name.should == "Chris"
+        subject.last_name.should == "Griego"
       end
     end
   end
