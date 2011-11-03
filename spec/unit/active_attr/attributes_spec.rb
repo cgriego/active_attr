@@ -168,6 +168,20 @@ module ActiveAttr
       it "doesn't format the inspection string for attributes if the model does not have any" do
         attributeless.new.inspect.should == %q{#<Foo>}
       end
+
+      context "when a getter is overridden" do
+        before do
+          subject.extend Module.new {
+            def name
+              "Benjamin"
+            end
+          }
+        end
+
+        it "uses the overridden implementation" do
+          subject.inspect.should == %q{#<Foo amount: nil, name: "Benjamin">}
+        end
+      end
     end
 
     [:[], :read_attribute].each do |method|
