@@ -1,5 +1,6 @@
 require "active_attr/attribute_definition"
 require "active_attr/chainable_initialization"
+require "active_attr/unknown_attribute_error"
 require "active_model"
 require "active_support/concern"
 
@@ -42,7 +43,7 @@ module ActiveAttr
       attributes == other.attributes
     end
 
-    # Returns the raw attributes Hash
+    # Returns a Hash of all attributes
     #
     # @example Get attributes
     #   person.attributes # => {"name"=>"Ben Poweski"}
@@ -78,36 +79,60 @@ module ActiveAttr
     # Read a value from the model's attributes. If the value does not exist
     # it will return nil.
     #
-    # @example Read an attribute.
+    # @example Read an attribute with read_attribute
     #   person.read_attribute(:name)
+    # @example Rean an attribute with bracket syntax
+    #   person[:name]
     #
-    # @param [String, Symbol] name The name of the attribute to get.
+    # @param [String, Symbol, #to_s] name The name of the attribute to get.
     #
     # @return [Object] The value of the attribute.
     #
     # @since 0.2.0
     def read_attribute(name)
-      @attributes[name.to_s]
+      if respond_to? name
+        send name.to_s
+      else
+        raise UnknownAttributeError, "unknown attribute: #{name}"
+      end
     end
     alias_method :[], :read_attribute
-    alias_method :attribute, :read_attribute
-    private :attribute
 
     # Write a single attribute to the model's attribute hash.
     #
-    # @example Write the attribute.
+    # @example Write the attribute with write_attribute
     #   person.write_attribute(:name, "Benjamin")
+    # @example Write an attribute with bracket syntax
+    #   person[:name] = "Benjamin"
     #
-    # @param [String, Symbol] name The name of the attribute to update.
+    # @param [String, Symbol, #to_s] name The name of the attribute to update.
     # @param [Object] value The value to set for the attribute.
     #
     # @since 0.2.0
     def write_attribute(name, value)
-      @attributes[name.to_s] = value
+      if respond_to? "#{name}="
+        send "#{name}=", value
+      else
+        raise UnknownAttributeError, "unknown attribute: #{name}"
+      end
     end
     alias_method :[]=, :write_attribute
-    alias_method :attribute=, :write_attribute
-    private :attribute=
+
+    private
+
+    # Read an attribute from the attributes hash
+    #
+    # @since 0.2.1
+    def attribute(name)
+      @attributes[name.to_s]
+    end
+
+    # Write an attribute to the attributes hash
+    #
+    # @since 0.2.1
+    def attribute=(name, value)
+      @attributes[name.to_s] = value
+    end
 
     module ClassMethods
       # Defines all the attributes that are to be returned from the attributes instance method.
@@ -168,8 +193,6 @@ module ActiveAttr
       private
 
       # Ruby inherited hook to assign superclass attributes to subclasses
-      #
-      # @param [Class] subclass
       #
       # @since 0.2.2
       def inherited(subclass)

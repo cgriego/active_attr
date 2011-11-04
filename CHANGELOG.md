@@ -1,6 +1,11 @@
 # ActiveAttr 0.3.0 (unreleased) #
 
 * Added BlockInitialization
+* Added UnknownAttributeError
+* Attributes now honors getters/setters when calling #read_attribute,
+  #write_attribute, #[], and #[]=
+* Attributes now raises UnknownAttributeError when getting/setting any
+  undefined attributes
 
 # ActiveAttr 0.2.2 (November 2, 2011) #
 

@@ -15,6 +15,7 @@ module ActiveAttr
   autoload :Error
   autoload :MassAssignment
   autoload :StrictMassAssignment
+  autoload :UnknownAttributeError
   autoload :UnknownAttributesError
   autoload :VERSION
 end

@@ -20,6 +20,8 @@ module ActiveAttr
       # A collection of Ruby base objects
       #   [Object] on Ruby 1.8
       #   [Object, BasicObject] on Ruby 1.9
+      #
+      # @private
       BASE_OBJECTS = begin
         base_objects = []
         superclass = Class.new
@@ -29,6 +31,8 @@ module ActiveAttr
 
       # Only append the features of this module to the class that inherits
       # directly from one of the BASE_OBJECTS
+      #
+      # @private
       def append_features(base)
         if base.respond_to? :superclass
           base = base.superclass while !BASE_OBJECTS.include?(base.superclass)
