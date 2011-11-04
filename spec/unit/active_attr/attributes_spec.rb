@@ -80,7 +80,7 @@ module ActiveAttr
         subject.amount = 1
       end
 
-      it "defining an attribute twice does not make appear in the" do
+      it "defining an attribute twice does not give the class two attribute definitions" do
         Class.new do
           include Attributes
           attribute :name

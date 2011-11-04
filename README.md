@@ -79,6 +79,23 @@ attribute.
     person.first_name #=> "Chris"
     person.last_name #=> "Griego"
 
+### QueryAttributes ###
+
+Including the QueryAttributes module into your class builds on Attributes by
+providing instance methods for querying your attributes
+
+    class Person
+      include ActiveAttr::QueryAttributes
+
+      attribute :first_name
+      attribute :last_name
+    end
+
+    person = Person.new
+    person.first_name = "Chris"
+    person.first_name? #=> true
+    person.last_name? #=> false
+
 ## RSpec Integration ##
 
 ActiveAttr comes with matchers and RSpec integration to assist you in testing
