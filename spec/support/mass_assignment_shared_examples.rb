@@ -46,6 +46,11 @@ shared_examples "#assign_attribures", :assign_attributes => true do
     person
   end
 
+  def mass_assign_attributes_with_options(attributes, options)
+    person.assign_attributes attributes, options
+    person
+  end
+
   it "raises ArgumentError when called with three arguments" do
     expect { subject.new.assign_attributes({}, {}, nil) }.to raise_error ArgumentError
   end
@@ -77,6 +82,10 @@ end
 shared_examples "#initialize", :initialize => true do
   def mass_assign_attributes(attributes)
     subject.new(attributes)
+  end
+
+  def mass_assign_attributes_with_options(attributes, options)
+    subject.new(attributes, options)
   end
 
   it "invokes the superclass initializer" do

@@ -79,6 +79,22 @@ attribute.
     person.first_name #=> "Chris"
     person.last_name #=> "Griego"
 
+### MassAssignmentSecurity ###
+
+Including the MassAssignmentSecurity module into your class extends the
+MassAssignment methods to honor any declared mass assignment permission
+blacklists or whitelists including support for mass assignment roles.
+
+    class Person
+      include ActiveAttr::MassAssignment
+      attr_accessor :first_name, :last_name
+      attr_protected :last_name
+    end
+
+    person = Person.new(:first_name => "Chris", :last_name => "Griego")
+    person.first_name #=> "Chris"
+    person.last_name #=> nil
+
 ### QueryAttributes ###
 
 Including the QueryAttributes module into your class builds on Attributes by

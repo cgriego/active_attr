@@ -14,6 +14,7 @@ module ActiveAttr
   autoload :ChainableInitialization
   autoload :Error
   autoload :MassAssignment
+  autoload :MassAssignmentSecurity
   autoload :QueryAttributes
   autoload :StrictMassAssignment
   autoload :UnknownAttributeError
