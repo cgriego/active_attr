@@ -1,6 +1,7 @@
 # ActiveAttr 0.3.0 (unreleased) #
 
 * Added BlockInitialization
+* Added Logger
 * Added MassAssignmentSecurity
 * Added QueryAttributes
 * Added UnknownAttributeError

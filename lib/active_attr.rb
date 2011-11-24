@@ -1,3 +1,4 @@
+require "active_attr/railtie" if defined?(Rails)
 require "active_support/dependencies/autoload"
 
 # ActiveAttr is a set of modules to enhance Plain Old Ruby Objects (POROs)
@@ -13,6 +14,7 @@ module ActiveAttr
   autoload :BasicModel
   autoload :ChainableInitialization
   autoload :Error
+  autoload :Logger
   autoload :MassAssignment
   autoload :MassAssignmentSecurity
   autoload :QueryAttributes

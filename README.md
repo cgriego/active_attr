@@ -61,6 +61,27 @@ instance to a block passed to when creating a new instance.
     person.first_name #=> "Chris"
     person.last_name #=> "Griego"
 
+### Logger ###
+
+Including the Logger module into your class will give you access to a
+configurable logger in model classes and instances. Your preferred logger can
+be configured on an instance, subclass, class, parent class, and globally by
+setting ActiveAttr::Logger.logger. When using Rails, the Rails framework
+logger will be configured by default.
+
+    class Person
+      include ActiveAttr::Logger
+    end
+
+    Person.logger = Logger.new(STDOUT)
+    Person.logger? #=> true
+    Person.logger.info "Logging an informational message"
+
+    person = Person.new
+    person.logger? #=> true
+    person.logger = Logger.new(STDERR)
+    person.logger.warn "Logging a warning message"
+
 ### MassAssignment ###
 
 Including the MassAssignment module into your class gives you methods for bulk
