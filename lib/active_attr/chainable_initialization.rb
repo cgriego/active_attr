@@ -22,11 +22,9 @@ module ActiveAttr
       #   [Object, BasicObject] on Ruby 1.9
       #
       # @private
-      BASE_OBJECTS = begin
-        base_objects = []
+      BASE_OBJECTS = [].tap do |base_objects|
         superclass = Class.new
         base_objects << superclass while superclass = superclass.superclass
-        base_objects
       end
 
       # Only append the features of this module to the class that inherits
@@ -35,7 +33,7 @@ module ActiveAttr
       # @private
       def append_features(base)
         if base.respond_to? :superclass
-          base = base.superclass while !BASE_OBJECTS.include?(base.superclass)
+          base = base.superclass while !BASE_OBJECTS.include? base.superclass
         end
 
         super

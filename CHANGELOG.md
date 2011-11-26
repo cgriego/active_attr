@@ -1,12 +1,15 @@
-# ActiveAttr 0.3.0 (unreleased) #
+# ActiveAttr 0.3.0 (November 26, 2011) #
 
 * Added BlockInitialization
+* Added DangerousAttributeError
 * Added Logger
 * Added MassAssignmentSecurity
 * Added QueryAttributes
 * Added UnknownAttributeError
 * Attributes now honors getters/setters when calling #read_attribute,
   #write_attribute, #[], and #[]=
+* Attributes now raises DangerousAttributeError when defining an attribute
+  whose methods would conflict with an existing method
 * Attributes now raises UnknownAttributeError when getting/setting any
   undefined attributes
 

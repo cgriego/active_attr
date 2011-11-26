@@ -143,5 +143,73 @@ module ActiveAttr
         subject.last_name.should == "Griego"
       end
     end
+
+    context "defining dangerous attributes" do
+      shared_examples "defining a dangerous attribute" do
+        it "defining an attribute that conflicts with #{described_class} raises DangerousAttributeError" do
+          expect { model_class.attribute(:write_attribute) }.to raise_error DangerousAttributeError, %{an attribute method named "write_attribute" would conflict with an existing method}
+        end
+
+        it "defining an attribute that conflicts with ActiveModel::AttributeMethods raises DangerousAttributeError" do
+          expect { model_class.attribute(:attribute_method_matchers) }.to raise_error DangerousAttributeError, %{an attribute method named "attribute_method_matchers" would conflict with an existing method}
+        end
+
+        it "defining an :id attribute does not raise" do
+          expect { model_class.attribute(:id) }.not_to raise_error
+        end
+
+        it "defining a :type attribute does not raise" do
+          expect { model_class.attribute(:type) }.not_to raise_error
+        end
+
+        it "defining an attribute that conflicts with Kernel raises DangerousAttributeError" do
+          expect { model_class.attribute(:puts) }.to raise_error DangerousAttributeError
+        end
+
+        it "defining an attribute that conflicts with Object raises DangerousAttributeError" do
+          expect { model_class.attribute(:class) }.to raise_error DangerousAttributeError
+        end
+
+        it "defining an attribute that conflicts with BasicObject raises DangerousAttributeError" do
+          expect { model_class.attribute(:instance_eval) }.to raise_error DangerousAttributeError
+        end
+
+        it "defining an attribute that conflicts with a properly implemented method_missing callback raises DangerousAttributeError" do
+          expect { model_class.attribute(:my_proper_missing_method) }.to raise_error DangerousAttributeError
+        end
+
+        it "defining an attribute that conflicts with a less properly implemented method_missing callback raises DangerousAttributeError" do
+          expect { model_class.attribute(:my_less_proper_missing_method) }.to raise_error DangerousAttributeError
+        end
+      end
+
+      let :dangerous_model_class do
+        Class.new do
+          include Attributes
+
+          def method_missing(method_name, *)
+            super if %w(my_proper_missing_method my_less_proper_missing_method).include? method_name.to_s
+          end
+
+          def respond_to_missing?(method_name, *)
+            method_name.to_s == "my_proper_missing_method" || super
+          end
+
+          def respond_to?(method_name, include_private=false)
+            super || method_name.to_s == "my_less_proper_missing_method" || (RUBY_VERSION < "1.9" && respond_to_missing?(method_name, include_private))
+          end
+        end
+      end
+
+      context "on a model class" do
+        let(:model_class) { dangerous_model_class }
+        include_examples "defining a dangerous attribute"
+      end
+
+      context "on a child class" do
+        let(:model_class) { Class.new(dangerous_model_class) }
+        include_examples "defining a dangerous attribute"
+      end
+    end
   end
 end

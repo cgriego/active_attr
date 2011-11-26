@@ -38,6 +38,8 @@ module ActiveAttr
     #
     # @return [true, false] The presence of the attribute
     #
+    # @raise [UnknownAttributeError] if the attribute is unknown
+    #
     # @since 0.3.0
     def query_attribute(name)
       if respond_to? "#{name}?"

@@ -1,5 +1,6 @@
 require "active_attr/attribute_definition"
 require "active_attr/chainable_initialization"
+require "active_attr/dangerous_attribute_error"
 require "active_attr/unknown_attribute_error"
 require "active_model"
 require "active_support/concern"
@@ -22,6 +23,10 @@ module ActiveAttr
     extend ActiveSupport::Concern
     include ActiveAttr::ChainableInitialization
     include ActiveModel::AttributeMethods
+
+    # Methods deprecated on the Object class which can be safely overridden
+    # @since 0.3.0
+    DEPRECATED_OBJECT_METHODS = %w(id type)
 
     included do
       attribute_method_suffix ""
@@ -76,8 +81,7 @@ module ActiveAttr
       "#<#{self.class.name}#{separator}#{attribute_descriptions}>"
     end
 
-    # Read a value from the model's attributes. If the value does not exist
-    # it will return nil.
+    # Read a value from the model's attributes.
     #
     # @example Read an attribute with read_attribute
     #   person.read_attribute(:name)
@@ -87,6 +91,8 @@ module ActiveAttr
     # @param [String, Symbol, #to_s] name The name of the attribute to get.
     #
     # @return [Object] The value of the attribute.
+    #
+    # @raise [UnknownAttributeError] if the attribute is unknown
     #
     # @since 0.2.0
     def read_attribute(name)
@@ -108,6 +114,8 @@ module ActiveAttr
     # @param [String, Symbol, #to_s] name The name of the attribute to update.
     # @param [Object] value The value to set for the attribute.
     #
+    # @raise [UnknownAttributeError] if the attribute is unknown
+    #
     # @since 0.2.0
     def write_attribute(name, value)
       if respond_to? "#{name}="
@@ -117,6 +125,14 @@ module ActiveAttr
       end
     end
     alias_method :[]=, :write_attribute
+
+    protected
+
+    # Overrides ActiveModel::AttributeMethods
+    # @private
+    def attribute_method?(attr_name)
+      self.class.attributes.map { |definition| definition.name.to_s }.include? attr_name.to_s
+    end
 
     private
 
@@ -145,11 +161,15 @@ module ActiveAttr
       #
       # @param (see AttributeDefinition#initialize)
       #
+      # @raise [DangerousAttributeError] if the attribute name conflicts with existing methods
+      #
       # @since 0.2.0
       def attribute(name, options={})
         AttributeDefinition.new(name, options).tap do |attribute_definition|
-          attributes << attribute_definition unless attributes.include? attribute_definition
-          define_attribute_method attribute_definition.name
+          unless attributes.include? attribute_definition
+            define_attribute_method attribute_definition.name
+            attributes << attribute_definition
+          end
         end
       end
 
@@ -188,6 +208,15 @@ module ActiveAttr
       # @since 0.2.2
       def attributes=(attributes)
         @attributes = attributes
+      end
+
+      # Overrides ActiveModel::AttributeMethods
+      # @private
+      def instance_method_already_implemented?(method_name)
+        deprecated_object_method = DEPRECATED_OBJECT_METHODS.include?(method_name.to_s)
+        already_implemented = !deprecated_object_method && self.allocate.respond_to?(method_name, true)
+        raise DangerousAttributeError, %{an attribute method named "#{method_name}" would conflict with an existing method} if already_implemented
+        false
       end
 
       private
