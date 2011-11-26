@@ -133,10 +133,20 @@ providing instance methods for querying your attributes
     person.first_name? #=> true
     person.last_name? #=> false
 
-## RSpec Integration ##
+## Integrations ##
+
+### Ruby on Rails ###
+
+When using ActiveAttr inside a Rails application, ActiveAttr will configure
+your models' default logger to use the Rails logger automatically. Just
+include ActiveAttr in your Gemfile.
+
+    gem "active_attr"
+
+### RSpec ###
 
 ActiveAttr comes with matchers and RSpec integration to assist you in testing
-your models.
+your models. The matchers also work with compatible frameworks like Shoulda.
 
     require "active_attr/rspec"
 
