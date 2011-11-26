@@ -65,8 +65,14 @@ module ActiveAttr
       let :model_class do
         Class.new do
           include Attributes
-          include ActiveModel::Serializers::JSON
-          include ActiveModel::Serializers::Xml
+
+          if defined? ActiveModel::Serializable
+            include ActiveModel::Serializable::JSON
+            include ActiveModel::Serializable::XML
+          else
+            include ActiveModel::Serializers::JSON
+            include ActiveModel::Serializers::Xml
+          end
 
           attribute :first_name
           attribute :last_name
