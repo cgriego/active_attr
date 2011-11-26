@@ -8,7 +8,7 @@ module ActiveAttr
         include BasicModel
 
         def self.name
-          "Foo"
+          "Person"
         end
       end
     end

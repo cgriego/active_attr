@@ -1,5 +1,6 @@
 # ActiveAttr 0.4.0 (unreleased) #
 
+* Added Model
 * Support for ActiveModel 3.2
 
 # ActiveAttr 0.3.0 (November 26, 2011) #

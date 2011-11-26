@@ -12,6 +12,16 @@ the wheel.
 
 ## Modules ##
 
+### Model ###
+
+The Model module is a shortcut for incorporating the most common model
+functionality into your model with one include. All of the following modules
+are included when you include Model.
+
+    class Person
+      include ActiveAttr::Model
+    end
+
 ### Attributes ###
 
 Including the Attributes module into your class gives you a DSL for defining
