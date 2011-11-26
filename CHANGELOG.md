@@ -1,3 +1,5 @@
+# ActiveAttr 0.4.0 (unreleased) #
+
 # ActiveAttr 0.3.0 (November 26, 2011) #
 
 * Added BlockInitialization
