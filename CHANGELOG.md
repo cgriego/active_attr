@@ -1,4 +1,4 @@
-# ActiveAttr 0.4.1 (unreleased) #
+# ActiveAttr 0.4.1 (November 27, 2011) #
 
 * Implemented ActiveModel serialization in Model
 
