@@ -79,5 +79,9 @@ module ActiveAttr
       subject.first_name = "Chris"
       model_class.new.from_xml(subject.to_xml).first_name.should == "Chris"
     end
+
+    it "supports attribute name translation" do
+      model_class.human_attribute_name(:first_name).should == "First name"
+    end
   end
 end
