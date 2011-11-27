@@ -40,7 +40,7 @@ module ActiveAttr
 
     included do
       class_attribute :logger
-      self.logger = ActiveAttr::Logger.logger
+      self.logger = Logger.logger
     end
   end
 end

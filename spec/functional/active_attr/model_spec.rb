@@ -1,5 +1,7 @@
 require "spec_helper"
 require "active_attr/model"
+require "active_support/core_ext/hash/conversions"
+require "active_support/json/decoding"
 
 module ActiveAttr
   describe Model do
@@ -66,6 +68,20 @@ module ActiveAttr
 
     it "does not use strict mass assignment" do
       expect { subject.assign_attributes :middle_initial => "J" }.not_to raise_error
+    end
+
+    it "serializes to/from JSON" do
+      subject.first_name = "Chris"
+      model_class.new.from_json(subject.to_json).first_name.should == "Chris"
+    end
+
+    it "serializes to/from XML" do
+      subject.first_name = "Chris"
+      model_class.new.from_xml(subject.to_xml).first_name.should == "Chris"
+    end
+
+    it "supports attribute name translation" do
+      model_class.human_attribute_name(:first_name).should == "First name"
     end
   end
 end
