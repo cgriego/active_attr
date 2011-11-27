@@ -3,6 +3,7 @@ require "active_attr/block_initialization"
 require "active_attr/logger"
 require "active_attr/mass_assignment_security"
 require "active_attr/query_attributes"
+require "active_model"
 require "active_support/concern"
 
 module ActiveAttr
@@ -24,5 +25,13 @@ module ActiveAttr
     include Logger
     include MassAssignmentSecurity
     include QueryAttributes
+
+    if defined? ActiveModel::Serializable
+      include ActiveModel::Serializable::JSON
+      include ActiveModel::Serializable::XML
+    else
+      include ActiveModel::Serializers::JSON
+      include ActiveModel::Serializers::Xml
+    end
   end
 end
