@@ -1,3 +1,6 @@
+require 'active_support/core_ext/hash/reverse_merge'
+require 'active_support/core_ext/string/inflections'
+
 module ActiveAttr
   # Represents an attribute for reflection
   #
@@ -12,6 +15,10 @@ module ActiveAttr
     # @since 0.2.0
     attr_reader :name
 
+    # The type of the attribute, defaults to Object
+    # @since 0.5.0
+    attr_reader :type
+
     # Compare attribute definitions
     #
     # @example
@@ -24,6 +31,7 @@ module ActiveAttr
     # @since 0.2.1
     def <=>(other)
       return nil unless other.instance_of? self.class
+      return self.type.to_s <=> other.type.to_s if name.to_s == other.name.to_s
       self.name.to_s <=> other.name.to_s
     end
 
@@ -40,6 +48,7 @@ module ActiveAttr
     def initialize(name, options={})
       raise TypeError, "can't convert #{name.class} into Symbol" unless name.respond_to? :to_sym
       @name = name.to_sym
+      @type = extract_type(options)
     end
 
     # The attribute name
@@ -50,7 +59,15 @@ module ActiveAttr
     def to_s
       name.to_s
     end
-    alias_method :inspect, :to_s
+
+    # The attribute name and conditionally its type
+    #
+    # @return [String] the attribute name and type
+    #
+    # @since 0.2.0
+    def inspect
+      "#{name}: #{type}"
+    end
 
     # The attribute name
     #
@@ -59,6 +76,17 @@ module ActiveAttr
     # @since 0.2.1
     def to_sym
       name
+    end
+
+    private
+
+    def extract_type(options)
+      case type = options.reverse_merge(:type => Object)[:type]
+      when String then type.constantize
+      when Class  then type
+      else
+        raise TypeError, "type must be a Class or String"
+      end
     end
   end
 end
