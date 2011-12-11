@@ -185,6 +185,20 @@ module ActiveAttr
         @attributes ||= []
       end
 
+      # Returns the AttributeDefinition instance for a given name
+      #
+      # @param [String, Symbol, #to_s] name The name of the AttributeDefinition to get.
+      #
+      # @example Read the attribute definition
+      #   Person.read_atribute(:name)
+      #
+      # @return [ActiveAttr::AttributeDefinition, nil] The AttributeDefinition for the attribute name
+      #
+      # @since 0.5.0
+      def read_attribute(name)
+        attributes.detect { |attribute| attribute.name.to_s == name.to_s }
+      end
+
       # Returns the class name plus its attribute definitions
       #
       # @example Inspect the model's definition.

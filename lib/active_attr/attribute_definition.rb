@@ -51,6 +51,21 @@ module ActiveAttr
       @type = extract_type(options)
     end
 
+    # Compare attribute definitions
+    #
+    # @example
+    #   attribute = AttributeDefinition.new(:amount, :type => Float)
+    #   attribute.requires_typecasting?("1.0") #=> true
+    #
+    # @param [Object] The object
+    #
+    # @return [true, false]
+    #
+    # @since 0.5.0
+    def requires_typecasting?(value)
+      !value.kind_of?(type)
+    end
+
     # The attribute name
     #
     # @return [String] the attribute name

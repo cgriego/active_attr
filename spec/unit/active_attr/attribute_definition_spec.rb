@@ -89,6 +89,26 @@ module ActiveAttr
       it { should respond_to(:name) }
     end
 
+    describe "#requires_typecasting?" do
+      let(:attribute) { described_class.new(:amount, :type => String) }
+      let(:subclass) { Class.new(String) }
+
+      context "when the value is a subclass of the type" do
+        subject { attribute.requires_typecasting?(subclass.new("1.0")) }
+        it { should be_false }
+      end
+
+      context "when the value is of the same type" do
+        subject { attribute.requires_typecasting?("1.0") }
+        it { should be_false }
+      end
+
+      context "when the value is not of the same type" do
+        subject { attribute.requires_typecasting?(1.0) }
+        it { should be_true }
+      end
+    end
+
     describe "#to_s" do
       it "renders the name as a String" do
         subject.to_s.should == "amount"

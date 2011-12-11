@@ -111,6 +111,20 @@ module ActiveAttr
       end
     end
 
+    describe ".read_attribute" do
+      it "returns the attribute with the given name as a Symbol" do
+        model_class.read_attribute(:first_name).should == AttributeDefinition.new(:first_name)
+      end
+
+      it "returns the attribute with the given name as a String" do
+        model_class.read_attribute('first_name').should == AttributeDefinition.new(:first_name)
+      end
+
+      it "returns nil when there is no matching attribute" do
+        model_class.read_attribute(:some_random_attr).should be_nil
+      end
+    end
+
     describe "#==" do
       subject { model_class.new("Ben") }
 
