@@ -143,6 +143,22 @@ providing instance methods for querying your attributes
     person.first_name? #=> true
     person.last_name? #=> false
 
+### TypecastedAttributes ###
+
+Including the MassAssignmentSecurity module into your class provides values
+from the #attributes method if a known typecasting method exists.  Common 
+conversion methods are defined in Typecasting::TYPECASTING_METHODS.  A class
+can define its own conversion instance methods in the form of #typecast_to_type.
+
+  class Person
+    include ActiveAttr::TypecastedAttributes
+    attribute :age, :type => Integer
+  end
+
+  person = Person.new
+  person.age = "29"
+  person.age #=> 29
+
 ## Integrations ##
 
 ### Ruby on Rails ###
