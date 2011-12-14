@@ -2,13 +2,18 @@
 
 [![Build History][2]][1]
 
-ActiveAttr makes it easy to create plain old ruby models without reinventing
-the wheel.
+ActiveAttr is a set of modules that makes it easy to create plain old ruby
+models with functionality found in ORMs, like ActiveRecord, without
+reinventing the wheel. Think of ActiveAttr as the stuff ActiveModel left out.
 
-[API Documentation](http://rubydoc.info/gems/active_attr)
+ActiveAttr is distributed as a rubygem [on rubygems.org][3].
+
+* [API Documentation](http://rubydoc.info/gems/active_attr)
+* [Contributors](https://github.com/cgriego/active_attr/contributors)
 
 [1]: http://travis-ci.org/cgriego/active_attr
 [2]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
+[3]: http://rubygems.org/gems/active_attr
 
 ## Modules ##
 
