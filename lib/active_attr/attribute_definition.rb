@@ -51,13 +51,13 @@ module ActiveAttr
       @type = extract_type(options)
     end
 
-    # Compare attribute definitions
+    # Determin if a value requires typecasting
     #
     # @example
     #   attribute = AttributeDefinition.new(:amount, :type => Float)
     #   attribute.requires_typecasting?("1.0") #=> true
     #
-    # @param [Object] The object
+    # @param [Object] The value
     #
     # @return [true, false]
     #

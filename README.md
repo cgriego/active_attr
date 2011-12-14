@@ -145,10 +145,10 @@ providing instance methods for querying your attributes
 
 ### TypecastedAttributes ###
 
-Including the TypecastedAttributes module into your class provides values
-from the #attributes method if a known typecasting method exists.  Common 
-conversion methods are defined in Typecasting::TYPECASTING_METHODS.  A class
-can define its own conversion instance methods in the form of #typecast_to_type.
+Including the TypecastedAttributes module into your class provides values from
+the #attributes method if a known typecasting method exists. Common conversion
+methods are defined in Typecasting::TYPECASTING_METHODS. A class can define
+its own conversion instance methods in the form of #typecast_to_type.
 
   class Person
     include ActiveAttr::TypecastedAttributes

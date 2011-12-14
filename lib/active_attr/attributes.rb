@@ -38,9 +38,10 @@ module ActiveAttr
     # @example Compare for equality.
     #   model == other
     #
-    # @param [ActiveAttr::Attributes, Object] other The other model to compare with.
+    # @param [ActiveAttr::Attributes, Object] other The other model to compare
     #
-    # @return [true, false] True if attributes are equal and other is instance of the same Class, false if not.
+    # @return [true, false] True if attributes are equal and other is instance
+    #   of the same Class, false if not.
     #
     # @since 0.2.0
     def ==(other)
@@ -151,17 +152,19 @@ module ActiveAttr
     end
 
     module ClassMethods
-      # Defines all the attributes that are to be returned from the attributes instance method.
+      # Defines an attribute
+      #
       # For each attribute that is defined, a getter and setter will be
-      # added as an instance method to the model. An AttributeDefinition instance will be
-      # added to result of the attributes class method.
+      # added as an instance method to the model. An AttributeDefinition
+      # instance will be added to result of the attributes class method.
       #
       # @example Define an attribute.
       #   attribute :name
       #
       # @param (see AttributeDefinition#initialize)
       #
-      # @raise [DangerousAttributeError] if the attribute name conflicts with existing methods
+      # @raise [DangerousAttributeError] if the attribute name conflicts with
+      #   existing methods
       #
       # @since 0.2.0
       def attribute(name, options={})
@@ -178,7 +181,8 @@ module ActiveAttr
       # @example Get attribute definitions
       #   Person.attributes
       #
-      # @return [Array<ActiveAttr::AttributeDefinition>] The Array of AttributeDefinition instances
+      # @return [Array<ActiveAttr::AttributeDefinition>] The Array of
+      #   AttributeDefinition instances
       #
       # @since 0.2.0
       def attributes
@@ -187,12 +191,14 @@ module ActiveAttr
 
       # Returns the AttributeDefinition instance for a given name
       #
-      # @param [String, Symbol, #to_s] name The name of the AttributeDefinition to get.
+      # @param [String, Symbol, #to_s] name The name of the
+      #   AttributeDefinition to get.
       #
       # @example Read the attribute definition
       #   Person.read_atribute(:name)
       #
-      # @return [ActiveAttr::AttributeDefinition, nil] The AttributeDefinition for the attribute name
+      # @return [ActiveAttr::AttributeDefinition, nil] The AttributeDefinition
+      #   for the attribute name
       #
       # @since 0.5.0
       def read_attribute(name)
@@ -217,7 +223,8 @@ module ActiveAttr
 
       # Assign a set of attribute definitions, used when subclassing models
       #
-      # @param [Array<ActiveAttr::AttributeDefinition>] The Array of AttributeDefinition instances
+      # @param [Array<ActiveAttr::AttributeDefinition>] The Array of
+      #   AttributeDefinition instances
       #
       # @since 0.2.2
       def attributes=(attributes)

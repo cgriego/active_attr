@@ -3,8 +3,7 @@ require "active_attr/typecasting"
 require "active_support/concern"
 
 module ActiveAttr
-  # AttributeTypecasting provides a set of class methods for defining an attribute and its
-  # schema including type.
+  # TypecastedAttributes enhances attribute handling with typecasting
   #
   # @example Usage
   #   class Person
@@ -30,8 +29,6 @@ module ActiveAttr
     # Reads the attribute and typecasts the result
     #
     # @since 0.5.0
-    #
-    # @private
     def attribute(name)
       typecast_attribute(self.class.read_attribute(name), super)
     end
