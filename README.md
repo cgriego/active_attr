@@ -135,9 +135,7 @@ logger will be configured by default.
 
 Including the MassAssignment module into your class gives you methods for bulk
 initializing and updating the attributes of your model. Any unknown attributes
-are silently ignored unless you substitute the StrictMassAssignment module
-which will raise an exception if an attempt is made to assign an unknown
-attribute.
+are silently ignored.
 
     class Person
       include ActiveAttr::MassAssignment
