@@ -44,6 +44,40 @@ the attributes of your model.
     person.last_name = "Griego"
     person.attributes #=> {"first_name"=>"Chris", "last_name"=>"Griego"}
 
+#### QueryAttributes ####
+
+Including the QueryAttributes module into your class builds on Attributes by
+providing instance methods for querying your attributes
+
+    class Person
+      include ActiveAttr::QueryAttributes
+
+      attribute :first_name
+      attribute :last_name
+    end
+
+    person = Person.new
+    person.first_name = "Chris"
+    person.first_name? #=> true
+    person.last_name? #=> false
+
+#### TypecastedAttributes ####
+
+Including the TypecastedAttributes module into your class provides values from
+the #attributes method if a known typecasting method exists. Common conversion
+methods are defined in Typecasting::TYPECASTING_METHODS. A class can define
+its own conversion instance methods in the form of #typecast_to_type.
+
+  class Person
+    include ActiveAttr::TypecastedAttributes
+    attribute :age, :type => Integer
+  end
+
+  person = Person.new
+  person.age = "29"
+  person.age #=> 29
+
+
 ### BasicModel ###
 
 Including the BasicModel module into your class gives you the bare minimum
@@ -115,7 +149,7 @@ attribute.
     person.first_name #=> "Chris"
     person.last_name #=> "Griego"
 
-### MassAssignmentSecurity ###
+#### MassAssignmentSecurity ####
 
 Including the MassAssignmentSecurity module into your class extends the
 MassAssignment methods to honor any declared mass assignment permission
@@ -130,39 +164,6 @@ blacklists or whitelists including support for mass assignment roles.
     person = Person.new(:first_name => "Chris", :last_name => "Griego")
     person.first_name #=> "Chris"
     person.last_name #=> nil
-
-### QueryAttributes ###
-
-Including the QueryAttributes module into your class builds on Attributes by
-providing instance methods for querying your attributes
-
-    class Person
-      include ActiveAttr::QueryAttributes
-
-      attribute :first_name
-      attribute :last_name
-    end
-
-    person = Person.new
-    person.first_name = "Chris"
-    person.first_name? #=> true
-    person.last_name? #=> false
-
-### TypecastedAttributes ###
-
-Including the TypecastedAttributes module into your class provides values from
-the #attributes method if a known typecasting method exists. Common conversion
-methods are defined in Typecasting::TYPECASTING_METHODS. A class can define
-its own conversion instance methods in the form of #typecast_to_type.
-
-  class Person
-    include ActiveAttr::TypecastedAttributes
-    attribute :age, :type => Integer
-  end
-
-  person = Person.new
-  person.age = "29"
-  person.age #=> 29
 
 ## Integrations ##
 
