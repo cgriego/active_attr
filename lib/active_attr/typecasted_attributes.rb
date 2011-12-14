@@ -1,5 +1,6 @@
 require "active_attr/attributes"
 require "active_attr/typecasting"
+require "active_support/concern"
 
 module ActiveAttr
   # AttributeTypecasting provides a set of class methods for defining an attribute and its
