@@ -24,7 +24,8 @@ module ActiveAttr
     # @example
     #   attribute_definition <=> other
     #
-    # @param [ActiveAttr::AttributeDefinition, Object] other The other attribute definition to compare with.
+    # @param [ActiveAttr::AttributeDefinition, Object] other The other
+    #   attribute definition to compare with.
     #
     # @return [-1, 0, 1, nil]
     #
@@ -51,7 +52,7 @@ module ActiveAttr
       @type = extract_type(options)
     end
 
-    # Determin if a value requires typecasting
+    # Determine if a value requires typecasting
     #
     # @example
     #   attribute = AttributeDefinition.new(:amount, :type => Float)
@@ -99,8 +100,7 @@ module ActiveAttr
       case type = options.reverse_merge(:type => Object)[:type]
       when String then type.constantize
       when Class  then type
-      else
-        raise TypeError, "type must be a Class or String"
+      else raise TypeError, "type must be a Class or String"
       end
     end
   end

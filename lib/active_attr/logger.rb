@@ -22,7 +22,7 @@ module ActiveAttr
       @logger
     end
 
-    # Determin if a global default logger is configured
+    # Determine if a global default logger is configured
     #
     # @since 0.3.0
     def self.logger?
