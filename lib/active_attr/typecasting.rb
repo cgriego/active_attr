@@ -1,4 +1,4 @@
-require "active_attr/attributes"
+require "active_support/concern"
 
 module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type
@@ -17,24 +17,24 @@ module ActiveAttr
       Time     => :to_time,
     }
 
-    # Typecasts a value using an AttributeDefinition
+    # Typecasts a value using a Class
     #
     # It first tries to typecast the value using the #custom_typecasting_value
     # method. If that returns nothing. It next tries to convert the value
     # using #typecast_value, if nothing is return the original value is
     # returned.
     #
-    # @param [AttributeDefinition] attribute The attribute definition
+    # @param [Class] type The type to cast to
     # @param [Object] value The value to be typecasted
     #
     # @return [Object] The typecasted value or the original value if
     #   typecasting was not applied
     #
     # @since 0.5.0
-    def typecast_attribute(attribute, value)
-      raise ArgumentError, "an AttributeDefinition must be given" unless attribute
-      return value unless requires_typecasting?(attribute.type, value)
-      custom_typecast_value(attribute, value) || typecast_value(attribute, value) || value
+    def typecast_attribute(type, value)
+      raise ArgumentError, "a Class must be given" unless type
+      return value unless requires_typecasting?(type, value)
+      custom_typecast_value(type, value) || typecast_value(type, value) || value
     end
 
     # Attempt to typecast a value using a custom contum typecasting method
@@ -43,15 +43,15 @@ module ActiveAttr
     # of #typecast_to_<type> then the value result of that method is returned,
     # otherwise nil is returned.
     #
-    # @param [AttributeDefinition] attribute The attribute definition
+    # @param [Class] type The type to cast to
     # @param [Object] value The value to be typecasted
     #
     # @return [Object, nil] The result of the custom typecasting method on the
     #   value, nil if no method exists
     #
     # @since 0.5.0
-    def custom_typecast_value(attribute, value)
-      converstion_method_name = "typecast_to_#{attribute.type.to_s.downcase}"
+    def custom_typecast_value(type, value)
+      converstion_method_name = "typecast_to_#{type.to_s.downcase}"
       value.send(converstion_method_name) if value.respond_to?(converstion_method_name)
     end
 
@@ -74,15 +74,15 @@ module ActiveAttr
     # Typecasts a value according to a predefined set of mapping rules defined
     #   in TYPECASTING_METHODS
     #
-    # @param [AttributeDefinition] attribute The attribute definition
+    # @param [Class] type The type to cast to
     # @param [Object] value The value to be typecasted
     #
     # @return [Object, nil] The result of a method call defined in
     #   TYPECASTING_METHODS, nil if no method is found
     #
     # @since 0.5.0
-    def typecast_value(attribute, value)
-      if method = TYPECASTING_METHODS[attribute.type]
+    def typecast_value(type, value)
+      if method = TYPECASTING_METHODS[type]
         value.send(method) if value.respond_to?(method)
       end
     end
