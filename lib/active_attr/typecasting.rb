@@ -33,7 +33,7 @@ module ActiveAttr
     # @since 0.5.0
     def typecast_attribute(attribute, value)
       raise ArgumentError, "an AttributeDefinition must be given" unless attribute
-      return value unless attribute.requires_typecasting?(value)
+      return value unless requires_typecasting?(attribute.type, value)
       custom_typecast_value(attribute, value) || typecast_value(attribute, value) || value
     end
 
@@ -53,6 +53,22 @@ module ActiveAttr
     def custom_typecast_value(attribute, value)
       converstion_method_name = "typecast_to_#{attribute.type.to_s.downcase}"
       value.send(converstion_method_name) if value.respond_to?(converstion_method_name)
+    end
+
+    # Determine if a value requires typecasting
+    #
+    # @example
+    #   person = Person.new
+    #   person.requires_typecasting?(Float, "1.0") #=> true
+    #
+    # @param [Class] The type
+    # @param [Object] The value
+    #
+    # @return [true, false]
+    #
+    # @since 0.5.0
+    def requires_typecasting?(type, value)
+      !value.kind_of?(type)
     end
 
     # Typecasts a value according to a predefined set of mapping rules defined

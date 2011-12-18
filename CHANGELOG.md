@@ -1,6 +1,5 @@
 # ActiveAttr 0.5.0 (unreleased) #
 
-* Added AttributeDefinition#requires_typecasting?
 * Added AttributeDefinition#type
 * Added TypecastedAttributes
 * Added Typecasting

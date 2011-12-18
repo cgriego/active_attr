@@ -11,6 +11,26 @@ module ActiveAttr
       end
     end
 
+    describe "#requires_typecasting?" do
+      let(:type) { String }
+      let(:subclass) { Class.new(String) }
+
+      context "when the value is a subclass of the type" do
+        subject { model_class.new.requires_typecasting?(type, subclass.new("1.0")) }
+        it { should be_false }
+      end
+
+      context "when the value is of the same type" do
+        subject { model_class.new.requires_typecasting?(type, "1.0") }
+        it { should be_false }
+      end
+
+      context "when the value is not of the same type" do
+        subject { model_class.new.requires_typecasting?(type, 1.0) }
+        it { should be_true }
+      end
+    end
+
     describe "#typecast_attribute" do
       let(:attribute) { AttributeDefinition.new(:name, :type => String) }
 
