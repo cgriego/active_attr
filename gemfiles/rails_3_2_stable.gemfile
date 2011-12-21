@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 gemspec :development_group => :test, :path => ".."
 
-git "git://github.com/rails/rails.git" do
+git "git://github.com/rails/rails.git", :branch => "3-2-stable" do
   gem "activemodel"
   gem "activesupport"
 end

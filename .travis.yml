@@ -5,4 +5,4 @@ rvm:
 bundler_args: --without development
 gemfile:
   - Gemfile
-  - gemfiles/rails_head.gemfile
+  - gemfiles/rails_3_2_stable.gemfile
