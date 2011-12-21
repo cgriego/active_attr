@@ -11,12 +11,14 @@ module ActiveAttr
           include Attributes
 
           attribute :parent
+          attribute :redefined, :type => Symbol
         end
       end
 
       let! :child_class do
         Class.new(parent_class) do
           attribute :child
+          attribute :redefined, :type => String
         end
       end
 
@@ -49,6 +51,16 @@ module ActiveAttr
 
         it "don't add attribute definitions to the parent" do
           parent_class.attribute_names.should_not include "child"
+        end
+      end
+
+      context "attributes redefined on the child" do
+        it "redefines the child attribute" do
+          child_class.attributes[:redefined].should == AttributeDefinition.new(:redefined, :type => String)
+        end
+
+        it "does not redefine the parent attribute" do
+          parent_class.attributes[:redefined].should == AttributeDefinition.new(:redefined, :type => Symbol)
         end
       end
     end
