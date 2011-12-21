@@ -87,17 +87,6 @@ module ActiveAttr
           attribute :name
         end.should have(1).attributes
       end
-
-      it "redefining an attribute replaces the attribute definition" do
-        klass = Class.new do
-          include Attributes
-          attribute :name, :type => Symbol
-          attribute :name, :type => String
-        end
-
-        klass.should have(1).attributes
-        klass.attributes[:name].should == AttributeDefinition.new(:name, :type => String)
-      end
     end
 
     describe ".attributes" do

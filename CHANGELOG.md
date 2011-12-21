@@ -5,7 +5,6 @@
 * Added TypecastedAttributes
 * Added Typecasting
 * Changed Attributes.attributes return value from an Array to a Hash
-* Changed redefining an attribute to actually redefine the attribute
 * Removed StrictMassAssignment, use StrictMassAssignment with ActiveModel v3.2
   which allows assigning mass_assignment_sanitizer to :strict on the class
 
