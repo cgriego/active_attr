@@ -30,7 +30,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute(name)
-      typecast_attribute(self.class.read_attribute(name).type, super)
+      typecast_attribute(self.class.attributes[name].type, super)
     end
   end
 end

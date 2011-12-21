@@ -4,6 +4,7 @@ require "active_attr/dangerous_attribute_error"
 require "active_attr/unknown_attribute_error"
 require "active_model"
 require "active_support/concern"
+require "active_support/hash_with_indifferent_access"
 
 module ActiveAttr
   # Attributes provides a set of class methods for defining an attributes
@@ -58,8 +59,7 @@ module ActiveAttr
     #
     # @since 0.2.0
     def attributes
-      attribute_names = self.class.attributes.map { |definition| definition.name.to_s }
-      Hash[attribute_names.map { |key| [key, send(key)] }]
+      Hash[self.class.attribute_names.map { |key| [key, send(key)] }]
     end
 
     # @since 0.2.1
@@ -73,11 +73,12 @@ module ActiveAttr
     # @example Inspect the model.
     #   person.inspect
     #
-    # @return [String] A nice pretty string to look at.
+    # @return [String] Human-readable presentation of the attribute
+    #   definitions
     #
     # @since 0.2.0
     def inspect
-      attribute_descriptions = self.attributes.sort.map { |key, value| "#{key}: #{value.inspect}" }.join(", ")
+      attribute_descriptions = attributes.sort.map { |key, value| "#{key}: #{value.inspect}" }.join(", ")
       separator = " " unless attribute_descriptions.empty?
       "#<#{self.class.name}#{separator}#{attribute_descriptions}>"
     end
@@ -132,7 +133,7 @@ module ActiveAttr
     # Overrides ActiveModel::AttributeMethods
     # @private
     def attribute_method?(attr_name)
-      self.class.attributes.map { |definition| definition.name.to_s }.include? attr_name.to_s
+      self.class.attribute_names.include? attr_name.to_s
     end
 
     private
@@ -141,14 +142,14 @@ module ActiveAttr
     #
     # @since 0.2.1
     def attribute(name)
-      @attributes[name.to_s]
+      @attributes[name]
     end
 
     # Write an attribute to the attributes hash
     #
     # @since 0.2.1
     def attribute=(name, value)
-      @attributes[name.to_s] = value
+      @attributes[name] = value
     end
 
     module ClassMethods
@@ -169,40 +170,36 @@ module ActiveAttr
       # @since 0.2.0
       def attribute(name, options={})
         AttributeDefinition.new(name, options).tap do |attribute_definition|
-          unless attributes.include? attribute_definition
+          unless attributes.values.include? attribute_definition
             define_attribute_method attribute_definition.name
-            attributes << attribute_definition
+            attributes[attribute_definition.name] = attribute_definition
           end
         end
       end
 
-      # Returns an Array of AttributeDefinition instances
+      # Returns a Hash of AttributeDefinition instances
       #
       # @example Get attribute definitions
       #   Person.attributes
       #
-      # @return [Array<ActiveAttr::AttributeDefinition>] The Array of
-      #   AttributeDefinition instances
+      # @return [ActiveSupport::HashWithIndifferentAccess{String => ActiveAttr::AttributeDefinition}]
+      #   The Hash of AttributeDefinition instances
       #
       # @since 0.2.0
       def attributes
-        @attributes ||= []
+        @attributes ||= ActiveSupport::HashWithIndifferentAccess.new
       end
 
-      # Returns the AttributeDefinition instance for a given name
+      # Returns an Array of attribute names as Strings
       #
-      # @param [String, Symbol, #to_s] name The name of the
-      #   AttributeDefinition to get.
+      # @example Get attribute names
+      #   Person.attribute_names
       #
-      # @example Read the attribute definition
-      #   Person.read_atribute(:name)
-      #
-      # @return [ActiveAttr::AttributeDefinition, nil] The AttributeDefinition
-      #   for the attribute name
+      # @return [Array<String>] The attribute names
       #
       # @since 0.5.0
-      def read_attribute(name)
-        attributes.detect { |attribute| attribute.name.to_s == name.to_s }
+      def attribute_names
+        attributes.keys
       end
 
       # Returns the class name plus its attribute definitions
@@ -210,11 +207,11 @@ module ActiveAttr
       # @example Inspect the model's definition.
       #   Person.inspect
       #
-      # @return [String] A nice pretty string to look at.
+      # @return [String] Human-readable presentation of the attributes
       #
       # @since 0.2.0
       def inspect
-        inspected_attributes = attributes.sort.map { |attr| attr.inspect }
+        inspected_attributes = attributes.values.sort.map { |attr| attr.inspect }
         attributes_list = "(#{inspected_attributes.join(", ")})" unless inspected_attributes.empty?
         "#{self.name}#{attributes_list}"
       end

@@ -32,7 +32,7 @@ module ActiveAttr
         end
 
         it "add attribute definitions to the child" do
-          child_class.attributes.map(&:name).should include :parent
+          child_class.attribute_names.should include "parent"
         end
       end
 
@@ -48,7 +48,7 @@ module ActiveAttr
         end
 
         it "don't add attribute definitions to the parent" do
-          parent_class.attributes.map(&:name).should_not include :child
+          parent_class.attribute_names.should_not include "child"
         end
       end
     end

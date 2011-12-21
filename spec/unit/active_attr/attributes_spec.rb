@@ -53,7 +53,7 @@ module ActiveAttr
 
     describe ".attribute" do
       it "creates an attribute with no options" do
-        model_class.attributes.should include(AttributeDefinition.new(:first_name))
+        model_class.attributes.values.should include(AttributeDefinition.new(:first_name))
       end
 
       it "returns the attribute definition" do
@@ -92,6 +92,14 @@ module ActiveAttr
     describe ".attributes" do
       it { model_class.should respond_to(:attributes) }
 
+      it "can access AttributeDefinition with a Symbol" do
+        model_class.attributes[:first_name].should == AttributeDefinition.new(:first_name)
+      end
+
+      it "can access AttributeDefinition with a String" do
+        model_class.attributes['first_name'].should == AttributeDefinition.new(:first_name)
+      end
+
       context "when no attributes exist" do
         it { attributeless.attributes.should be_empty }
       end
@@ -108,20 +116,6 @@ module ActiveAttr
 
       it "doesn't format the inspection string for attributes if the model does not have any" do
         attributeless.inspect.should == "Foo"
-      end
-    end
-
-    describe ".read_attribute" do
-      it "returns the attribute with the given name as a Symbol" do
-        model_class.read_attribute(:first_name).should == AttributeDefinition.new(:first_name)
-      end
-
-      it "returns the attribute with the given name as a String" do
-        model_class.read_attribute('first_name').should == AttributeDefinition.new(:first_name)
-      end
-
-      it "returns nil when there is no matching attribute" do
-        model_class.read_attribute(:some_random_attr).should be_nil
       end
     end
 

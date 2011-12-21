@@ -48,9 +48,7 @@ module ActiveAttr
       def matches?(model_or_model_class)
         @model_class = class_from(model_or_model_class)
 
-        @model_class.attributes.any? do |attribute|
-          attribute.name == attribute_name
-        end
+        !!@model_class.attributes[attribute_name]
       end
 
       # @return [String] Negative failure message

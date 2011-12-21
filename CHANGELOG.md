@@ -1,8 +1,10 @@
 # ActiveAttr 0.5.0 (unreleased) #
 
 * Added AttributeDefinition#type
+* Added Attributes.attribute_names
 * Added TypecastedAttributes
 * Added Typecasting
+* Changed Attributes.attributes return value from an Array to a Hash
 * Removed StrictMassAssignment, use StrictMassAssignment with ActiveModel v3.2
   which allows assigning mass_assignment_sanitizer to :strict on the class
 
