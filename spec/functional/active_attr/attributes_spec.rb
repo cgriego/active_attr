@@ -16,9 +16,11 @@ module ActiveAttr
       end
 
       let! :child_class do
-        Class.new(parent_class) do
-          attribute :child
-          attribute :redefined, :type => String
+        Class.new(parent_class).tap do |child_class|
+          child_class.instance_eval do
+            attribute :child
+            attribute :redefined, :type => String
+          end
         end
       end
 
