@@ -201,7 +201,7 @@ module ActiveAttr
         @attributes ||= ActiveSupport::HashWithIndifferentAccess.new
       end
 
-      # Returns the class name plus its attribute definitions
+      # Returns the class name plus its attribute names
       #
       # @example Inspect the model's definition.
       #   Person.inspect
@@ -210,7 +210,7 @@ module ActiveAttr
       #
       # @since 0.2.0
       def inspect
-        inspected_attributes = attributes.values.sort.map { |attr| attr.inspect }
+        inspected_attributes = attribute_names.sort
         attributes_list = "(#{inspected_attributes.join(", ")})" unless inspected_attributes.empty?
         "#{self.name}#{attributes_list}"
       end

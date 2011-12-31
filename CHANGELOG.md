@@ -2,7 +2,6 @@
 
 * Added AttributeDefaults
 * Added AttributeDefinition#[]
-* Added AttributeDefinition#type
 * Added Attributes.attribute_names
 * Added Matchers::HaveAttributeMatcher#with_default_value_of
 * Added TypecastedAttributes

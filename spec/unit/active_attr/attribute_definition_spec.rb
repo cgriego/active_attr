@@ -10,16 +10,8 @@ module ActiveAttr
         (subject <=> nil).should be_nil
       end
 
-      it "prefers neither when both sides use the same attribute name and type" do
+      it "prefers neither when both sides use the same attribute name and options" do
         (subject <=> subject).should == 0
-      end
-
-      it "prefers the left when the attribute names equal and the left type sorts alphabetically before the right side" do
-        (described_class.new(:amount, :type => Float) <=> described_class.new(:amount, :type => Integer)).should == -1
-      end
-
-      it "prefers the right when the attribute names equal and the right type sorts alphabetically before the left side" do
-        (described_class.new(:amount, :type => Integer) <=> described_class.new(:amount, :type => Float)).should == 1
       end
 
       it "prefers the left side when the left side name sorts alphabetically before the right side name" do
@@ -40,7 +32,7 @@ module ActiveAttr
         described_class.new(:amount).should_not == Struct.new(:name).new(:amount)
       end
 
-      it "returns false when types differ" do
+      it "returns false when options differ" do
         described_class.new(:amount).should_not == described_class.new(:amount, :type => String)
       end
     end
@@ -67,28 +59,6 @@ module ActiveAttr
       it "raises a TypeError when the attribute name does not respond to #to_sym" do
         expect { described_class.new(Object.new) }.to raise_error(TypeError, "can't convert Object into Symbol")
       end
-
-      it "accepts a type option" do
-        described_class.new(:amount, :type => Object).type.should == Object
-      end
-
-      it "defaults type to Object when not specified" do
-        described_class.new(:amount).type.should == Object
-      end
-
-      it "constantizes a String for type" do
-        described_class.new(:amount, :type => 'String').type.should == String
-      end
-
-      it "raises a TypeError for values other than String and Class for type" do
-        expect { described_class.new(:amount, :type => 1) }.to raise_error(TypeError, "type must be a Class or String")
-      end
-    end
-
-    describe "#inspect" do
-      it "renders the name and type" do
-        subject.inspect.should == "amount: Object"
-      end
     end
 
     describe "#name" do
@@ -105,10 +75,6 @@ module ActiveAttr
       it "renders the name as a Symbol" do
         subject.to_sym.should == :amount
       end
-    end
-
-    describe "#type" do
-      it { should respond_to(:type) }
     end
   end
 end

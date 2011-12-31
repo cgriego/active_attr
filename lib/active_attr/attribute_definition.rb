@@ -15,10 +15,6 @@ module ActiveAttr
     # @since 0.2.0
     attr_reader :name
 
-    # The type of the attribute, defaults to Object
-    # @since 0.5.0
-    attr_reader :type
-
     # Compare attribute definitions
     #
     # @example
@@ -32,7 +28,7 @@ module ActiveAttr
     # @since 0.2.1
     def <=>(other)
       return nil unless other.instance_of? self.class
-      return self.type.to_s <=> other.type.to_s if name.to_s == other.name.to_s
+      return nil if name == other.name && options != other.options
       self.name.to_s <=> other.name.to_s
     end
 
@@ -62,16 +58,6 @@ module ActiveAttr
       raise TypeError, "can't convert #{name.class} into Symbol" unless name.respond_to? :to_sym
       @name = name.to_sym
       @options = options
-      @type = extract_type(options)
-    end
-
-    # The attribute name and its type
-    #
-    # @return [String] the attribute name and type
-    #
-    # @since 0.2.0
-    def inspect
-      "#{name}: #{type}"
     end
 
     # The attribute name
@@ -92,14 +78,10 @@ module ActiveAttr
       name
     end
 
-    private
+    protected
 
-    def extract_type(options)
-      case type = options.reverse_merge(:type => Object)[:type]
-      when String then type.constantize
-      when Class  then type
-      else raise TypeError, "type must be a Class or String"
-      end
-    end
+    # The attribute options
+    # @since 0.5.0
+    attr_reader :options
   end
 end

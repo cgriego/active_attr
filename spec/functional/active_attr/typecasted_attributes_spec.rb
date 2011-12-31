@@ -4,7 +4,7 @@ require "active_attr/mass_assignment"
 
 module ActiveAttr
   describe TypecastedAttributes do
-    let(:money_class) do
+    let :money_class do
       Class.new do
         attr_accessor :amount
 
@@ -25,28 +25,61 @@ module ActiveAttr
     let :model_class do
       Class.new do
         include TypecastedAttributes
+
         attribute :amount, :type => String
+        attribute :first_name
+        attribute :last_name
 
         def initialize(amount)
           super
-          write_attribute(:amount, amount)
+          self.amount = amount
+        end
+
+        def self.name
+          "Foo"
         end
       end
     end
 
-    context "when no typecasting is required" do
-      subject { model_class.new("1.0") }
+    let :attributeless do
+      Class.new do
+        include TypecastedAttributes
 
-      it "returns the value" do
-        subject.amount.should == "1.0"
+        def self.name
+          "Foo"
+        end
       end
     end
 
-    context "when a custom typecasting method is defined" do
-      subject { model_class.new(money_class.new(1.0)) }
+    describe ".inspect" do
+      it "renders the class name" do
+        model_class.inspect.should match /^Foo\(.*\)$/
+      end
 
-      it "prefers the #typecast_to_string method" do
-        subject.amount.should == "1.00"
+      it "renders the attribute names and types in alphabetical order" do
+        model_class.inspect.should match "(amount: String, first_name: Object, last_name: Object)"
+      end
+
+      it "doesn't format the inspection string for attributes if the model does not have any" do
+        attributeless.inspect.should == "Foo"
+      end
+    end
+
+    describe "#read_attribute" do
+      context "when no typecasting is required" do
+        subject { model_class.new("1.0") }
+
+        it "returns the value" do
+          subject.read_attribute(:amount).should == "1.0"
+        end
+      end
+
+      context "when a custom typecasting method is defined" do
+        subject { model_class.new(money_class.new(1.0)) }
+
+        it "prefers the #typecast_to_string method" do
+          subject.read_attribute(:amount).should == "1.00"
+        end
       end
     end
   end

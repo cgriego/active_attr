@@ -122,7 +122,7 @@ module ActiveAttr
       end
 
       it "renders the attribute names in alphabetical order" do
-        model_class.inspect.should match "(amount: Object, first_name: Object, last_name: Object)"
+        model_class.inspect.should match "(amount, first_name, last_name)"
       end
 
       it "doesn't format the inspection string for attributes if the model does not have any" do

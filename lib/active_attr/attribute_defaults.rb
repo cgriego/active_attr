@@ -87,7 +87,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute_defaults
-      Hash[ self.class.attributes.map { |name, definition| [name, _attribute_default(definition[:default])] } ]
+      Hash[ self.class.attribute_names.map { |name| [name, _attribute_default(name)] } ]
     end
 
     # Applies attribute default values
@@ -102,8 +102,11 @@ module ActiveAttr
 
     # Calculates an attribute default
     #
+    # @private
     # @since 0.5.0
-    def _attribute_default(default)
+    def _attribute_default(attribute_name)
+      default = self.class.attributes[attribute_name][:default]
+
       case
       when default.respond_to?(:call) then instance_exec(&default)
       when default.duplicable? then default.dup
