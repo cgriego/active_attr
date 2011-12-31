@@ -10,14 +10,14 @@ module ActiveAttr
     it { should respond_to(:have_attribute).with(1).argument }
 
     describe "#have_attribute" do
-      subject { dsl.have_attribute(:name) }
+      subject { dsl.have_attribute(:first_name) }
 
-      it "builds a HaveAttributeMatcher with the given attribute name" do
+      it "builds a HaveAttributeMatcher" do
         should be_a_kind_of Matchers::HaveAttributeMatcher
       end
 
       it "uses the given attribute name to construct the matcher" do
-        subject.attribute_name.should == :name
+        subject.send(:attribute_name).should == :first_name
       end
     end
   end
@@ -27,7 +27,9 @@ module ActiveAttr
       let :model_class do
         Class.new do
           include Attributes
-          attribute :name
+          attribute :first_name, :default => "John"
+          attribute :last_name
+          attribute :admin, :default => false
 
           def self.to_s
             "Person"
@@ -36,24 +38,27 @@ module ActiveAttr
       end
 
       subject { positive_matcher }
-      let(:positive_matcher) { described_class.new(:name) }
+      let(:positive_matcher) { described_class.new(:first_name) }
       let(:negative_matcher) { described_class.new(:age) }
+      let(:positive_matcher_with_default) { described_class.new(:first_name).with_default_value_of("John") }
+      let(:positive_matcher_with_false_default) { described_class.new(:admin).with_default_value_of(false) }
+      let(:negative_matcher_with_wrong_default) { described_class.new(:first_name).with_default_value_of("Doe") }
+      let(:negative_matcher_with_default_no_attribute) { described_class.new(:age).with_default_value_of(21) }
+      let(:negative_matcher_with_nil_default) { described_class.new(:first_name).with_default_value_of(nil) }
 
       it { described_class.should respond_to(:new).with(1).argument }
 
-      describe "#attribute_name" do
-        it "returns the value used to initialize the matcher" do
-          subject.attribute_name.should == :name
-        end
-
-        it "converts the value used to initialize the matcher to a symbol" do
-          described_class.new('name').attribute_name.should == :name
-        end
-      end
-
       describe "#description" do
         it "returns a description appropriate to the expectation" do
-          subject.description.should == "have attribute named name"
+          subject.description.should == "have attribute named first_name"
+        end
+
+        it "mentions the default value if set" do
+          positive_matcher_with_default.description.should == %{have attribute named first_name with a default value of "John"}
+        end
+
+        it "mentions the default value if set to false" do
+          positive_matcher_with_false_default.description.should == %{have attribute named admin with a default value of false}
         end
       end
 
@@ -62,6 +67,18 @@ module ActiveAttr
           negative_matcher.tap do |matcher|
             matcher.matches? model_class
           end.failure_message.should == "Expected Person to have attribute named age"
+        end
+
+        it "mentions the default value if set" do
+          negative_matcher_with_wrong_default.tap do |matcher|
+            matcher.matches? model_class
+          end.failure_message.should == %{Expected Person to have attribute named first_name with a default value of "Doe"}
+        end
+
+        it "mentions the default value if set to false" do
+          negative_matcher_with_nil_default.tap do |matcher|
+            matcher.matches? model_class
+          end.failure_message.should == %{Expected Person to have attribute named first_name with a default value of nil}
         end
       end
 
@@ -89,13 +106,75 @@ module ActiveAttr
         it "is false with a model class that does not have the attribute" do
           negative_matcher.matches?(model_class).should be_false
         end
+
+        context "when the matcher specifies a default value" do
+          it "is true with an instance of a model class that has the attribute with the default value" do
+            positive_matcher_with_default.matches?(model_class).should be_true
+          end
+
+          it "is true with a model class that has the attribute with the default value" do
+            positive_matcher_with_default.matches?(model_class).should be_true
+          end
+
+          it "is false with an instance of a model class that does not have the attribute" do
+            negative_matcher_with_default_no_attribute.matches?(model_instance).should be_false
+          end
+
+          it "is false with a model class that does not have the attribute" do
+            negative_matcher_with_default_no_attribute.matches?(model_class).should be_false
+          end
+
+          it "is false with an instance of a model class that has the attribute but not with the specified default value" do
+            negative_matcher_with_wrong_default.matches?(model_instance).should be_false
+          end
+
+          it "is false with a model class that has the attribute but not with the specified default value" do
+            negative_matcher_with_wrong_default.matches?(model_class).should be_false
+          end
+
+          it "is true with an instance of a model class that has the attribute with the default value of false" do
+            positive_matcher_with_false_default.matches?(model_class).should be_true
+          end
+
+          it "is true with a model class that has the attribute with the default value where the default value is false" do
+            positive_matcher_with_false_default.matches?(model_class).should be_true
+          end
+
+          it "is true with an instance of a model class that has the attribute with the default value where the default value is false" do
+            positive_matcher_with_false_default.matches?(model_class).should be_true
+          end
+
+          it "is true with a model class that has the attribute with the default value false" do
+            positive_matcher_with_false_default.matches?(model_class).should be_true
+          end
+
+          it "is false with an instance of a model class that has the attribute but not with the specified default value where the specified default value is nil" do
+            negative_matcher_with_nil_default.matches?(model_instance).should be_false
+          end
+
+          it "is false with a model class that has the attribute but not with the specified default value where the specified default value is nil" do
+            negative_matcher_with_nil_default.matches?(model_class).should be_false
+          end
+        end
       end
 
       describe "#negative_failure_message" do
         it "returns a failure message appropriate to the expectation and subject" do
           positive_matcher.tap do |matcher|
             matcher.matches? model_class
-          end.negative_failure_message.should == "Expected Person to not have attribute named name"
+          end.negative_failure_message.should == "Expected Person to not have attribute named first_name"
+        end
+
+        it "mentions the default value if set" do
+          positive_matcher_with_default.tap do |matcher|
+            matcher.matches? model_class
+          end.negative_failure_message.should == %{Expected Person to not have attribute named first_name with a default value of "John"}
+        end
+
+        it "mentions the default value if set to false" do
+          positive_matcher_with_false_default.tap do |matcher|
+            matcher.matches? model_class
+          end.negative_failure_message.should == %{Expected Person to not have attribute named admin with a default value of false}
         end
       end
     end

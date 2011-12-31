@@ -9,6 +9,7 @@ require "active_support/dependencies/autoload"
 module ActiveAttr
   extend ActiveSupport::Autoload
 
+  autoload :AttributeDefaults
   autoload :AttributeDefinition
   autoload :Attributes
   autoload :BasicModel

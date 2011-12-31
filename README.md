@@ -44,10 +44,26 @@ the attributes of your model.
     person.last_name = "Griego"
     person.attributes #=> {"first_name"=>"Chris", "last_name"=>"Griego"}
 
+#### AttributeDefaults ####
+
+Including the AttributeDefaults module into your class builds on Attributes by
+allowing defaults to be declared with attributes.
+
+    class Person
+      include ActiveAttr::AttributeDefaults
+
+      attribute :first_name, :default => "John"
+      attribute :last_name, :default => "Doe"
+    end
+
+    person = Person.new
+    person.first_name #=> "John"
+    person.last_name #=> "Doe"
+
 #### QueryAttributes ####
 
 Including the QueryAttributes module into your class builds on Attributes by
-providing instance methods for querying your attributes
+providing instance methods for querying your attributes.
 
     class Person
       include ActiveAttr::QueryAttributes
@@ -68,15 +84,14 @@ the #attributes method if a known typecasting method exists. Common conversion
 methods are defined in Typecasting::TYPECASTING_METHODS. A class can define
 its own conversion instance methods in the form of #typecast_to_type.
 
-  class Person
-    include ActiveAttr::TypecastedAttributes
-    attribute :age, :type => Integer
-  end
+    class Person
+      include ActiveAttr::TypecastedAttributes
+      attribute :age, :type => Integer
+    end
 
-  person = Person.new
-  person.age = "29"
-  person.age #=> 29
-
+    person = Person.new
+    person.age = "29"
+    person.age #=> 29
 
 ### BasicModel ###
 
@@ -181,5 +196,5 @@ your models. The matchers also work with compatible frameworks like Shoulda.
     require "active_attr/rspec"
 
     describe Person do
-      it { should have_attribute(:first_name) }
+      it { should have_attribute(:first_name).with_default_value_of("John") }
     end

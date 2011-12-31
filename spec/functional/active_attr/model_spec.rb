@@ -41,7 +41,7 @@ module ActiveAttr
       end.read_attribute(:first_name).should == "Chris"
     end
 
-    it "processes mass assignment yielding an initialization block" do
+    it "processes mass assignment before yielding to an initialization block" do
       model_class.new(:first_name => "Chris") do |person|
         person.first_name.should == "Chris"
       end
@@ -82,6 +82,36 @@ module ActiveAttr
 
     it "supports attribute name translation" do
       model_class.human_attribute_name(:first_name).should == "First name"
+    end
+
+    context "attribute defaults" do
+      let :model_class do
+        Class.new do
+          include Model
+
+          attribute :start_date
+          attribute :end_date, :default => lambda { start_date }
+          attribute :age_limit, :default => 21
+        end
+      end
+
+      it "are applied" do
+        subject.age_limit.should == 21
+      end
+
+      it "are overridden by mass assigned attributes" do
+        model_class.new(:age_limit => 18).age_limit.should == 18
+      end
+
+      it "can access mass assigned attributes" do
+        model_class.new(:start_date => Date.today).end_date.should == Date.today
+      end
+
+      it "can access attributes assigned in the initialization block" do
+        model_class.new do |event|
+          event.start_date = Date.today
+        end.end_date.should == Date.today
+      end
     end
   end
 end

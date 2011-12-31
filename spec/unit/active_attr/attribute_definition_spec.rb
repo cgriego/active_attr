@@ -3,7 +3,7 @@ require "active_attr/attribute_definition"
 
 module ActiveAttr
   describe AttributeDefinition do
-    subject { described_class.new(:amount) }
+    subject { described_class.new(:amount, :default => "default") }
 
     describe "#<=>" do
       it "is nil if the right side is not an #{described_class}" do
@@ -42,6 +42,12 @@ module ActiveAttr
 
       it "returns false when types differ" do
         described_class.new(:amount).should_not == described_class.new(:amount, :type => String)
+      end
+    end
+
+    describe "#[]" do
+      it "reads an attribute option" do
+        subject[:default].should == "default"
       end
     end
 

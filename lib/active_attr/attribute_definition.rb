@@ -36,6 +36,18 @@ module ActiveAttr
       self.name.to_s <=> other.name.to_s
     end
 
+    # Read an attribute option
+    #
+    # @example
+    #   attribute_definition[:type]
+    #
+    # @param [Symbol] key The option key
+    #
+    # @since 0.5.0
+    def [](key)
+      @options[key]
+    end
+
     # Creates a new AttributeDefinition
     #
     # @example Create an attribute defintion
@@ -49,7 +61,17 @@ module ActiveAttr
     def initialize(name, options={})
       raise TypeError, "can't convert #{name.class} into Symbol" unless name.respond_to? :to_sym
       @name = name.to_sym
+      @options = options
       @type = extract_type(options)
+    end
+
+    # The attribute name and its type
+    #
+    # @return [String] the attribute name and type
+    #
+    # @since 0.2.0
+    def inspect
+      "#{name}: #{type}"
     end
 
     # The attribute name
@@ -59,15 +81,6 @@ module ActiveAttr
     # @since 0.2.0
     def to_s
       name.to_s
-    end
-
-    # The attribute name and conditionally its type
-    #
-    # @return [String] the attribute name and type
-    #
-    # @since 0.2.0
-    def inspect
-      "#{name}: #{type}"
     end
 
     # The attribute name

@@ -55,7 +55,7 @@ module ActiveAttr
     # @example Get attributes
     #   person.attributes # => {"name"=>"Ben Poweski"}
     #
-    # @return [Hash] The Hash of all attributes
+    # @return [Hash{String => Object}] The Hash of all attributes
     #
     # @since 0.2.0
     def attributes
@@ -176,6 +176,18 @@ module ActiveAttr
         end
       end
 
+      # Returns an Array of attribute names as Strings
+      #
+      # @example Get attribute names
+      #   Person.attribute_names
+      #
+      # @return [Array<String>] The attribute names
+      #
+      # @since 0.5.0
+      def attribute_names
+        attributes.keys
+      end
+
       # Returns a Hash of AttributeDefinition instances
       #
       # @example Get attribute definitions
@@ -187,18 +199,6 @@ module ActiveAttr
       # @since 0.2.0
       def attributes
         @attributes ||= ActiveSupport::HashWithIndifferentAccess.new
-      end
-
-      # Returns an Array of attribute names as Strings
-      #
-      # @example Get attribute names
-      #   Person.attribute_names
-      #
-      # @return [Array<String>] The attribute names
-      #
-      # @since 0.5.0
-      def attribute_names
-        attributes.keys
       end
 
       # Returns the class name plus its attribute definitions

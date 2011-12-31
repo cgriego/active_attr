@@ -22,13 +22,6 @@ module ActiveAttr
       @logger
     end
 
-    # Determine if a global default logger is configured
-    #
-    # @since 0.3.0
-    def self.logger?
-      !!logger
-    end
-
     # Configure the global default logger
     #
     # @param [Logger, #debug] logger The new global default logger
@@ -36,6 +29,13 @@ module ActiveAttr
     # @since 0.3.0
     def self.logger=(new_logger)
       @logger = new_logger
+    end
+
+    # Determine if a global default logger is configured
+    #
+    # @since 0.3.0
+    def self.logger?
+      !!logger
     end
 
     included do

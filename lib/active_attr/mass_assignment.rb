@@ -24,7 +24,8 @@ module ActiveAttr
     #   person.first_name #=> "Chris"
     #   person.last_name #=> "Griego"
     #
-    # @param [Hash, #each] attributes Attributes used to populate the model
+    # @param [Hash{#to_s => Object}, #each] attributes Attributes used to
+    #   populate the model
     #
     # @since 0.1.0
     def assign_attributes(new_attributes, options={})

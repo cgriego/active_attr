@@ -1,3 +1,4 @@
+require "active_attr/attribute_defaults"
 require "active_attr/basic_model"
 require "active_attr/block_initialization"
 require "active_attr/logger"
@@ -24,6 +25,7 @@ module ActiveAttr
     include BlockInitialization
     include Logger
     include MassAssignmentSecurity
+    include AttributeDefaults
     include QueryAttributes
 
     if defined? ActiveModel::Serializable
