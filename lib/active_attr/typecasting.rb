@@ -7,6 +7,12 @@ module ActiveAttr
   module Typecasting
     extend ActiveSupport::Concern
 
+    # A Hash with keys of types and values of their conversion method.
+    #
+    # @example converting to a Time
+    #   TYPECASTING_METHODS[Time] #-> :to_time
+    #
+    # @since 0.5.0
     TYPECASTING_METHODS = {
       Array    => :to_a,
       Date     => :to_date,
