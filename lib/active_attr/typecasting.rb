@@ -91,6 +91,7 @@ module ActiveAttr
       if method = TYPECASTING_METHODS[type]
         value.send(method) if value.respond_to?(method)
       end
+    rescue FloatDomainError
     end
   end
 end

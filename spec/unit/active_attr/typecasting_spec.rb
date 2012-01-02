@@ -121,6 +121,16 @@ module ActiveAttr
         it "calls #to_i" do
           should == 1
         end
+
+        context "from Float::INFINITY" do
+          let(:value) { Float::INFINITY }
+          it { should be_nil }
+        end
+
+        context "from Float::NAN" do
+          let(:value) { Float::NAN }
+          it { should be_nil }
+        end
       end
 
       context "when typecasting to Array" do
