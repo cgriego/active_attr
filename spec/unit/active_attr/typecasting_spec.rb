@@ -123,12 +123,12 @@ module ActiveAttr
         end
 
         context "from Float::INFINITY" do
-          let(:value) { Float::INFINITY }
+          let(:value) { 1.0 / 0.0 }
           it { should be_nil }
         end
 
         context "from Float::NAN" do
-          let(:value) { Float::NAN }
+          let(:value) { 0.0 / 0.0 }
           it { should be_nil }
         end
       end
