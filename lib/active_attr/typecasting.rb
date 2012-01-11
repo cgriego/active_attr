@@ -14,7 +14,6 @@ module ActiveAttr
     #
     # @since 0.5.0
     TYPECASTING_METHODS = {
-      Array    => :to_a,
       Date     => :to_date,
       DateTime => :to_datetime,
       Float    => :to_f,

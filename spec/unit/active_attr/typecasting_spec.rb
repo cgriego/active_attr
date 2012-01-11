@@ -133,15 +133,6 @@ module ActiveAttr
         end
       end
 
-      context "when typecasting to Array" do
-        let(:type) { Array }
-        let(:value) { mock(:to_a => []) }
-
-        it "calls #to_a" do
-          should == []
-        end
-      end
-
       context "when typecasting to Date" do
         let(:type) { Date }
         let(:value) { mock(:to_date => date) }
