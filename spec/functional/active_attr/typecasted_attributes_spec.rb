@@ -4,24 +4,6 @@ require "active_attr/mass_assignment"
 
 module ActiveAttr
   describe TypecastedAttributes do
-    let :money_class do
-      Class.new do
-        attr_accessor :amount
-
-        def self.name
-          "Money"
-        end
-
-        def initialize(amount)
-          @amount = amount
-        end
-
-        def typecast_to_string
-          sprintf("%.2f", amount)
-        end
-      end
-    end
-
     let :model_class do
       Class.new do
         include TypecastedAttributes
