@@ -73,14 +73,6 @@ module ActiveAttr
           subject.read_attribute(:amount).should == "1.0"
         end
       end
-
-      context "when a custom typecasting method is defined" do
-        subject { model_class.new(money_class.new(1.0)) }
-
-        it "prefers the #typecast_to_string method" do
-          subject.read_attribute(:amount).should == "1.00"
-        end
-      end
     end
   end
 end

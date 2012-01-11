@@ -38,20 +38,12 @@ module ActiveAttr
         expect { subject.typecast_attribute(nil, "foo") }.to raise_error(ArgumentError, "a Class must be given")
       end
 
-      context "when typecasting is required" do
-        it "prefers to call value#typecast_to_type" do
-          subject.stub(:custom_typecast_value).and_return("foo")
-          subject.typecast_attribute(type, mock("SomeValue")).should == "foo"
-        end
-      end
-
       context "when there is no way to typecast the value" do
         let(:value) { mock("SomeRandomValue") }
 
-        it "returns the value" do
-          subject.stub(:custom_typecast_value).and_return(nil)
+        it "returns nil" do
           subject.stub(:typecast_value).and_return(nil)
-          subject.typecast_attribute(type, value).should == value
+          subject.typecast_attribute(type, value).should be_nil
         end
       end
 
@@ -65,30 +57,9 @@ module ActiveAttr
         end
 
         it "does not call try to convert the value" do
-          model.should_not_receive(:custom_typecast_value)
           model.should_not_receive(:typecast_value)
           subject
         end
-      end
-    end
-
-    describe "#custom_typecast_value" do
-      let(:model) { model_class.new }
-      let(:type) { String }
-
-      subject { model.custom_typecast_value(type, value) }
-
-      context "when a custom typecasting method exists on the value" do
-        let(:value) { mock("CustomValue", :typecast_to_string => "custom") }
-
-        it "returns the result of the method" do
-          should == "custom"
-        end
-      end
-
-      context "when no custom typecasting method exists on the value" do
-        let(:value) { mock("CustomValue") }
-        it { should be_nil }
       end
     end
 
