@@ -50,7 +50,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def requires_typecasting?(type, value)
-      !value.kind_of?(type)
+      !value.nil? && !value.kind_of?(type)
     end
 
     # Typecasts a value according to a predefined set of mapping rules defined

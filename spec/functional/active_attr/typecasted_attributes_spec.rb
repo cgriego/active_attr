@@ -66,7 +66,15 @@ module ActiveAttr
     end
 
     describe "#read_attribute" do
-      context "when no typecasting is required" do
+      context "when assigning nil" do
+        subject { model_class.new(nil) }
+
+        it "returns nil" do
+          subject.read_attribute(:amount).should be_nil
+        end
+      end
+
+      context "when the assigned value is the requested type" do
         subject { model_class.new("1.0") }
 
         it "returns the value" do

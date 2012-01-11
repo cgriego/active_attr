@@ -29,6 +29,11 @@ module ActiveAttr
         subject { model_class.new.requires_typecasting?(type, 1.0) }
         it { should be_true }
       end
+
+      context "when the value is nil" do
+        subject { model_class.new.requires_typecasting?(type, nil) }
+        it { should be_false }
+      end
     end
 
     describe "#typecast_attribute" do
