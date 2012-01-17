@@ -1,3 +1,6 @@
+require "active_attr/typecasting/float_typecaster"
+require "active_attr/typecasting/integer_typecaster"
+require "active_attr/typecasting/string_typecaster"
 require "active_support/concern"
 
 module ActiveAttr
@@ -7,19 +10,11 @@ module ActiveAttr
   module Typecasting
     extend ActiveSupport::Concern
 
-    # A Hash with keys of types and values of their conversion method.
-    #
-    # @example converting to a Time
-    #   TYPECASTING_METHODS[Time] #-> :to_time
-    #
-    # @since 0.5.0
-    TYPECASTING_METHODS = {
-      Date     => :to_date,
-      DateTime => :to_datetime,
-      Float    => :to_f,
-      Integer  => :to_i,
-      String   => :to_s,
-      Time     => :to_time,
+    # @private
+    TYPECASTERS = {
+      Float    => FloatTypecaster,
+      Integer  => IntegerTypecaster,
+      String   => StringTypecaster,
     }
 
     # Typecasts a value using a Class
@@ -64,10 +59,9 @@ module ActiveAttr
     #
     # @since 0.5.0
     def typecast_value(type, value)
-      if method = TYPECASTING_METHODS[type]
-        value.send(method) if value.respond_to?(method)
+      if typecaster = TYPECASTERS[type]
+        typecaster.new.call(value)
       end
-    rescue FloatDomainError
     end
   end
 end

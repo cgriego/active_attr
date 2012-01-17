@@ -71,72 +71,21 @@ module ActiveAttr
     describe "#typecast_value" do
       let(:model) { model_class.new }
       subject { model.typecast_value(type, value) }
+      let(:value) { mock }
 
-      context "when typecasting to String" do
-        let(:type) { String }
-        let(:value) { mock(:to_s => "Ben") }
-
-        it "calls #to_s" do
-          should == "Ben"
-        end
+      it "calls StringTypecaster when typecasting to String" do
+        Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(String, value)
       end
 
-      context "when typecasting to Float" do
-        let(:type) { Float }
-        let(:value) { mock(:to_f => 1.0) }
-
-        it "calls #to_f" do
-          should == 1.0
-        end
+      it "calls FloatTypecaster when typecasting to Float" do
+        Typecasting::FloatTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(Float, value)
       end
 
-      context "when typecasting to Integer" do
-        let(:type) { Integer }
-        let(:value) { mock(:to_i => 1) }
-
-        it "calls #to_i" do
-          should == 1
-        end
-
-        context "from Float::INFINITY" do
-          let(:value) { 1.0 / 0.0 }
-          it { should be_nil }
-        end
-
-        context "from Float::NAN" do
-          let(:value) { 0.0 / 0.0 }
-          it { should be_nil }
-        end
-      end
-
-      context "when typecasting to Date" do
-        let(:type) { Date }
-        let(:value) { mock(:to_date => date) }
-        let(:date) { Date.parse("2012-01-01") }
-
-        it "calls #to_date" do
-          should == date
-        end
-      end
-
-      context "when typecasting to DateTime" do
-        let(:type) { DateTime }
-        let(:value) { mock(:to_datetime => datetime) }
-        let(:datetime) { DateTime.new }
-
-        it "calls #to_datetime" do
-          should == datetime
-        end
-      end
-
-      context "when typecasting to Time" do
-        let(:type) { Time }
-        let(:value) { mock(:to_time => time) }
-        let(:time) { Time.now }
-
-        it "calls #to_time" do
-          should == time
-        end
+      it "calls IntegerTypecaster when typecasting to Integer" do
+        Typecasting::IntegerTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(Integer, value)
       end
     end
   end
