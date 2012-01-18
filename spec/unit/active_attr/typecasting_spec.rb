@@ -87,6 +87,11 @@ module ActiveAttr
         Typecasting::IntegerTypecaster.any_instance.should_receive(:call).with(value)
         model.typecast_value(Integer, value)
       end
+
+      it "calls DateTypecaster when typecasting to Date" do
+        Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(Date, value)
+      end
     end
   end
 end

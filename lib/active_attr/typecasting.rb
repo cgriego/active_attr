@@ -1,3 +1,4 @@
+require "active_attr/typecasting/date_typecaster"
 require "active_attr/typecasting/float_typecaster"
 require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/string_typecaster"
@@ -12,9 +13,10 @@ module ActiveAttr
 
     # @private
     TYPECASTERS = {
-      Float    => FloatTypecaster,
-      Integer  => IntegerTypecaster,
-      String   => StringTypecaster,
+      Date    => DateTypecaster,
+      Float   => FloatTypecaster,
+      Integer => IntegerTypecaster,
+      String  => StringTypecaster,
     }
 
     # Typecasts a value using a Class
