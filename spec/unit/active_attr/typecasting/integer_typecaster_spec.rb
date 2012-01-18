@@ -11,7 +11,7 @@ module ActiveAttr
         end
 
         it "returns the integer version of a String" do
-          subject.call("2").should == 2
+          subject.call("2").should eql 2
         end
 
         it "returns nil for an object that does not respond to #to_i" do

@@ -73,9 +73,14 @@ module ActiveAttr
       subject { model.typecast_value(type, value) }
       let(:value) { mock }
 
-      it "calls StringTypecaster when typecasting to String" do
-        Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(String, value)
+      it "calls DateTypecaster when typecasting to Date" do
+        Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(Date, value)
+      end
+
+      it "calls DateTypecaster when typecasting to Date" do
+        Typecasting::DateTimeTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(DateTime, value)
       end
 
       it "calls FloatTypecaster when typecasting to Float" do
@@ -88,9 +93,9 @@ module ActiveAttr
         model.typecast_value(Integer, value)
       end
 
-      it "calls DateTypecaster when typecasting to Date" do
-        Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(Date, value)
+      it "calls StringTypecaster when typecasting to String" do
+        Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(String, value)
       end
     end
   end

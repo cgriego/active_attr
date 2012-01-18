@@ -12,7 +12,7 @@ module ActiveAttr
         end
 
         it "returns the string version of a Symbol" do
-          subject.call(:value).should == "value"
+          subject.call(:value).should eql "value"
         end
       end
     end

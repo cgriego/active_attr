@@ -11,7 +11,7 @@ module ActiveAttr
         end
 
         it "returns the float version of a String" do
-          subject.call("2").should == 2.0
+          subject.call("2").should eql 2.0
         end
 
         it "returns nil for an object that does not respond to #to_f" do
