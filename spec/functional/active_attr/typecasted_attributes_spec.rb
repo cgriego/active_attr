@@ -4,64 +4,60 @@ require "active_attr/mass_assignment"
 
 module ActiveAttr
   describe TypecastedAttributes do
+    subject { model_class.new }
+
     let :model_class do
       Class.new do
         include TypecastedAttributes
 
-        attribute :amount, :type => String
-        attribute :first_name
-        attribute :last_name
-
-        def initialize(amount)
-          super
-          self.amount = amount
-        end
-
-        def self.name
-          "Foo"
-        end
+        attribute :date,    :type => Date
+        attribute :float,   :type => Float
+        attribute :integer, :type => Integer
+        attribute :string,  :type => String
       end
     end
 
-    let :attributeless do
-      Class.new do
-        include TypecastedAttributes
+    context "when assigning nil" do
+      it "a Date attribute returns nil" do
+        subject.date = nil
+        subject.date.should be_nil
+      end
 
-        def self.name
-          "Foo"
-        end
+      it "a Float attribute returns nil" do
+        subject.float = nil
+        subject.float.should be_nil
+      end
+
+      it "an Integer attribute returns nil" do
+        subject.integer = nil
+        subject.integer.should be_nil
+      end
+
+      it "a String attribute returns nil" do
+        subject.string = nil
+        subject.string.should be_nil
       end
     end
 
-    describe ".inspect" do
-      it "renders the class name" do
-        model_class.inspect.should match /^Foo\(.*\)$/
+    context "when assigning a valid String" do
+      it "a Date attribute returns a Date" do
+        subject.date = "2012-01-01"
+        subject.date.should == Date.new(2012, 1, 1)
       end
 
-      it "renders the attribute names and types in alphabetical order" do
-        model_class.inspect.should match "(amount: String, first_name: Object, last_name: Object)"
+      it "a Float attribute returns a Float" do
+        subject.float = "1.1"
+        subject.float.should == 1.1
       end
 
-      it "doesn't format the inspection string for attributes if the model does not have any" do
-        attributeless.inspect.should == "Foo"
-      end
-    end
-
-    describe "#read_attribute" do
-      context "when assigning nil" do
-        subject { model_class.new(nil) }
-
-        it "returns nil" do
-          subject.read_attribute(:amount).should be_nil
-        end
+      it "an Integer attribute returns an Integer" do
+        subject.integer = "1"
+        subject.integer.should == 1
       end
 
-      context "when the assigned value is the requested type" do
-        subject { model_class.new("1.0") }
-
-        it "returns the value" do
-          subject.read_attribute(:amount).should == "1.0"
-        end
+      it "a String attribute returns the String" do
+        subject.string = "1.0"
+        subject.string.should == "1.0"
       end
     end
   end
