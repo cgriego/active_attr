@@ -79,7 +79,7 @@ providing instance methods for querying your attributes.
 
 #### TypecastedAttributes ####
 
-TODO
+TODO documentation
 
     class Person
       include ActiveAttr::TypecastedAttributes
