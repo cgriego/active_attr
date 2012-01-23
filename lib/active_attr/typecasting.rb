@@ -1,7 +1,8 @@
-require "active_attr/typecasting/date_typecaster"
 require "active_attr/typecasting/date_time_typecaster"
+require "active_attr/typecasting/date_typecaster"
 require "active_attr/typecasting/float_typecaster"
 require "active_attr/typecasting/integer_typecaster"
+require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
 require "active_support/concern"
 
@@ -18,6 +19,7 @@ module ActiveAttr
       DateTime => DateTimeTypecaster,
       Float    => FloatTypecaster,
       Integer  => IntegerTypecaster,
+      Object   => ObjectTypecaster,
       String   => StringTypecaster,
     }
 
@@ -32,24 +34,8 @@ module ActiveAttr
     # @since 0.5.0
     def typecast_attribute(type, value)
       raise ArgumentError, "a Class must be given" unless type
-      return value unless requires_typecasting?(type, value)
+      return value if value.nil?
       typecast_value(type, value)
-    end
-
-    # Determine if a value requires typecasting
-    #
-    # @example
-    #   person = Person.new
-    #   person.requires_typecasting?(Float, "1.0") #=> true
-    #
-    # @param [Class] The type
-    # @param [Object] The value
-    #
-    # @return [true, false]
-    #
-    # @since 0.5.0
-    def requires_typecasting?(type, value)
-      !value.nil? && !value.kind_of?(type)
     end
 
     # Typecasts a value according to a predefined set of mapping rules defined

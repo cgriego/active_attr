@@ -10,6 +10,8 @@ module ActiveAttr
       Class.new do
         include TypecastedAttributes
 
+        attribute :typeless
+        attribute :object,    :type => Object
         attribute :date,      :type => Date
         attribute :date_time, :type => DateTime
         attribute :float,     :type => Float
@@ -19,6 +21,16 @@ module ActiveAttr
     end
 
     context "when assigning nil" do
+      it "a typeless attribute returns nil" do
+        subject.typeless = nil
+        subject.typeless.should be_nil
+      end
+
+      it "an Object attribute returns nil" do
+        subject.object = nil
+        subject.object.should be_nil
+      end
+
       it "a Date attribute returns nil" do
         subject.date = nil
         subject.date.should be_nil
@@ -46,6 +58,18 @@ module ActiveAttr
     end
 
     context "when assigning a valid String" do
+      it "a typeless attribute returns the original String" do
+        value = "test"
+        subject.typeless = value
+        subject.typeless.should equal value
+      end
+
+      it "an Object attribute returns the original String" do
+        value = "test"
+        subject.object = value
+        subject.object.should equal value
+      end
+
       it "a Date attribute returns a Date" do
         subject.date = "2012-01-01"
         subject.date.should eql Date.new(2012, 1, 1)

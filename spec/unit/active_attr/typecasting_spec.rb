@@ -11,31 +11,6 @@ module ActiveAttr
       end
     end
 
-    describe "#requires_typecasting?" do
-      let(:type) { String }
-      let(:subclass) { Class.new(String) }
-
-      context "when the value is a subclass of the type" do
-        subject { model_class.new.requires_typecasting?(type, subclass.new("1.0")) }
-        it { should be_false }
-      end
-
-      context "when the value is of the same type" do
-        subject { model_class.new.requires_typecasting?(type, "1.0") }
-        it { should be_false }
-      end
-
-      context "when the value is not of the same type" do
-        subject { model_class.new.requires_typecasting?(type, 1.0) }
-        it { should be_true }
-      end
-
-      context "when the value is nil" do
-        subject { model_class.new.requires_typecasting?(type, nil) }
-        it { should be_false }
-      end
-    end
-
     describe "#typecast_attribute" do
       let(:type) { String }
 
@@ -52,8 +27,8 @@ module ActiveAttr
         end
       end
 
-      context "when typecasting is not required" do
-        let(:name) { "Ben" }
+      context "when the value is nil" do
+        let(:name) { nil }
         let(:model) { model_class.new }
         subject { model.typecast_attribute(type, name) }
 
@@ -96,6 +71,11 @@ module ActiveAttr
       it "calls StringTypecaster when typecasting to String" do
         Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
         model.typecast_value(String, value)
+      end
+
+      it "calls ObjectTypecaster when typecasting to Object" do
+        Typecasting::ObjectTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(Object, value)
       end
     end
   end
