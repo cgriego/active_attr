@@ -1,8 +1,5 @@
-require "date"
-require "active_support/core_ext/date/conversions"
-require "active_support/core_ext/date_time/conversions"
 require "active_support/core_ext/string/conversions"
-require "active_support/core_ext/time/publicize_conversion_methods"
+require "active_support/time"
 
 module ActiveAttr
   module Typecasting
