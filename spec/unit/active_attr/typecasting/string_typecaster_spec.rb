@@ -11,6 +11,10 @@ module ActiveAttr
           subject.call(value).should equal value
         end
 
+        it "casts nil to an empty String" do
+          subject.call(nil).should eql ""
+        end
+
         it "returns the string version of a Symbol" do
           subject.call(:value).should eql "value"
         end

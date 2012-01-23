@@ -10,6 +10,10 @@ module ActiveAttr
           subject.call(value).should equal value
         end
 
+        it "returns nil for nil" do
+          subject.call(nil).should equal nil
+        end
+
         it "casts a Date to a DateTime at the beginning of the day with no offset" do
           result = subject.call(Date.new(2012, 1, 1))
           result.should eql DateTime.new(2012, 1, 1)

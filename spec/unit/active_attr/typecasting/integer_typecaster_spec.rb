@@ -10,6 +10,10 @@ module ActiveAttr
           subject.call(value).should equal value
         end
 
+        it "casts nil to 0" do
+          subject.call(nil).should eql 0
+        end
+
         it "returns the integer version of a String" do
           subject.call("2").should eql 2
         end
