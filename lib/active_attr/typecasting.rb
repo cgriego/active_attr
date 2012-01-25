@@ -1,3 +1,5 @@
+require "active_attr/typecasting/boolean"
+require "active_attr/typecasting/boolean_typecaster"
 require "active_attr/typecasting/date_time_typecaster"
 require "active_attr/typecasting/date_typecaster"
 require "active_attr/typecasting/float_typecaster"
@@ -15,6 +17,7 @@ module ActiveAttr
 
     # @private
     TYPECASTERS = {
+      Boolean  => BooleanTypecaster,
       Date     => DateTypecaster,
       DateTime => DateTimeTypecaster,
       Float    => FloatTypecaster,

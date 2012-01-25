@@ -48,6 +48,11 @@ module ActiveAttr
       subject { model.typecast_value(type, value) }
       let(:value) { mock }
 
+      it "calls BooleanTypecaster when typecasting to Boolean" do
+        Typecasting::BooleanTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(Typecasting::Boolean, value)
+      end
+
       it "calls DateTypecaster when typecasting to Date" do
         Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
         model.typecast_value(Date, value)

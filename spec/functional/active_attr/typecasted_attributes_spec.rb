@@ -12,6 +12,7 @@ module ActiveAttr
 
         attribute :typeless
         attribute :object,    :type => Object
+        attribute :boolean,   :type => Typecasting::Boolean
         attribute :date,      :type => Date
         attribute :date_time, :type => DateTime
         attribute :float,     :type => Float
@@ -29,6 +30,11 @@ module ActiveAttr
       it "an Object attribute returns nil" do
         subject.object = nil
         subject.object.should be_nil
+      end
+
+      it "a Boolean attribute returns nil" do
+        subject.boolean = nil
+        subject.boolean.should be_nil
       end
 
       it "a Date attribute returns nil" do
@@ -68,6 +74,11 @@ module ActiveAttr
         value = "test"
         subject.object = value
         subject.object.should equal value
+      end
+
+      it "a Boolean attribute returns a Boolean" do
+        subject.boolean = "false"
+        subject.boolean.should eql false
       end
 
       it "a Date attribute returns a Date" do

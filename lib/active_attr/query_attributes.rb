@@ -1,4 +1,5 @@
 require "active_attr/attributes"
+require "active_attr/typecasting/boolean_typecaster"
 require "active_attr/unknown_attribute_error"
 require "active_support/concern"
 require "active_support/core_ext/object/blank"
@@ -52,11 +53,7 @@ module ActiveAttr
     private
 
     def attribute?(name)
-      case value = read_attribute(name)
-      when "false", "FALSE", "f", "F" then false
-      when Numeric, /^\-?[0-9]/ then !value.to_f.zero?
-      else value.present?
-      end
+      Typecasting::BooleanTypecaster.new.call(read_attribute(name))
     end
   end
 end

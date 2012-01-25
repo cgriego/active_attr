@@ -20,6 +20,8 @@ module ActiveAttr
   autoload :MassAssignmentSecurity
   autoload :Model
   autoload :QueryAttributes
+  autoload :TypecastedAttributes
+  autoload :Typecasting
   autoload :UnknownAttributeError
   autoload :VERSION
 end
