@@ -3,6 +3,8 @@ require "active_attr/typecasted_attributes"
 
 module ActiveAttr
   describe TypecastedAttributes do
+    subject { model_class.new }
+
     let :model_class do
       Class.new do
         include TypecastedAttributes
@@ -11,9 +13,8 @@ module ActiveAttr
         attribute :first_name
         attribute :last_name
 
-        def initialize(amount)
+        def last_name_before_type_cast
           super
-          self.amount = amount
         end
 
         def self.name
@@ -32,6 +33,18 @@ module ActiveAttr
       end
     end
 
+    describe ".attribute" do
+      it "defines an attribute pre-typecasting reader that calls #attribute_before_type_cast" do
+        subject.should_receive(:attribute_before_type_cast).with("first_name")
+        subject.first_name_before_type_cast
+      end
+
+      it "defines an attribute reader that can be called via super" do
+        subject.should_receive(:attribute_before_type_cast).with("last_name")
+        subject.last_name_before_type_cast
+      end
+    end
+
     describe ".inspect" do
       it "renders the class name" do
         model_class.inspect.should match /^Foo\(.*\)$/
@@ -43,6 +56,20 @@ module ActiveAttr
 
       it "doesn't format the inspection string for attributes if the model does not have any" do
         attributeless.inspect.should == "Foo"
+      end
+    end
+
+    describe "#attribute_before_type_cast" do
+      it "returns the assigned attribute value, without typecasting, when given an attribute name as a Symbol" do
+        value = :value
+        subject.amount = value
+        subject.attribute_before_type_cast(:amount).should equal value
+      end
+
+      it "returns the assigned attribute value, without typecasting, when given an attribute name as a String" do
+        value = :value
+        subject.amount = value
+        subject.attribute_before_type_cast('amount').should equal value
       end
     end
   end

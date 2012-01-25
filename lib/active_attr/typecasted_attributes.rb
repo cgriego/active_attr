@@ -24,6 +24,15 @@ module ActiveAttr
     include Attributes
     include Typecasting
 
+    included do
+      attribute_method_suffix "_before_type_cast"
+    end
+
+    # TODO Documentation
+    def attribute_before_type_cast(name)
+      @attributes[name.to_s]
+    end
+
     private
 
     # Reads the attribute and typecasts the result

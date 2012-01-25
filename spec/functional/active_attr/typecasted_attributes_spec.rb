@@ -86,6 +86,12 @@ module ActiveAttr
         subject.date.should eql Date.new(2012, 1, 1)
       end
 
+      it "a Date attribute before typecasting returns the original String" do
+        value = "2012-01-01"
+        subject.date = value
+        subject.date_before_type_cast.should equal value
+      end
+
       it "a DateTime attribute returns a DateTime" do
         subject.date_time = "2012-01-01"
         subject.date_time.should eql DateTime.new(2012, 1, 1)
