@@ -17,7 +17,7 @@ shared_examples "mass assignment class", :mass_assignment => true do
   let(:last_name) { "Griego" }
 
   def should_assign_names_to(person)
-    person.first_name.should == first_name
+    person.first_name.should eq first_name
     person.last_name.should == last_name
   end
 end

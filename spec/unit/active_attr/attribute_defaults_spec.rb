@@ -7,6 +7,7 @@ module ActiveAttr
 
     let :model_class do
       Class.new do
+        include InitializationVerifier
         include AttributeDefaults
         attribute :first_name, :default => "John"
         attribute :age, :default => nil
@@ -30,6 +31,12 @@ module ActiveAttr
 
       it "includes declared dynamic attribute defaults" do
         subject['created_at'].should be_a_kind_of Time
+      end
+    end
+
+    describe "#initialize" do
+      it "invokes the superclass initializer" do
+        should be_initialized
       end
     end
   end

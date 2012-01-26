@@ -19,7 +19,7 @@ module ActiveAttr
     #
     # @since 0.3.0
     def self.logger
-      @logger
+      @logger ||= nil
     end
 
     # Configure the global default logger

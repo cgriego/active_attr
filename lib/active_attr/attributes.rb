@@ -1,5 +1,4 @@
 require "active_attr/attribute_definition"
-require "active_attr/chainable_initialization"
 require "active_attr/dangerous_attribute_error"
 require "active_attr/unknown_attribute_error"
 require "active_model"
@@ -22,7 +21,6 @@ module ActiveAttr
   # @since 0.2.0
   module Attributes
     extend ActiveSupport::Concern
-    include ActiveAttr::ChainableInitialization
     include ActiveModel::AttributeMethods
 
     # Methods deprecated on the Object class which can be safely overridden
@@ -60,12 +58,6 @@ module ActiveAttr
     # @since 0.2.0
     def attributes
       Hash[self.class.attribute_names.map { |key| [key, send(key)] }]
-    end
-
-    # @since 0.2.1
-    def initialize(*)
-      @attributes ||= {}
-      super
     end
 
     # Returns the class name plus its attributes
@@ -142,6 +134,7 @@ module ActiveAttr
     #
     # @since 0.2.1
     def attribute(name)
+      @attributes ||= {}
       @attributes[name]
     end
 
@@ -149,6 +142,7 @@ module ActiveAttr
     #
     # @since 0.2.1
     def attribute=(name, value)
+      @attributes ||= {}
       @attributes[name] = value
     end
 

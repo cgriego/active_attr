@@ -159,7 +159,7 @@ module ActiveAttr
       end
 
       it "sets the attributes" do
-        subject.first_name.should == "Chris"
+        subject.first_name.should eq "Chris"
         subject.last_name.should == "Griego"
       end
     end

@@ -22,6 +22,9 @@ module ActiveAttr
     #
     # @since 0.2.0
     class HaveAttributeMatcher
+      attr_reader :attribute_name, :default_value
+      private :attribute_name, :default_value
+
       # Specify that the attribute should have the given default value
       #
       # @example Person's first name should default to John
@@ -75,8 +78,6 @@ module ActiveAttr
       end
 
       private
-
-      attr_reader :attribute_name, :default_value
 
       def class_from(object)
         Class === object ? object : object.class

@@ -1,4 +1,5 @@
 require "active_attr/attributes"
+require "active_attr/chainable_initialization"
 require "active_support/concern"
 require "active_support/core_ext/object/duplicable"
 
@@ -39,6 +40,7 @@ module ActiveAttr
   # @since 0.5.0
   module AttributeDefaults
     extend ActiveSupport::Concern
+    include ActiveAttr::ChainableInitialization
     include Attributes
 
     # Applies the attribute defaults
@@ -68,6 +70,7 @@ module ActiveAttr
     def apply_defaults(defaults=attribute_defaults)
       defaults.each do |name, value|
         # instance variable is used here to avoid any dirty tracking in attribute setter methods
+        @attributes ||= {}
         @attributes[name] = value unless @attributes.has_key? name
       end
     end

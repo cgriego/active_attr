@@ -47,7 +47,7 @@ module ActiveAttr
 
     describe ".inspect" do
       it "renders the class name" do
-        model_class.inspect.should match /^Foo\(.*\)$/
+        model_class.inspect.should match(/^Foo\(.*\)$/)
       end
 
       it "renders the attribute names and types in alphabetical order, using Object for undeclared types" do

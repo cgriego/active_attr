@@ -25,7 +25,7 @@ module ActiveAttr
 
     it "reads and writes attributes" do
       subject.first_name = "Chris"
-      subject.first_name.should == "Chris"
+      subject.first_name.should eq "Chris"
       subject.attributes["first_name"].should == "Chris"
     end
 
@@ -55,14 +55,14 @@ module ActiveAttr
       model_class.logger = logger
 
       model_class.logger?.should be_true
-      model_class.logger.should == logger
+      model_class.logger.should eq logger
       subject.logger?.should be_true
       subject.logger.should == logger
     end
 
     it "supports mass assignment with security" do
       person = model_class.new(:first_name => "Chris", :last_name => "Griego")
-      person.first_name.should == "Chris"
+      person.first_name.should eq "Chris"
       person.last_name.should be_nil
     end
 

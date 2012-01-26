@@ -53,7 +53,7 @@ module ActiveAttr
       end
 
       it "calls the predicate method if defined" do
-        subject.query_attribute(:true).should == true
+        subject.query_attribute(:true).should eq true
         subject.query_attribute(:false).should == false
       end
 

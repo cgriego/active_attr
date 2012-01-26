@@ -8,7 +8,6 @@ module ActiveAttr
 
     let :model_class do
       Class.new do
-        include InitializationVerifier
         include Attributes
         attribute :first_name
         attribute :last_name
@@ -35,7 +34,7 @@ module ActiveAttr
         end
 
         def initialize(first_name=nil)
-          super
+          super()
           write_attribute(:first_name, first_name)
         end
       end
@@ -118,7 +117,7 @@ module ActiveAttr
 
     describe ".inspect" do
       it "renders the class name" do
-        model_class.inspect.should match /^Foo\(.*\)$/
+        model_class.inspect.should match(/^Foo\(.*\)$/)
       end
 
       it "renders the attribute names in alphabetical order" do
@@ -169,12 +168,6 @@ module ActiveAttr
         it "uses the overridden implementation" do
           subject.attributes.should include("last_name" => last_name)
         end
-      end
-    end
-
-    describe "#initialize" do
-      it "invokes the superclass initializer" do
-        should be_initialized
       end
     end
 

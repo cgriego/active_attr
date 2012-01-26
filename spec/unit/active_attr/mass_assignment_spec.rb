@@ -14,6 +14,7 @@ module ActiveAttr
 
       it "ignores attributes which do not have a writer" do
         person = mass_assign_attributes(:middle_initial => "J")
+        person.instance_eval { @middle_initial ||= nil }
         person.instance_variable_get("@middle_initial").should be_nil
         person.should_not respond_to :middle_initial
       end
