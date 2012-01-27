@@ -2,13 +2,6 @@ source "http://rubygems.org"
 
 gemspec :development_group => :test
 
-# temporary workaround since 3.2.0 is incompatible with default rubygems for REE
-# https://github.com/rails/rails/issues/4559
-git "git://github.com/rails/rails.git", :branch => "3-2-stable" do
-  gem "activemodel"
-  gem "activesupport"
-end
-
 group :development do
   gem "growl"
   gem "guard"
