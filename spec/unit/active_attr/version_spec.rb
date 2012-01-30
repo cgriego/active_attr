@@ -11,7 +11,8 @@ module ActiveAttr
       let(:gem_version) { Gem::Version.new VERSION }
       subject { gem_version }
 
-      it { subject.should have(3).segments }
+      it { subject.should have_at_least(3).segments }
+      it { subject.should have_at_most(5).segments }
 
       describe "major version" do
         subject { gem_version.segments[0] }
@@ -28,7 +29,15 @@ module ActiveAttr
       describe "patch version" do
         subject { gem_version.segments[2] }
 
-        it { subject.to_s.should =~ /\d+([A-Za-z][0-9A-Za-z-]*)?/ }
+        it { should be_a_kind_of Fixnum }
+      end
+
+      describe "pre-release version" do
+        subject { VERSION.split(".")[3] }
+
+        it "is nil or starts with a letter and is alphanumeric" do
+          (subject.nil? || subject =~ /^[A-Za-z][0-9A-Za-z]*?/).should be_true
+        end
       end
     end
   end
