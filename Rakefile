@@ -10,7 +10,6 @@ namespace :spec do
   desc "Run RSpec specs with code coverate analysis"
   RSpec::Core::RakeTask.new(:cov) do |spec|
     spec.rspec_opts = "--format nested --format SpecCoverage"
-    spec.ruby_opts = "-w"
   end
 
   desc "Run RSpec unit specs"
