@@ -1,5 +1,5 @@
 require "active_attr/attributes"
-require "active_attr/typecasting/boolean_typecaster"
+require "active_attr/typecasting"
 require "active_attr/unknown_attribute_error"
 require "active_support/concern"
 require "active_support/core_ext/object/blank"
