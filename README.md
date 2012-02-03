@@ -166,7 +166,7 @@ MassAssignment methods to honor any declared mass assignment permission
 blacklists or whitelists including support for mass assignment roles.
 
     class Person
-      include ActiveAttr::MassAssignment
+      include ActiveAttr::MassAssignmentSecurity
       attr_accessor :first_name, :last_name
       attr_protected :last_name
     end
