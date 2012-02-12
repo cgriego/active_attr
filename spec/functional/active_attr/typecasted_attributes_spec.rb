@@ -1,6 +1,5 @@
 require "spec_helper"
 require "active_attr/typecasted_attributes"
-require "active_attr/mass_assignment"
 
 module ActiveAttr
   describe TypecastedAttributes do
@@ -11,13 +10,14 @@ module ActiveAttr
         include TypecastedAttributes
 
         attribute :typeless
-        attribute :object,    :type => Object
-        attribute :boolean,   :type => Typecasting::Boolean
-        attribute :date,      :type => Date
-        attribute :date_time, :type => DateTime
-        attribute :float,     :type => Float
-        attribute :integer,   :type => Integer
-        attribute :string,    :type => String
+        attribute :object,      :type => Object
+        attribute :big_decimal, :type => BigDecimal
+        attribute :boolean,     :type => Typecasting::Boolean
+        attribute :date,        :type => Date
+        attribute :date_time,   :type => DateTime
+        attribute :float,       :type => Float
+        attribute :integer,     :type => Integer
+        attribute :string,      :type => String
       end
     end
 
@@ -30,6 +30,11 @@ module ActiveAttr
       it "an Object attribute returns nil" do
         subject.object = nil
         subject.object.should be_nil
+      end
+
+      it "a BigDecimal attribute returns nil" do
+        subject.big_decimal = nil
+        subject.big_decimal.should be_nil
       end
 
       it "a Boolean attribute returns nil" do
@@ -74,6 +79,11 @@ module ActiveAttr
         value = "test"
         subject.object = value
         subject.object.should equal value
+      end
+
+      it "a BigDecimal attribute returns a BigDecimal" do
+        subject.big_decimal = "1.1"
+        subject.big_decimal.should eql BigDecimal.new("1.1")
       end
 
       it "a Boolean attribute returns a Boolean" do

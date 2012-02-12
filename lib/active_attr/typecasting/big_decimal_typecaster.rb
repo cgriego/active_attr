@@ -1,5 +1,6 @@
 require "bigdecimal"
 require "bigdecimal/util"
+require "active_support/core_ext/big_decimal/conversions"
 
 module ActiveAttr
   module Typecasting
@@ -7,11 +8,10 @@ module ActiveAttr
     class BigDecimalTypecaster
       # TODO documentation
       def call(value)
-        case value
-        when BigDecimal then value
-        when Rational   then value.to_d
+        if value.respond_to? :to_d
+          value.to_d
         else
-          BigDecimal.new(value.to_s)
+          BigDecimal.new value.to_s
         end
       end
     end

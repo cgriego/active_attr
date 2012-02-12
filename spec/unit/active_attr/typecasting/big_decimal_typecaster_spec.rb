@@ -10,21 +10,28 @@ module ActiveAttr
           subject.call(value).should equal value
         end
 
-        it "casts nil to 0.0" do
+        it "casts nil to a zero BigDecimal" do
           subject.call(nil).should eql BigDecimal.new("0.0")
         end
 
-        it "returns the BigDecimal version of a String" do
+        it "casts a numeric String to a BigDecimal" do
           subject.call("2").should eql BigDecimal.new("2.0")
         end
 
-        it "returns 0.0 for non decimals" do
+        it "casts a alpha String to a zero BigDecimal" do
           subject.call("bob").should eql BigDecimal.new("0.0")
         end
 
-        it "returns #to_d for Rationals" do
-          value = Rational(1, 2)
-          subject.call(value).should eql BigDecimal.new("0.5")
+        it "casts a Rational to a BigDecimal" do
+          subject.call(Rational(1, 2)).should eql BigDecimal.new("0.5")
+        end
+
+        it "casts a Float to a BigDecimal" do
+          subject.call(1.2).should eql BigDecimal.new("1.2")
+        end
+
+        it "cases an Integer to a BigDecimal" do
+          subject.call(2).should eql BigDecimal.new("2.0")
         end
       end
     end

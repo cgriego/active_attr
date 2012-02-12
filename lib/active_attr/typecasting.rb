@@ -1,3 +1,4 @@
+require "active_attr/typecasting/big_decimal_typecaster"
 require "active_attr/typecasting/boolean"
 require "active_attr/typecasting/boolean_typecaster"
 require "active_attr/typecasting/date_time_typecaster"
@@ -17,13 +18,14 @@ module ActiveAttr
 
     # @private
     TYPECASTERS = {
-      Boolean  => BooleanTypecaster,
-      Date     => DateTypecaster,
-      DateTime => DateTimeTypecaster,
-      Float    => FloatTypecaster,
-      Integer  => IntegerTypecaster,
-      Object   => ObjectTypecaster,
-      String   => StringTypecaster,
+      BigDecimal => BigDecimalTypecaster,
+      Boolean    => BooleanTypecaster,
+      Date       => DateTypecaster,
+      DateTime   => DateTimeTypecaster,
+      Float      => FloatTypecaster,
+      Integer    => IntegerTypecaster,
+      Object     => ObjectTypecaster,
+      String     => StringTypecaster,
     }
 
     # Typecasts a value using a Class

@@ -48,6 +48,11 @@ module ActiveAttr
       subject { model.typecast_value(type, value) }
       let(:value) { mock }
 
+      it "calls BigDecimalTypecaster when typecasting to BigDecimal" do
+        Typecasting::BigDecimalTypecaster.any_instance.should_receive(:call).with(value)
+        model.typecast_value(BigDecimal, value)
+      end
+
       it "calls BooleanTypecaster when typecasting to Boolean" do
         Typecasting::BooleanTypecaster.any_instance.should_receive(:call).with(value)
         model.typecast_value(Typecasting::Boolean, value)
