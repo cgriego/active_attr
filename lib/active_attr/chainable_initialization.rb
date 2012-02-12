@@ -4,8 +4,8 @@ module ActiveAttr
   # Many ActiveAttr modules enhance the behavior of the \#initialize method,
   # and in doing so, these methods need to accept arguments. However, Ruby's
   # Object and BasicObject classes, in most versions of Ruby, do not allow any
-  # arguments to be passed in. This module halts the propgation of
-  # initialization arguments before invoking the Object classes'
+  # arguments to be passed in. This module halts the propagation of
+  # initialization arguments before invoking the Object class'
   # initialization.
   #
   # In order to still allow a subclass mixing in this module (directly or
