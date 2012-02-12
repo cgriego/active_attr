@@ -1,6 +1,6 @@
 # ActiveAttr #
 
-[![Build History][2]][1]
+[![Build History][2]][1] [![Dependency Status][5]][4]
 
 ActiveAttr is a set of modules that makes it easy to create plain old ruby
 models with functionality found in ORMs, like ActiveRecord, without
@@ -14,6 +14,8 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][3].
 [1]: http://travis-ci.org/cgriego/active_attr
 [2]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
 [3]: http://rubygems.org/gems/active_attr
+[4]: https://gemnasium.com/cgriego/active_attr
+[5]: https://gemnasium.com/cgriego/active_attr.png
 
 ## Modules ##
 
