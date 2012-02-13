@@ -16,6 +16,20 @@ module ActiveAttr
         it "defining an attribute that conflicts with Object raises DangerousAttributeError" do
           expect { model_class.attribute(:nil) }.to raise_error DangerousAttributeError
         end
+
+        context "and specifying :clobber" do
+          it "defining an attribute that conflicts with ActiveModel::AttributeMethods raises DangerousAttributeError" do
+            expect { model_class.attribute(:attribute_method, :clobber => true) }.not_to raise_error
+          end
+
+          it "defining an attribute that conflicts with Kernel raises DangerousAttributeError" do
+            expect { model_class.attribute(:block_given, :clobber => true) }.not_to raise_error
+          end
+
+          it "defining an attribute that conflicts with Object raises DangerousAttributeError" do
+            expect { model_class.attribute(:nil, :clobber => true) }.not_to raise_error
+          end
+        end
       end
 
       context "on a model class" do

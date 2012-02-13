@@ -99,6 +99,13 @@ module ActiveAttr
       end
     end
 
+    describe ".attribute!" do
+      it "calls .attribute with :clobber" do
+        model_class.should_receive(:attribute).with(:foo, {:clobber => true, :ho => :boy})
+        model_class.attribute!(:foo, :ho => :boy)
+      end
+    end
+
     describe ".attributes" do
       it { model_class.should respond_to(:attributes) }
 
