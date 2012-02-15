@@ -52,7 +52,7 @@ module ActiveAttr
       # @return [String] Failure message
       # @private
       def failure_message
-        "Expected #{@model_class} to #{description}"
+        "Expected #{@model_class.name} to #{description}"
       end
 
       # @param [Symbol, String, #to_sym] attribute_name
@@ -74,7 +74,7 @@ module ActiveAttr
       # @return [String] Negative failure message
       # @private
       def negative_failure_message
-        "Expected #{@model_class} to not #{description}"
+        "Expected #{@model_class.name} to not #{description}"
       end
 
       private
