@@ -11,6 +11,7 @@ module ActiveAttr
 
         attribute :first_name
         attribute :last_name
+        attribute :age, :type => Integer
 
         attr_protected :last_name
 
@@ -82,6 +83,11 @@ module ActiveAttr
 
     it "supports attribute name translation" do
       model_class.human_attribute_name(:first_name).should == "First name"
+    end
+
+    it "typecasts attributes" do
+      subject.age = "29"
+      subject.age.should eql 29
     end
 
     context "attribute defaults" do
