@@ -14,4 +14,5 @@ group :development do
   gem "ruby-debug19",  :platforms => :mri_19 if RUBY_VERSION < "1.9.3"
   gem "spec_coverage", :platforms => :mri_19
   gem "yard"
+  gem 'travis-lint'
 end
