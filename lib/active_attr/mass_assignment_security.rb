@@ -3,6 +3,8 @@ require "active_support/concern"
 require "active_model"
 
 module ActiveAttr
+  RAILS_3_0 = ActiveModel::VERSION::MAJOR == 3 && ActiveModel::VERSION::MINOR == 0
+
   # MassAssignmentSecurity allows you to bulk set and update a blacklist or
   # whitelist of attributes
   #
@@ -30,13 +32,23 @@ module ActiveAttr
     #   assignment security if true
     #
     # @since 0.3.0
-    def assign_attributes(new_attributes, options={})
-      if new_attributes && !options[:without_protection]
-        mass_assignment_role = options[:as] || :default
-        new_attributes = sanitize_for_mass_assignment new_attributes, mass_assignment_role
-      end
+    if ActiveAttr::RAILS_3_0
+      def assign_attributes(new_attributes, options={})
+        if new_attributes && !options[:without_protection]
+          new_attributes = sanitize_for_mass_assignment new_attributes
+        end
 
-      super
+        super
+      end
+    else
+      def assign_attributes(new_attributes, options={})
+        if new_attributes && !options[:without_protection]
+          mass_assignment_role = options[:as] || :default
+          new_attributes = sanitize_for_mass_assignment new_attributes, mass_assignment_role
+        end
+
+        super
+      end
     end
   end
 end
