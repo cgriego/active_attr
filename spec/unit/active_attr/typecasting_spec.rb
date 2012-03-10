@@ -87,6 +87,43 @@ module ActiveAttr
         Typecasting::ObjectTypecaster.any_instance.should_receive(:call).with(value)
         model.typecast_value(Object, value)
       end
+
+      context "MultiValue" do
+        it "typecasts MultiValue to time" do
+          value = ActiveAttr::MultiAttr.new({1 => "2010", 2 => "10", 3 => "5"})
+          model.typecast_value(Time, value).should == Time.local(2010, 10, 5)
+        end
+
+        it "typecasts MultiValue to date" do
+          value = ActiveAttr::MultiAttr.new({1 => "2010", 2 => "10", 3 => "5"})
+          model.typecast_value(Date, value).should == Date.new(2010, 10, 5)
+        end
+
+        context "custom class" do
+          let(:custom_class) do
+            Class.new do
+              attr_accessor :a, :b
+              def initialize(a, b)
+                self.a = a
+                self.b = b
+              end
+            end
+          end
+
+          it "typecasts MultiValue to custom class" do
+            value = ActiveAttr::MultiAttr.new({1 => "foo", 2 => "bar"})
+            result = model.typecast_value(custom_class, value)
+            result.should be_a(custom_class)
+            result.a.should == "foo"
+            result.b.should == "bar"
+          end
+        end
+
+        it "raises ActiveAttr::MultiAttr::MissingParameter on arguments error" do
+          value = ActiveAttr::MultiAttr.new({1 => "2010", 3 => "5"})
+          expect { model.typecast_value(Time, value) }.to raise_error(ActiveAttr::MultiAttr::MissingParameter)
+        end
+      end
     end
   end
 end

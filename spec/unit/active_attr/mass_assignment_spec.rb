@@ -23,6 +23,13 @@ module ActiveAttr
         person = mass_assign_attributes(:middle_name => "J")
         person.middle_name.should be_nil
       end
+
+      it "creates multi attr" do
+        person = mass_assign_attributes('first_name(1i)' => '100', 'first_name(2s)' => 'test')
+        person.first_name.should be_a(ActiveAttr::MultiAttr)
+        person.first_name.hash[1].should == 100
+        person.first_name.hash[2].should == 'test'
+      end
     end
 
     describe "#assign_attributes", :assign_attributes, :lenient_mass_assignment_method
