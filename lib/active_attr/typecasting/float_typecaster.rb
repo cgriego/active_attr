@@ -1,8 +1,22 @@
 module ActiveAttr
   module Typecasting
-    # TODO documentation
+    # Typecasts an Object to a Float.
+    #
+    # @example Usage
+    #   FloatTypecaster.new.call(1) #=> 1.0
+    #
+    # @since 0.5.0
     class FloatTypecaster
-      # TODO documentation
+      # Typecasts an object to a Float if value responds to to_f.
+      #
+      # @example Typecast a Fixnum
+      #   typecaster.call(1)  #=> 1.0
+      #
+      # @param [Object, #to_f] value The object to typecast
+      #
+      # @return [Float, nil] The result of #to_s or nil
+      #
+      # @since 0.5.0
       def call(value)
         value.to_f if value.respond_to? :to_f
       end
