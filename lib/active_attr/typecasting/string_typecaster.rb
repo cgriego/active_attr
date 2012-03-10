@@ -1,8 +1,22 @@
 module ActiveAttr
   module Typecasting
-    # TODO documentation
+    # Typecasts an Object to a String.
+    #
+    # @example Usage
+    #   StringTypecaster.new.call(1) #=> "1"
+    #
+    # @since 0.5.0
     class StringTypecaster
-      # TODO documentation
+      # Typecasts an object to a String if value responds to to_s.
+      #
+      # @example Typecast a Fixnum
+      #   typecaster.call(1)  #=> "1"
+      #
+      # @param [Object, #to_s] value The object to typecast
+      #
+      # @return [String, nil] The result of #to_s or nil
+      #
+      # @since 0.5.0
       def call(value)
         value.to_s if value.respond_to? :to_s
       end
