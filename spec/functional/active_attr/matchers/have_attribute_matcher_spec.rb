@@ -74,7 +74,7 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{Expected Person to not have attribute named first_name} }
+            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name} }
           end
         end
 
@@ -86,7 +86,7 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{Expected Person to have attribute named first_name} }
+            it { subject.failure_message.should == %{expected Person to have attribute named first_name} }
           end
         end
       end
@@ -107,7 +107,7 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{Expected Person to have attribute named first_name with a default value of "John"} }
+            it { subject.failure_message.should == %{expected Person to have attribute named first_name with a default value of "John"} }
           end
         end
 
@@ -121,7 +121,7 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{Expected Person to have attribute named first_name with a default value of "John"} }
+            it { subject.failure_message.should == %{expected Person to have attribute named first_name with a default value of "John"} }
           end
         end
 
@@ -135,7 +135,7 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{Expected Person to not have attribute named first_name with a default value of "John"} }
+            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name with a default value of "John"} }
           end
         end
       end
@@ -156,7 +156,7 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{Expected Person to have attribute named admin with a default value of false} }
+            it { subject.failure_message.should == %{expected Person to have attribute named admin with a default value of false} }
           end
         end
 
@@ -170,7 +170,7 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{Expected Person to have attribute named admin with a default value of false} }
+            it { subject.failure_message.should == %{expected Person to have attribute named admin with a default value of false} }
           end
         end
 
@@ -184,7 +184,7 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{Expected Person to not have attribute named admin with a default value of false} }
+            it { subject.negative_failure_message.should == %{expected Person to not have attribute named admin with a default value of false} }
           end
         end
       end
@@ -205,7 +205,7 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{Expected Person to not have attribute named first_name with a default value of nil} }
+            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name with a default value of nil} }
           end
         end
 
@@ -219,7 +219,7 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{Expected Person to have attribute named first_name with a default value of nil} }
+            it { subject.failure_message.should == %{expected Person to have attribute named first_name with a default value of nil} }
           end
         end
 
@@ -233,7 +233,7 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{Expected Person to not have attribute named first_name with a default value of nil} }
+            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name with a default value of nil} }
           end
         end
       end

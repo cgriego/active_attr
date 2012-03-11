@@ -57,7 +57,7 @@ module ActiveAttr
         elsif !includes_defaults?
           "expected #{@model_class.name} to include ActiveAttr::AttributeDefaults"
         else
-          "Expected #{@model_class.name} to #{description}"
+          "expected #{@model_class.name} to #{description}"
         end
       end
 
@@ -83,7 +83,7 @@ module ActiveAttr
       # @return [String] Negative failure message
       # @private
       def negative_failure_message
-        "Expected #{@model_class.name} to not #{description}"
+        "expected #{@model_class.name} to not #{description}"
       end
 
       private
