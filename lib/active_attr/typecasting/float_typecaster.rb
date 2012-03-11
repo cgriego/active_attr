@@ -14,7 +14,7 @@ module ActiveAttr
       #
       # @param [Object, #to_f] value The object to typecast
       #
-      # @return [Float, nil] The result of #to_s or nil
+      # @return [Float, nil] The result of #to_f or nil
       #
       # @since 0.5.0
       def call(value)
