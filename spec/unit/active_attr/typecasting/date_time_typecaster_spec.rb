@@ -27,8 +27,9 @@ module ActiveAttr
         end
 
         it "casts a local Time to a DateTime with a matching offset" do
-          result = subject.call(Time.local(2012, 1, 1, 12, 0, 0))
-          result.should eql DateTime.new(2012, 1, 1, 12, 0, 0, Rational(Time.now.utc_offset, 86400))
+          value = Time.local(2012, 1, 1, 12, 0, 0)
+          result = subject.call(value)
+          result.should eql DateTime.new(2012, 1, 1, 12, 0, 0, Rational(value.utc_offset, 86400))
           result.should be_instance_of DateTime
         end
 
