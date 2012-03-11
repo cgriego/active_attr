@@ -52,7 +52,13 @@ module ActiveAttr
       # @return [String] Failure message
       # @private
       def failure_message
-        "Expected #{@model_class.name} to #{description}"
+        if !includes_attributes?
+          "expected #{@model_class.name} to include ActiveAttr::Attributes"
+        elsif !includes_defaults?
+          "expected #{@model_class.name} to include ActiveAttr::AttributeDefaults"
+        else
+          "Expected #{@model_class.name} to #{description}"
+        end
       end
 
       # @param [Symbol, String, #to_sym] attribute_name
@@ -66,6 +72,9 @@ module ActiveAttr
       # @private
       def matches?(model_or_model_class)
         @model_class = class_from(model_or_model_class)
+
+        return false if !includes_attributes? || !includes_defaults?
+
         @attribute_definition = @model_class.attributes[attribute_name]
 
         !!(@attribute_definition && (!@default_value_set || @attribute_definition[:default] == default_value))
@@ -78,6 +87,14 @@ module ActiveAttr
       end
 
       private
+
+      def includes_attributes?
+        @model_class.ancestors.map(&:name).include?("ActiveAttr::Attributes")
+      end
+
+      def includes_defaults?
+        !@default_value_set || @model_class.ancestors.map(&:name).include?("ActiveAttr::AttributeDefaults")
+      end
 
       def class_from(object)
         Class === object ? object : object.class
