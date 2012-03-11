@@ -10,15 +10,15 @@ module ActiveAttr
 
       describe "#description" do
         it "returns a description appropriate to the expectation" do
-          described_class.new(:first_name).description.should == "have attribute named first_name"
+          described_class.new(:first_name).description.should == "has attribute named first_name"
         end
 
         it "mentions the default value if set" do
-          described_class.new(:first_name).with_default_value_of("John").description.should == %{have attribute named first_name with a default value of "John"}
+          described_class.new(:first_name).with_default_value_of("John").description.should == %{has attribute named first_name with a default value of "John"}
         end
 
         it "mentions the default value if set to false" do
-          described_class.new(:admin).with_default_value_of(false).description.should == %{have attribute named admin with a default value of false}
+          described_class.new(:admin).with_default_value_of(false).description.should == %{has attribute named admin with a default value of false}
         end
       end
 

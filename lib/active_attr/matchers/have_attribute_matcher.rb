@@ -46,7 +46,7 @@ module ActiveAttr
       # @return [String] Description
       # @private
       def description
-        "have attribute named #{attribute_name}#{ " with a default value of #{default_value.inspect}" if @default_value_set}"
+        "has #{attribute_description}"
       end
 
       # @return [String] Failure message
@@ -57,7 +57,7 @@ module ActiveAttr
         elsif !includes_defaults?
           "expected #{@model_class.name} to include ActiveAttr::AttributeDefaults"
         else
-          "expected #{@model_class.name} to #{description}"
+          "expected #{@model_class.name} to have #{attribute_description}"
         end
       end
 
@@ -83,10 +83,14 @@ module ActiveAttr
       # @return [String] Negative failure message
       # @private
       def negative_failure_message
-        "expected #{@model_class.name} to not #{description}"
+        "expected #{@model_class.name} to not have #{attribute_description}"
       end
 
       private
+
+      def attribute_description
+        "attribute named #{attribute_name}#{ " with a default value of #{default_value.inspect}" if @default_value_set}"
+      end
 
       def includes_attributes?
         @model_class.ancestors.map(&:name).include?("ActiveAttr::Attributes")
