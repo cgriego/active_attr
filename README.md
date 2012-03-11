@@ -195,5 +195,9 @@ your models. The matchers also work with compatible frameworks like Shoulda.
     require "active_attr/rspec"
 
     describe Person do
-      it { should have_attribute(:first_name).with_default_value_of("John") }
+      it do
+        should have_attribute(:first_name).
+          of_type(String).
+          with_default_value_of("John")
+      end
     end
