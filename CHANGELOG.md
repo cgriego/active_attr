@@ -1,4 +1,4 @@
-# ActiveAttr 0.5.0 (unreleased) #
+# ActiveAttr 0.5.0 (March 11, 2012) #
 
 * ActiveAttr is now Ruby warning free
 * Added AttributeDefaults
