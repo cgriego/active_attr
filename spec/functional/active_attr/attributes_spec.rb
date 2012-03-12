@@ -201,6 +201,22 @@ module ActiveAttr
         it "defining an attribute that conflicts with a less properly implemented method_missing callback raises DangerousAttributeError" do
           expect { model_class.attribute(:my_less_proper_missing_method) }.to raise_error DangerousAttributeError
         end
+
+        context "and specifying :clobber" do
+          %w(write_attribute attribute_method_matchers puts class instance_eval my_proper_missing_method my_less_proper_missing_method).map(&:to_sym).each do |method_to_clobber|
+            it "defining #{method_to_clobber} does not raise" do
+              expect { model_class.attribute(method_to_clobber, :clobber => true) }.not_to raise_error
+            end
+          end
+        end
+
+        context "using the attribute! method" do
+          %w(write_attribute attribute_method_matchers puts class instance_eval my_proper_missing_method my_less_proper_missing_method).map(&:to_sym).each do |method_to_clobber|
+            it "defining #{method_to_clobber} does not raise" do
+              expect { model_class.attribute!(method_to_clobber) }.not_to raise_error
+            end
+          end
+        end
       end
 
       let :dangerous_model_class do

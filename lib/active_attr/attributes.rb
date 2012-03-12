@@ -165,9 +165,26 @@ module ActiveAttr
       def attribute(name, options={})
         AttributeDefinition.new(name, options).tap do |attribute_definition|
           attribute_name = attribute_definition.name.to_s
-          define_attribute_method attribute_definition.name unless attribute_names.include? attribute_name
+          define_attribute_method(attribute_definition.name, options) unless attribute_names.include? attribute_name
           attributes[attribute_name] = attribute_definition
         end
+      end
+
+      # Defines an attribute, overriding any existing methods with name conflicts
+      #
+      # For each attribute that is defined, a getter and setter will be
+      # added as an instance method to the model, potentially overriding any methods
+      # which would cause the attribute method to raise DangerousAttributeError.
+      # An AttributeDefinitioninstance will be added to result of the attributes class method.
+      #
+      # @example Define an attribute.
+      #   attribute! :to_s
+      #
+      # @param (see AttributeDefinition#initialize)
+      #
+      # @since 0.5.0
+      def attribute!(name, options={})
+        attribute(name, options.merge(:clobber => true))
       end
 
       # Returns an Array of attribute names as Strings
@@ -219,6 +236,26 @@ module ActiveAttr
       # @since 0.2.2
       def attributes=(attributes)
         @attributes = attributes
+      end
+
+      # Overrides ActiveModel::AttributeMethods
+      # Pulled up to allow clobbering existing methods
+      # @private
+      def define_attribute_method(attr_name, options)
+        attribute_method_matchers.each do |matcher|
+          method_name = matcher.method_name(attr_name)
+
+          if options[:clobber] || ! instance_method_already_implemented?(method_name)
+            generate_method = "define_method_#{matcher.method_missing_target}"
+
+            if respond_to?(generate_method)
+              send(generate_method, attr_name)
+            else
+              define_optimized_call generated_attribute_methods, method_name, matcher.method_missing_target, attr_name.to_s
+            end
+          end
+        end
+        attribute_method_matchers_cache.clear
       end
 
       # Overrides ActiveModel::AttributeMethods
