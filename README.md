@@ -19,16 +19,6 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][3].
 
 ## Modules ##
 
-### Model ###
-
-The Model module is a shortcut for incorporating the most common model
-functionality into your model with one include. All of the following modules
-are included when you include Model.
-
-    class Person
-      include ActiveAttr::Model
-    end
-
 ### Attributes ###
 
 Including the Attributes module into your class gives you a DSL for defining
@@ -81,7 +71,8 @@ providing instance methods for querying your attributes.
 
 #### TypecastedAttributes ####
 
-TODO documentation
+Including the TypecastedAttributes module into your class builds on Attributes
+by providing type conversion for your attributes.
 
     class Person
       include ActiveAttr::TypecastedAttributes
@@ -176,6 +167,16 @@ blacklists or whitelists including support for mass assignment roles.
     person = Person.new(:first_name => "Chris", :last_name => "Griego")
     person.first_name #=> "Chris"
     person.last_name #=> nil
+
+### Model ###
+
+The Model module is a shortcut for incorporating the most common model
+functionality into your model with one include. All of the above modules
+are included when you include Model.
+
+    class Person
+      include ActiveAttr::Model
+    end
 
 ## Integrations ##
 

@@ -12,6 +12,16 @@ require "active_support/concern"
 module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type
   #
+  # The following types are supported for typecasting:
+  # * BigDecimal
+  # * Boolean
+  # * Date
+  # * DateTime
+  # * Float
+  # * Integer
+  # * Object
+  # * String
+  #
   # @since 0.5.0
   module Typecasting
     extend ActiveSupport::Concern

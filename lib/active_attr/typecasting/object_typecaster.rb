@@ -1,16 +1,16 @@
 module ActiveAttr
   module Typecasting
-    # A typecaster that does nothing as anything passed is already an object.
+    # A "null" typecaster to provide uniformity
     #
     # @example Usage
     #   ObjectTypecaster.new.call("") #=> ""
     #
     # @since 0.5.0
     class ObjectTypecaster
-      # Typecasts an object to an object
+      # Returns the original value unmodified
       #
       # @example Typecast an Object
-      #   typecaster.call(1)  #=> 1
+      #   typecaster.call(1) #=> 1
       #
       # @param [Object] value The object to typecast
       #

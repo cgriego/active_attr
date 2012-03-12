@@ -29,8 +29,7 @@ module ActiveAttr
 
     # Test the presence of an attribute
     #
-    # Similar to an ActiveRecord model, when the attribute is a zero value or
-    # is a string that represents false, the method returns false.
+    # See {Typecasting::BooleanTypecaster#call} for more details.
     #
     # @example Query an attribute
     #   person.query_attribute(:name)

@@ -3,9 +3,25 @@ require "active_support/time"
 
 module ActiveAttr
   module Typecasting
-    # TODO documentation
+    # Typecasts an Object to a Date
+    #
+    # @example Usage
+    #   DateTypecaster.new.call("2012-01-01") #=> Sun, 01 Jan 2012
+    #
+    # @since 0.5.0
     class DateTypecaster
-      # TODO documentation
+      # Typecasts an object to a Date
+      #
+      # Attempts to convert using #to_date.
+      #
+      # @example Typecast a String
+      #   typecaster.call("2012-01-01") #=> Sun, 01 Jan 2012
+      #
+      # @param [Object, #to_date] value The object to typecast
+      #
+      # @return [Date, nil] The result of typecasting
+      #
+      # @since 0.5.0
       def call(value)
         value.to_date if value.respond_to? :to_date
       end

@@ -1,5 +1,6 @@
 # ActiveAttr 0.5.0 (unreleased) #
 
+* ActiveAttr is now Ruby warning free
 * Added AttributeDefaults
 * Added AttributeDefinition#[]
 * Added Attributes.attribute_names
@@ -7,7 +8,18 @@
 * Added Matchers::HaveAttributeMatcher#with_default_value_of
 * Added TypecastedAttributes
 * Added Typecasting
+* Added Typecasting::BigDecimalTypecaster
+* Added Typecasting::Boolean
+* Added Typecasting::BooleanTypecaster
+* Added Typecasting::DateTimeTypecaster
+* Added Typecasting::DateTypecaster
+* Added Typecasting::FloatTypecaster
+* Added Typecasting::IntegerTypecaster
+* Added Typecasting::ObjectTypecaster
+* Added Typecasting::StringTypecaster
 * Changed Attributes.attributes return value from an Array to a Hash
+* Changed HaveAttributeMatcher to return spec failures when the model is
+  missing ActiveAttr modules
 * Changed redefining an attribute to actually redefine the attribute
 * Removed StrictMassAssignment, instead use MassAssignmentSecurity with
   ActiveModel v3.2 which allows assigning mass_assignment_sanitizer to

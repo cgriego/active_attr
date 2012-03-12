@@ -3,20 +3,26 @@ require "active_attr/typecasting"
 require "active_support/concern"
 
 module ActiveAttr
-  # TypecastedAttributes enhances attribute handling with typecasting
+  # TypecastedAttributes allows types to be declared for your attributes
+  #
+  # Types are declared by passing the :type option to the attribute class
+  # method. After a type is declared, attribute readers will convert any
+  # assigned attribute value to the declared type. If the assigned value
+  # cannot be cast, nil will be returned instead. You can access the original
+  # assigned value using the before_type_cast methods.
+  #
+  # See {Typecasting} for the currently supported types.
   #
   # @example Usage
   #   class Person
   #     include ActiveAttr::TypecastedAttributes
-  #     attribute :name
   #     attribute :age, :type => Integer
   #   end
   #
   #   person = Person.new
-  #   person.name = "Ben Poweski"
-  #   person.age  = "29"
-  #
+  #   person.age = "29"
   #   person.age #=> 29
+  #   person.age_before_type_cast #=> "29"
   #
   # @since 0.5.0
   module TypecastedAttributes
@@ -28,7 +34,17 @@ module ActiveAttr
       attribute_method_suffix "_before_type_cast"
     end
 
-    # TODO Documentation
+    # Read the raw attribute value
+    #
+    # @example Reading a raw age value
+    #   person.age = "29"
+    #   person.attribute_before_type_cast(:age) #=> "29"
+    #
+    # @param [String, Symbol, #to_s] name Attribute name
+    #
+    # @return [Object, nil] The attribute value before typecasting
+    #
+    # @since 0.5.0
     def attribute_before_type_cast(name)
       @attributes[name.to_s]
     end

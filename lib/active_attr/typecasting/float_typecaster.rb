@@ -1,20 +1,22 @@
 module ActiveAttr
   module Typecasting
-    # Typecasts an Object to a Float.
+    # Typecasts an Object to a Float
     #
     # @example Usage
     #   FloatTypecaster.new.call(1) #=> 1.0
     #
     # @since 0.5.0
     class FloatTypecaster
-      # Typecasts an object to a Float if value responds to to_f.
+      # Typecasts an object to a Float
+      #
+      # Attempts to convert using #to_f.
       #
       # @example Typecast a Fixnum
-      #   typecaster.call(1)  #=> 1.0
+      #   typecaster.call(1) #=> 1.0
       #
       # @param [Object, #to_f] value The object to typecast
       #
-      # @return [Float, nil] The result of #to_f or nil
+      # @return [Float, nil] The result of typecasting
       #
       # @since 0.5.0
       def call(value)
