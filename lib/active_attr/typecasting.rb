@@ -7,6 +7,7 @@ require "active_attr/typecasting/float_typecaster"
 require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
+require "active_attr/multi_attr"
 require "active_support/concern"
 
 module ActiveAttr
@@ -64,8 +65,24 @@ module ActiveAttr
     #
     # @since 0.5.0
     def typecast_value(type, value)
-      if typecaster = TYPECASTERS[type]
+      if value.is_a?(ActiveAttr::MultiAttr)
+        typecast_multiattr(type, value)
+      elsif typecaster = TYPECASTERS[type]
         typecaster.new.call(value)
+      end
+    end
+
+    def typecast_multiattr(klass, value)
+      if klass == Time
+        value.to_time
+      elsif klass == Date
+        value.to_date
+      else
+        values = (1..value.max_position).collect do |position|
+          raise ActiveAttr::MultiAttr::MissingParameter if !value.has_key?(position)
+          value[position]
+        end
+        klass.new(*values)
       end
     end
   end

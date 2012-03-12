@@ -171,7 +171,7 @@ module ActiveAttr
         end
 
         it "defining an attribute that conflicts with ActiveModel::AttributeMethods raises DangerousAttributeError" do
-          expect { model_class.attribute(:attribute_method_matchers) }.to raise_error DangerousAttributeError, %{an attribute method named "attribute_method_matchers" would conflict with an existing method}
+          expect { model_class.attribute(:inspect) }.to raise_error DangerousAttributeError, %{an attribute method named "inspect" would conflict with an existing method}
         end
 
         it "defining an :id attribute does not raise" do
