@@ -7,7 +7,6 @@ require "active_attr/typecasting/float_typecaster"
 require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
-require "active_support/concern"
 
 module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type
@@ -24,8 +23,6 @@ module ActiveAttr
   #
   # @since 0.5.0
   module Typecasting
-    extend ActiveSupport::Concern
-
     # Typecasts a value using a Class
     #
     # @param [#call] typecaster The typecaster to use for typecasting
