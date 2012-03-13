@@ -12,26 +12,16 @@ module ActiveAttr
     end
 
     describe "#typecast_attribute" do
-      let(:type) { String }
-
       it "raises an ArgumentError when a nil type is given" do
-        expect { subject.typecast_attribute(nil, "foo") }.to raise_error(ArgumentError, "a Class must be given")
+        expect { subject.typecast_attribute(nil, "foo") }.to raise_error(ArgumentError, "a typecaster must be given")
       end
 
-      context "when there is no way to typecast the value" do
-        it "returns nil" do
-          subject.typecast_attribute(Class.new, mock).should be_nil
-        end
+      it "raises an ArgumentError when the given typecaster argument does not respond to #call" do
+        expect { subject.typecast_attribute(Object.new, "foo") }.to raise_error(ArgumentError, "a typecaster must be given")
       end
 
-      context "when the value is nil" do
-        let(:name) { nil }
-        let(:model) { model_class.new }
-        subject { model.typecast_attribute(type, name) }
-
-        it "returns the original value" do
-          should be_nil
-        end
+      it "returns the original value when the value is nil" do
+        model_class.new.typecast_attribute(mock(:call => 1), nil).should be_nil
       end
     end
 

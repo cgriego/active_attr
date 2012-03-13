@@ -28,20 +28,17 @@ module ActiveAttr
 
     # Typecasts a value using a Class
     #
-    # @param [Class] type The type to cast to
+    # @param [#call] typecaster The typecaster to use for typecasting
     # @param [Object] value The value to be typecasted
     #
     # @return [Object, nil] The typecasted value or nil if it cannot be
     #   typecasted
     #
     # @since 0.5.0
-    def typecast_attribute(type, value)
-      raise ArgumentError, "a Class must be given" unless type
+    def typecast_attribute(typecaster, value)
+      raise ArgumentError, "a typecaster must be given" unless typecaster.respond_to?(:call)
       return value if value.nil?
-
-      if typecaster = typecaster_for(type)
-        typecaster.call(value)
-      end
+      typecaster.call(value)
     end
 
     # Resolve a Class to a typecaster

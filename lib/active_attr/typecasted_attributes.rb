@@ -55,7 +55,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute(name)
-      typecast_attribute(_attribute_type(name), super)
+      typecast_attribute(typecaster_for(_attribute_type(name)), super)
     end
 
     # Calculates an attribute type

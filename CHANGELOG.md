@@ -1,5 +1,9 @@
 # ActiveAttr 0.6.0 (unreleased) #
 
+* Added Typecasting#typecaster_for
+* Changed Typecasting#typecast_attribute to take a typecaster, not a type
+* Removed Typecasting#typecast_value
+
 # ActiveAttr 0.5.0 (March 11, 2012) #
 
 * ActiveAttr is now Ruby warning free
