@@ -18,6 +18,7 @@ module ActiveAttr
         attribute :float,       :type => Float
         attribute :integer,     :type => Integer
         attribute :string,      :type => String
+        attribute :age,         :type => Age, :typecaster => lambda { |value| Age.new(value) }
       end
     end
 
@@ -120,6 +121,13 @@ module ActiveAttr
       it "a String attribute returns the String" do
         subject.string = "1.0"
         subject.string.should eql "1.0"
+      end
+    end
+
+    context "using an inline typecaster" do
+      it "returns the result of the inline typecaster" do
+        subject.age = 2
+        subject.age.should == Age.new(2)
       end
     end
   end

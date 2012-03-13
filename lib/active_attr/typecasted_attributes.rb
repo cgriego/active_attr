@@ -55,7 +55,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute(name)
-      typecast_attribute(typecaster_for(_attribute_type(name)), super)
+      typecast_attribute(_attribute_typecaster(name), super)
     end
 
     # Calculates an attribute type
@@ -64,6 +64,14 @@ module ActiveAttr
     # @since 0.5.0
     def _attribute_type(attribute_name)
       self.class._attribute_type(attribute_name)
+    end
+
+    # Resolve an attribute typecaster
+    #
+    # @private
+    # @since 0.6.0
+    def _attribute_typecaster(attribute_name)
+      self.class.attributes[attribute_name][:typecaster] || typecaster_for(_attribute_type(attribute_name))
     end
 
     module ClassMethods
