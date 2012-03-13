@@ -33,50 +33,41 @@ module ActiveAttr
           should be_nil
         end
       end
+    end
 
-      describe "typecaster resolution" do
-        let(:model) { model_class.new }
-        let(:value) { mock }
+    describe "#typecaster_for" do
+      let(:model) { model_class.new }
 
-        it "calls BigDecimalTypecaster when typecasting to BigDecimal" do
-          Typecasting::BigDecimalTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(BigDecimal, value)
-        end
+      it "returns BigDecimalTypecaster for BigDecimal" do
+        model.typecaster_for(BigDecimal).should be_a_kind_of Typecasting::BigDecimalTypecaster
+      end
 
-        it "calls BooleanTypecaster when typecasting to Boolean" do
-          Typecasting::BooleanTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(Typecasting::Boolean, value)
-        end
+      it "returns BooleanTypecaster for Boolean" do
+        model.typecaster_for(Typecasting::Boolean).should be_a_kind_of Typecasting::BooleanTypecaster
+      end
 
-        it "calls DateTypecaster when typecasting to Date" do
-          Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(Date, value)
-        end
+      it "returns DateTypecaster for Date" do
+        model.typecaster_for(Date).should be_a_kind_of Typecasting::DateTypecaster
+      end
 
-        it "calls DateTypecaster when typecasting to Date" do
-          Typecasting::DateTimeTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(DateTime, value)
-        end
+      it "returns DateTypecaster for Date" do
+        model.typecaster_for(DateTime).should be_a_kind_of Typecasting::DateTimeTypecaster
+      end
 
-        it "calls FloatTypecaster when typecasting to Float" do
-          Typecasting::FloatTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(Float, value)
-        end
+      it "returns FloatTypecaster for Float" do
+        model.typecaster_for(Float).should be_a_kind_of Typecasting::FloatTypecaster
+      end
 
-        it "calls IntegerTypecaster when typecasting to Integer" do
-          Typecasting::IntegerTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(Integer, value)
-        end
+      it "returns IntegerTypecaster for Integer" do
+        model.typecaster_for(Integer).should be_a_kind_of Typecasting::IntegerTypecaster
+      end
 
-        it "calls StringTypecaster when typecasting to String" do
-          Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(String, value)
-        end
+      it "returns StringTypecaster for String" do
+        model.typecaster_for(String).should be_a_kind_of Typecasting::StringTypecaster
+      end
 
-        it "calls ObjectTypecaster when typecasting to Object" do
-          Typecasting::ObjectTypecaster.any_instance.should_receive(:call).with(value)
-          model.typecast_attribute(Object, value)
-        end
+      it "returns ObjectTypecaster for Object" do
+        model.typecaster_for(Object).should be_a_kind_of Typecasting::ObjectTypecaster
       end
     end
   end

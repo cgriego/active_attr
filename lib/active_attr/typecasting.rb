@@ -26,18 +26,6 @@ module ActiveAttr
   module Typecasting
     extend ActiveSupport::Concern
 
-    # @private
-    TYPECASTERS = {
-      BigDecimal => BigDecimalTypecaster,
-      Boolean    => BooleanTypecaster,
-      Date       => DateTypecaster,
-      DateTime   => DateTimeTypecaster,
-      Float      => FloatTypecaster,
-      Integer    => IntegerTypecaster,
-      Object     => ObjectTypecaster,
-      String     => StringTypecaster,
-    }
-
     # Typecasts a value using a Class
     #
     # @param [Class] type The type to cast to
@@ -51,9 +39,31 @@ module ActiveAttr
       raise ArgumentError, "a Class must be given" unless type
       return value if value.nil?
 
-      if typecaster = TYPECASTERS[type]
-        typecaster.new.call(value)
+      if typecaster = typecaster_for(type)
+        typecaster.call(value)
       end
+    end
+
+    # Resolve a Class to a typecaster
+    #
+    # @param [Class] type The type to cast to
+    #
+    # @return [#call, nil] The typecaster to use
+    #
+    # @since 0.6.0
+    def typecaster_for(type)
+      typecaster = {
+        BigDecimal => BigDecimalTypecaster,
+        Boolean    => BooleanTypecaster,
+        Date       => DateTypecaster,
+        DateTime   => DateTimeTypecaster,
+        Float      => FloatTypecaster,
+        Integer    => IntegerTypecaster,
+        Object     => ObjectTypecaster,
+        String     => StringTypecaster,
+      }[type]
+
+      typecaster.new if typecaster
     end
   end
 end
