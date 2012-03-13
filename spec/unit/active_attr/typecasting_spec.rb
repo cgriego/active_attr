@@ -19,11 +19,8 @@ module ActiveAttr
       end
 
       context "when there is no way to typecast the value" do
-        let(:value) { mock("SomeRandomValue") }
-
         it "returns nil" do
-          subject.stub(:typecast_value).and_return(nil)
-          subject.typecast_attribute(type, value).should be_nil
+          subject.typecast_attribute(Class.new, mock).should be_nil
         end
       end
 
@@ -33,59 +30,53 @@ module ActiveAttr
         subject { model.typecast_attribute(type, name) }
 
         it "returns the original value" do
-          should eql name
-        end
-
-        it "does not call try to convert the value" do
-          model.should_not_receive(:typecast_value)
-          subject
+          should be_nil
         end
       end
-    end
 
-    describe "#typecast_value" do
-      let(:model) { model_class.new }
-      subject { model.typecast_value(type, value) }
-      let(:value) { mock }
+      describe "typecaster resolution" do
+        let(:model) { model_class.new }
+        let(:value) { mock }
 
-      it "calls BigDecimalTypecaster when typecasting to BigDecimal" do
-        Typecasting::BigDecimalTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(BigDecimal, value)
-      end
+        it "calls BigDecimalTypecaster when typecasting to BigDecimal" do
+          Typecasting::BigDecimalTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(BigDecimal, value)
+        end
 
-      it "calls BooleanTypecaster when typecasting to Boolean" do
-        Typecasting::BooleanTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(Typecasting::Boolean, value)
-      end
+        it "calls BooleanTypecaster when typecasting to Boolean" do
+          Typecasting::BooleanTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(Typecasting::Boolean, value)
+        end
 
-      it "calls DateTypecaster when typecasting to Date" do
-        Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(Date, value)
-      end
+        it "calls DateTypecaster when typecasting to Date" do
+          Typecasting::DateTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(Date, value)
+        end
 
-      it "calls DateTypecaster when typecasting to Date" do
-        Typecasting::DateTimeTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(DateTime, value)
-      end
+        it "calls DateTypecaster when typecasting to Date" do
+          Typecasting::DateTimeTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(DateTime, value)
+        end
 
-      it "calls FloatTypecaster when typecasting to Float" do
-        Typecasting::FloatTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(Float, value)
-      end
+        it "calls FloatTypecaster when typecasting to Float" do
+          Typecasting::FloatTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(Float, value)
+        end
 
-      it "calls IntegerTypecaster when typecasting to Integer" do
-        Typecasting::IntegerTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(Integer, value)
-      end
+        it "calls IntegerTypecaster when typecasting to Integer" do
+          Typecasting::IntegerTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(Integer, value)
+        end
 
-      it "calls StringTypecaster when typecasting to String" do
-        Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(String, value)
-      end
+        it "calls StringTypecaster when typecasting to String" do
+          Typecasting::StringTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(String, value)
+        end
 
-      it "calls ObjectTypecaster when typecasting to Object" do
-        Typecasting::ObjectTypecaster.any_instance.should_receive(:call).with(value)
-        model.typecast_value(Object, value)
+        it "calls ObjectTypecaster when typecasting to Object" do
+          Typecasting::ObjectTypecaster.any_instance.should_receive(:call).with(value)
+          model.typecast_attribute(Object, value)
+        end
       end
     end
   end

@@ -50,20 +50,7 @@ module ActiveAttr
     def typecast_attribute(type, value)
       raise ArgumentError, "a Class must be given" unless type
       return value if value.nil?
-      typecast_value(type, value)
-    end
 
-    # Typecasts a value according to a predefined set of mapping rules defined
-    #   in TYPECASTING_METHODS
-    #
-    # @param [Class] type The type to cast to
-    # @param [Object] value The value to be typecasted
-    #
-    # @return [Object, nil] The result of a method call defined in
-    #   TYPECASTING_METHODS, nil if no method is found
-    #
-    # @since 0.5.0
-    def typecast_value(type, value)
       if typecaster = TYPECASTERS[type]
         typecaster.new.call(value)
       end
