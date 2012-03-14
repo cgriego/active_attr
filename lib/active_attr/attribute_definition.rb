@@ -70,7 +70,7 @@ module ActiveAttr
     #
     # @since 0.6.0
     def inspect
-      options_description = options.map { |key, value| ":#{key} => #{value.inspect}" }.sort.join(", ")
+      options_description = options.map { |key, value| "#{key.inspect} => #{value.inspect}" }.sort.join(", ")
       inspected_options = ", #{options_description}" unless options_description.empty?
       "attribute :#{name}#{inspected_options}"
     end

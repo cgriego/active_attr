@@ -74,10 +74,14 @@ module ActiveAttr
         described_class.new(:first_name, :default => "John").inspect.should == %{attribute :first_name, :default => "John"}
       end
 
-      it "generates attriute definition code for an attribute with multiple options sorted alphabetically" do
+      it "generates attribute definition code for an attribute with multiple options sorted alphabetically" do
         expected = %{attribute :first_name, :default => "John", :type => String}
         described_class.new(:first_name, :default => "John", :type => String).inspect.should == expected
         described_class.new(:first_name, :type => String, :default => "John").inspect.should == expected
+      end
+
+      it "generate attribute definition code for an attribute with a string option key" do
+        described_class.new(:first_name, "foo" => "bar").inspect.should == %{attribute :first_name, "foo" => "bar"}
       end
     end
 
