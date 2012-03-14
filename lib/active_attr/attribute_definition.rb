@@ -60,6 +60,21 @@ module ActiveAttr
       @options = options
     end
 
+    # Returns the code that would generate the attribute definition
+    #
+    # @example Inspect the attribute definition
+    #   attribute.inspect
+    #
+    # @return [String] Human-readable presentation of the attribute
+    #   definition
+    #
+    # @since 0.6.0
+    def inspect
+      options_description = options.map { |key, value| ":#{key} => #{value.inspect}" }.sort.join(", ")
+      inspected_options = ", #{options_description}" unless options_description.empty?
+      "attribute :#{name}#{inspected_options}"
+    end
+
     # The attribute name
     #
     # @return [String] the attribute name

@@ -61,6 +61,26 @@ module ActiveAttr
       end
     end
 
+    describe "#inspect" do
+      it "generates attribute definition code for an attribute without options" do
+        described_class.new(:first_name).inspect.should == %{attribute :first_name}
+      end
+
+      it "generates attribute definition code for an attribute with a single option" do
+        described_class.new(:first_name, :type => String).inspect.should == %{attribute :first_name, :type => String}
+      end
+
+      it "generates attribute definition code for an attribute with a single option, inspecting the option value" do
+        described_class.new(:first_name, :default => "John").inspect.should == %{attribute :first_name, :default => "John"}
+      end
+
+      it "generates attriute definition code for an attribute with multiple options sorted alphabetically" do
+        expected = %{attribute :first_name, :default => "John", :type => String}
+        described_class.new(:first_name, :default => "John", :type => String).inspect.should == expected
+        described_class.new(:first_name, :type => String, :default => "John").inspect.should == expected
+      end
+    end
+
     describe "#name" do
       it { should respond_to(:name) }
     end

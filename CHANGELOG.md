@@ -1,5 +1,6 @@
 # ActiveAttr 0.6.0 (unreleased) #
 
+* Added AttributeDefinition#inspect
 * Added Typecasting#typecaster_for
 * Changed Typecasting#typecast_attribute to take a typecaster, not a type
 * Removed Typecasting#typecast_value
