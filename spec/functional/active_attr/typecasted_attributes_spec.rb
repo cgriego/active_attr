@@ -10,6 +10,7 @@ module ActiveAttr
         include TypecastedAttributes
 
         attribute :typeless
+        attribute :age,         :type => Age, :typecaster => lambda { |value| Age.new(value) }
         attribute :object,      :type => Object
         attribute :big_decimal, :type => BigDecimal
         attribute :boolean,     :type => Typecasting::Boolean
@@ -18,7 +19,12 @@ module ActiveAttr
         attribute :float,       :type => Float
         attribute :integer,     :type => Integer
         attribute :string,      :type => String
-        attribute :age,         :type => Age, :typecaster => lambda { |value| Age.new(value) }
+
+        attribute :unknown, :type => Class.new {
+          def self.to_s
+            "Unknown"
+          end
+        }
       end
     end
 
@@ -26,6 +32,16 @@ module ActiveAttr
       it "a typeless attribute returns nil" do
         subject.typeless = nil
         subject.typeless.should be_nil
+      end
+
+      it "an attribute with no known typecaster raises" do
+        subject.unknown = nil
+        expect { subject.unknown }.to raise_error Typecasting::UnknownTypecasterError, "Unable to cast to type Unknown"
+      end
+
+      it "an attribute with an inline typecaster returns nil" do
+        subject.age = nil
+        subject.age.should be_nil
       end
 
       it "an Object attribute returns nil" do
@@ -122,10 +138,8 @@ module ActiveAttr
         subject.string = "1.0"
         subject.string.should eql "1.0"
       end
-    end
 
-    context "using an inline typecaster" do
-      it "returns the result of the inline typecaster" do
+      it "an attribute using an inline typecaster returns the result of the inline typecaster" do
         subject.age = 2
         subject.age.should == Age.new(2)
       end

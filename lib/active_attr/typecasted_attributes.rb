@@ -71,7 +71,8 @@ module ActiveAttr
     # @private
     # @since 0.6.0
     def _attribute_typecaster(attribute_name)
-      self.class.attributes[attribute_name][:typecaster] || typecaster_for(_attribute_type(attribute_name))
+      type = _attribute_type(attribute_name)
+      self.class.attributes[attribute_name][:typecaster] || typecaster_for(type) or raise UnknownTypecasterError, "Unable to cast to type #{type}"
     end
 
     module ClassMethods

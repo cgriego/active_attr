@@ -7,6 +7,7 @@ require "active_attr/typecasting/float_typecaster"
 require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
+require "active_attr/typecasting/unknown_typecaster_error"
 
 module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type

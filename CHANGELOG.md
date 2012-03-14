@@ -2,6 +2,7 @@
 
 * Added AttributeDefinition#inspect
 * Added Typecasting#typecaster_for
+* Added Typecasting::UnknownTypecasterError
 * Changed Typecasting#typecast_attribute to take a typecaster, not a type
 * Removed Typecasting#typecast_value
 * TypecastedAttributes now supports a :typecaster option on attribute
