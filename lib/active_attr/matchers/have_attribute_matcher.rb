@@ -29,11 +29,10 @@ module ActiveAttr
       # @private
       def initialize(attribute_name)
         raise TypeError, "can't convert #{attribute_name.class} into Symbol" unless attribute_name.respond_to? :to_sym
+        @attribute_name = attribute_name.to_sym
         @description = "attribute named #{attribute_name}"
         @expected_ancestors = ["ActiveAttr::Attributes"]
-        @attribute_name = attribute_name.to_sym
-        @type = nil
-        @default_value_set = false
+        @attribute_expectations = [lambda { attribute_definition }]
       end
 
       # Specify that the attribute should have the given type
@@ -51,7 +50,7 @@ module ActiveAttr
       def of_type(type)
         @description << " of type #{type}"
         @expected_ancestors << "ActiveAttr::TypecastedAttributes"
-        @type = type
+        @attribute_expectations << lambda { @model_class._attribute_type(attribute_name) == type }
         self
       end
 
@@ -72,8 +71,7 @@ module ActiveAttr
       def with_default_value_of(default_value)
         @description << " with a default value of #{default_value.inspect}"
         @expected_ancestors << "ActiveAttr::AttributeDefaults"
-        @default_value = default_value
-        @default_value_set = true
+        @attribute_expectations << lambda { attribute_definition[:default] == default_value }
         self
       end
 
@@ -86,7 +84,7 @@ module ActiveAttr
       # @private
       def matches?(model_or_model_class)
         @model_class = Class === model_or_model_class ? model_or_model_class : model_or_model_class.class
-        missing_ancestors.none? && attribute_definition && type_matches? && default_matches?
+        missing_ancestors.none? && @attribute_expectations.all? { | expectation| expectation.call }
       end
 
       # @return [String] Failure message
@@ -117,14 +115,6 @@ module ActiveAttr
         @expected_ancestors.reject do |ancestor_name|
           model_ancestor_names.include? ancestor_name
         end
-      end
-
-      def type_matches?
-        !@type || @model_class._attribute_type(attribute_name) == @type
-      end
-
-      def default_matches?
-        !@default_value_set || attribute_definition[:default] == @default_value
       end
     end
   end
