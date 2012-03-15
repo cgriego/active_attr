@@ -5,6 +5,24 @@ require "factory_girl"
 
 module ActiveAttr
   describe Attributes do
+    context "defining id attribute in any attributes definition order" do
+      let :model_class do
+        Class.new do
+          include Attributes
+
+          attribute :name
+          attribute :id
+        end
+      end
+
+      subject { model_class.new }
+
+      it "correctrly defines id attribute" do
+        subject.id.should be_nil
+        subject.id.should_not == subject.object_id
+      end
+    end
+
     context "subclassing a model" do
       let :parent_class do
         Class.new do
@@ -171,7 +189,7 @@ module ActiveAttr
         end
 
         it "defining an attribute that conflicts with ActiveModel::AttributeMethods raises DangerousAttributeError" do
-          expect { model_class.attribute(:attribute_method_matchers) }.to raise_error DangerousAttributeError, %{an attribute method named "attribute_method_matchers" would conflict with an existing method}
+          expect { model_class.attribute(:inspect) }.to raise_error DangerousAttributeError, %{an attribute method named "inspect" would conflict with an existing method}
         end
 
         it "defining an :id attribute does not raise" do

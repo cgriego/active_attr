@@ -4,6 +4,7 @@ require "active_attr/unknown_attribute_error"
 require "active_model"
 require "active_support/concern"
 require "active_support/hash_with_indifferent_access"
+require "active_attr/inheritable_attributes_fix"
 
 module ActiveAttr
   # Attributes provides a set of class methods for defining an attributes
@@ -165,7 +166,9 @@ module ActiveAttr
       def attribute(name, options={})
         AttributeDefinition.new(name, options).tap do |attribute_definition|
           attribute_name = attribute_definition.name.to_s
-          define_attribute_method attribute_definition.name unless attribute_names.include? attribute_name
+          # Force active model to generate attribute methods
+          @attribute_methods_generated = false
+          define_attribute_methods([attribute_definition.name]) unless attribute_names.include? attribute_name
           attributes[attribute_name] = attribute_definition
         end
       end
