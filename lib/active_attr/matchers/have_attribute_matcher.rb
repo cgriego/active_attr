@@ -22,13 +22,13 @@ module ActiveAttr
     #
     # @since 0.2.0
     class HaveAttributeMatcher
-      attr_reader :attribute_name, :default_value
-      private :attribute_name, :default_value
+      attr_reader :attribute_name
+      private :attribute_name
 
       # @return [String] Description
       # @private
       def description
-        "has #{attribute_description}"
+        "has #{@description}"
       end
 
       # @return [String] Failure message
@@ -41,7 +41,7 @@ module ActiveAttr
         elsif !includes_typecasting?
           "expected #{@model_class.name} to include ActiveAttr::TypecastedAttributes"
         else
-          "expected #{@model_class.name} to have #{attribute_description}"
+          "expected #{@model_class.name} to have #{@description}"
         end
       end
 
@@ -52,6 +52,7 @@ module ActiveAttr
         @attribute_name = attribute_name.to_sym
         @default_value_set = false
         @type = nil
+        @description = "attribute named #{attribute_name}"
       end
 
       # Specify that the attribute should have the given type
@@ -68,6 +69,7 @@ module ActiveAttr
       # @since 0.5.0
       def of_type(type)
         @type = type
+        @description << " of type #{type}"
         self
       end
 
@@ -85,7 +87,7 @@ module ActiveAttr
       # @return [String] Negative failure message
       # @private
       def negative_failure_message
-        "expected #{@model_class.name} to not have #{attribute_description}"
+        "expected #{@model_class.name} to not have #{@description}"
       end
 
       # Specify that the attribute should have the given default value
@@ -105,17 +107,11 @@ module ActiveAttr
       def with_default_value_of(default_value)
         @default_value_set = true
         @default_value = default_value
+        @description << " with a default value of #{default_value.inspect}"
         self
       end
 
       private
-
-      def attribute_description
-        "attribute named #{attribute_name}".tap do |result|
-          result << " of type #{@type}" if @type
-          result << " with a default value of #{default_value.inspect}" if @default_value_set
-        end
-      end
 
       def includes_attributes?
         model_ancestor_names.include?("ActiveAttr::Attributes")
@@ -138,7 +134,7 @@ module ActiveAttr
       end
 
       def default_matches?
-        !@default_value_set || @attribute_definition[:default] == default_value
+        !@default_value_set || @attribute_definition[:default] == @default_value
       end
 
       def type_matches?
