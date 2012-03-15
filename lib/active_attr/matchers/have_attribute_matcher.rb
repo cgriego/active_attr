@@ -25,23 +25,6 @@ module ActiveAttr
       attr_reader :attribute_name
       private :attribute_name
 
-      # @return [String] Description
-      # @private
-      def description
-        "has #{@description}"
-      end
-
-      # @return [String] Failure message
-      # @private
-      def failure_message
-        if missing_ancestors.any?
-          missing_ancestor = missing_ancestors.first
-          "expected #{@model_class.name} to include #{missing_ancestor}"
-        else
-          "expected #{@model_class.name} to have #{@description}"
-        end
-      end
-
       # @param [Symbol, String, #to_sym] attribute_name
       # @private
       def initialize(attribute_name)
@@ -72,18 +55,6 @@ module ActiveAttr
         self
       end
 
-      # @private
-      def matches?(model_or_model_class)
-        @model_class = Class === model_or_model_class ? model_or_model_class : model_or_model_class.class
-        missing_ancestors.none? && attribute_definition && type_matches? && default_matches?
-      end
-
-      # @return [String] Negative failure message
-      # @private
-      def negative_failure_message
-        "expected #{@model_class.name} to not have #{@description}"
-      end
-
       # Specify that the attribute should have the given default value
       #
       # @example Person's first name should default to John
@@ -106,6 +77,34 @@ module ActiveAttr
         self
       end
 
+      # @return [String] Description
+      # @private
+      def description
+        "has #{@description}"
+      end
+
+      # @private
+      def matches?(model_or_model_class)
+        @model_class = Class === model_or_model_class ? model_or_model_class : model_or_model_class.class
+        missing_ancestors.none? && attribute_definition && type_matches? && default_matches?
+      end
+
+      # @return [String] Failure message
+      # @private
+      def failure_message
+        if missing_ancestors.any?
+          "expected #{@model_class.name} to include #{missing_ancestors.first}"
+        else
+          "expected #{@model_class.name} to have #{@description}"
+        end
+      end
+
+      # @return [String] Negative failure message
+      # @private
+      def negative_failure_message
+        "expected #{@model_class.name} to not have #{@description}"
+      end
+
       private
 
       def attribute_definition
@@ -120,12 +119,12 @@ module ActiveAttr
         end
       end
 
-      def default_matches?
-        !@default_value_set || attribute_definition[:default] == @default_value
-      end
-
       def type_matches?
         !@type || @model_class._attribute_type(attribute_name) == @type
+      end
+
+      def default_matches?
+        !@default_value_set || attribute_definition[:default] == @default_value
       end
     end
   end
