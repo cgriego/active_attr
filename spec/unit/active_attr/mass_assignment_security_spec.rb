@@ -52,7 +52,7 @@ module ActiveAttr
         describe "#initialize", :initialize, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
       end
 
-      context "without roles support", :roles_support => false do
+      context "without roles support", :without_roles_support => true do
         describe "#assign_attributes", :assign_attributes, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
         describe "#attributes=", :attributes=, :secure_mass_assignment_method
         describe "#initialize", :initialize, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
@@ -78,7 +78,7 @@ module ActiveAttr
         end
       end
 
-      context "without roles support", :roles_support => false do
+      context "without roles support", :without_roles_support => true do
         describe "#assign_attributes", :assign_attributes, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
         describe "#attributes=", :attributes=, :secure_mass_assignment_method
         describe "#initialize", :initialize, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options

@@ -14,6 +14,6 @@ RSpec.configure do |config|
   if RAILS_3_0
     config.filter_run_excluding :roles_support => true
   else
-    config.filter_run_excluding :roles_support => false
+    config.filter_run_excluding :without_roles_support => true
   end
 end
