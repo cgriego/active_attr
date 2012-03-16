@@ -1,3 +1,7 @@
+# ActiveAttr 0.5.1 (March 16, 2012) #
+
+* ActiveAttr now supports Rails 3.0.2+ (Egor Baranov)
+
 # ActiveAttr 0.5.0 (March 11, 2012) #
 
 * ActiveAttr is now Ruby warning free
