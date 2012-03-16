@@ -35,7 +35,7 @@ module ActiveAttr
 
       let! :child_class do
         Class.new(parent_class).tap do |child_class|
-          child_class.instance_eval do
+          child_class.class_eval do
             attribute :child
             attribute :redefined, :type => String
           end
@@ -222,19 +222,21 @@ module ActiveAttr
       end
 
       let :dangerous_model_class do
-        Class.new do
-          include Attributes
+        Class.new.tap do |dangerous_model_class|
+          dangerous_model_class.class_eval do
+            include Attributes
 
-          def method_missing(method_name, *)
-            super if %w(my_proper_missing_method my_less_proper_missing_method).include? method_name.to_s
-          end
+            def method_missing(method_name, *)
+              super if %w(my_proper_missing_method my_less_proper_missing_method).include? method_name.to_s
+            end
 
-          def respond_to_missing?(method_name, *)
-            method_name.to_s == "my_proper_missing_method" || super
-          end
+            def respond_to_missing?(method_name, *)
+              method_name.to_s == "my_proper_missing_method" || super
+            end
 
-          def respond_to?(method_name, include_private=false)
-            super || method_name.to_s == "my_less_proper_missing_method" || (RUBY_VERSION < "1.9" && respond_to_missing?(method_name, include_private))
+            def respond_to?(method_name, include_private=false)
+              super || method_name.to_s == "my_less_proper_missing_method" || (RUBY_VERSION < "1.9" && respond_to_missing?(method_name, include_private))
+            end
           end
         end
       end

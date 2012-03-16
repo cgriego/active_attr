@@ -4,7 +4,6 @@ require "active_attr/unknown_attribute_error"
 require "active_model"
 require "active_support/concern"
 require "active_support/hash_with_indifferent_access"
-require "active_attr/inheritable_attributes_fix"
 
 module ActiveAttr
   # Attributes provides a set of class methods for defining an attributes

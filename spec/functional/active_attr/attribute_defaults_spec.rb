@@ -9,8 +9,10 @@ module ActiveAttr
     subject { model_class.new }
 
     let :model_class do
-      Class.new do
-        include ActiveAttr::AttributeDefaults
+      Class.new.tap do |model_class|
+        model_class.class_eval do
+          include ActiveAttr::AttributeDefaults
+        end
       end
     end
 
