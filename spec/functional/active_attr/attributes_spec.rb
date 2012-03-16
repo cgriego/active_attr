@@ -5,21 +5,28 @@ require "factory_girl"
 
 module ActiveAttr
   describe Attributes do
-    context "defining id attribute in any attributes definition order" do
+    context "defining multiple attributes" do
       let :model_class do
         Class.new do
           include Attributes
 
           attribute :name
           attribute :id
+
+          def id
+            if defined?(super)
+              super
+            else
+              object_id
+            end
+          end unless instance_methods(false).include?("id")
         end
       end
 
       subject { model_class.new }
 
-      it "correctrly defines id attribute" do
+      it "correctly defines methods for the attributes instead of relying on method_missing" do
         subject.id.should be_nil
-        subject.id.should_not == subject.object_id
       end
     end
 
