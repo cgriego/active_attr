@@ -15,14 +15,19 @@ module ActiveAttr
     shared_examples "secure mass assignment method", :secure_mass_assignment_method => true do
       include_examples "mass assignment method"
 
-      it "ignores assigning a protected attribute" do
+      it "ignores assigning an attribute protected by role-based security", :active_model_version => ">= 3.1.0" do
         person = mass_assign_attributes(:age => 21)
+        person.age.should be_nil
+      end
+
+      it "ignores assigning a protected attribute" do
+        person = mass_assign_attributes(:first_name => "Chris")
         person.age.should be_nil
       end
     end
 
     shared_examples "secure mass assignment method with options", :secure_mass_assignment_method_with_options => true do
-      it "supports role-based mass assignment security" do
+      it "supports role-based mass assignment security", :active_model_version => ">= 3.1.0" do
         person = mass_assign_attributes_with_options({ :age => 21 }, :as => :admin)
         person.age.should == 21
       end

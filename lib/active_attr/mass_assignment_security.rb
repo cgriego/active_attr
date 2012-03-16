@@ -32,8 +32,13 @@ module ActiveAttr
     # @since 0.3.0
     def assign_attributes(new_attributes, options={})
       if new_attributes && !options[:without_protection]
-        mass_assignment_role = options[:as] || :default
-        new_attributes = sanitize_for_mass_assignment new_attributes, mass_assignment_role
+        if method(:sanitize_for_mass_assignment).arity.abs > 1
+          mass_assignment_role = options[:as] || :default
+          new_attributes = sanitize_for_mass_assignment new_attributes, mass_assignment_role
+        else
+          # Rails 3.0 has no roles support in mass assignment
+          new_attributes = sanitize_for_mass_assignment new_attributes
+        end
       end
 
       super
