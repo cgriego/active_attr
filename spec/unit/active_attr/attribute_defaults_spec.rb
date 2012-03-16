@@ -26,11 +26,11 @@ module ActiveAttr
 
       it "includes declared nil attribute defaults" do
         subject.should include "age"
-        subject['age'].should be_nil
+        subject["age"].should be_nil
       end
 
       it "includes declared dynamic attribute defaults" do
-        subject['created_at'].should be_a_kind_of Time
+        subject["created_at"].should be_a_kind_of Time
       end
     end
 

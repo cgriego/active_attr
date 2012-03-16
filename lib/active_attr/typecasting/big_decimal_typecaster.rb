@@ -25,7 +25,7 @@ module ActiveAttr
       #
       # @since 0.5.0
       def call(value)
-        if value.is_a?(BigDecimal)
+        if value.is_a? BigDecimal
           value
         elsif value.respond_to? :to_d
           value.to_d

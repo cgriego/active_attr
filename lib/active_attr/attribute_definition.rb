@@ -1,6 +1,3 @@
-require 'active_support/core_ext/hash/reverse_merge'
-require 'active_support/core_ext/string/inflections'
-
 module ActiveAttr
   # Represents an attribute for reflection
   #
