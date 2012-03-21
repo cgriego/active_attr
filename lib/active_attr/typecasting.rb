@@ -8,6 +8,7 @@ require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
 require "active_attr/typecasting/unknown_typecaster_error"
+require "active_attr/multi_attr"
 
 module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type
@@ -59,6 +60,20 @@ module ActiveAttr
       }[type]
 
       typecaster.new if typecaster
+    end
+
+    def typecast_multiattr(klass, value)
+      if klass == Time
+        value.to_time
+      elsif klass == Date
+        value.to_date
+      else
+        values = (1..value.max_position).collect do |position|
+          raise ActiveAttr::MultiAttr::MissingParameter if !value.has_key?(position)
+          value[position]
+        end
+        klass.new(*values)
+      end
     end
   end
 end

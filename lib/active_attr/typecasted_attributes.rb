@@ -55,7 +55,13 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute(name)
-      typecast_attribute(_attribute_typecaster(name), super)
+      value = super
+
+      if value.is_a?(ActiveAttr::MultiAttr)
+        typecast_multiattr(_attribute_type(name), value)
+      else
+        typecast_attribute(_attribute_typecaster(name), value)
+      end
     end
 
     # Calculates an attribute type
