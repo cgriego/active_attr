@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gemspec :development_group => :test
 
 group :development do
+  gem "validates_timeliness" # Compatibility testing
   gem "growl"
   gem "guard"
   gem "guard-bundler"
