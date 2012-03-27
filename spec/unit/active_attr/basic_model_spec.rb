@@ -15,5 +15,11 @@ module ActiveAttr
 
     subject { model_class.new }
     it_should_behave_like "ActiveModel"
+
+    describe "#persisted?" do
+      it "is not persisted by default" do
+        subject.should_not be_persisted
+      end
+    end
   end
 end
