@@ -1,5 +1,6 @@
 require "active_attr/attribute_defaults"
 require "active_attr/basic_model"
+require "active_attr/persistence"
 require "active_attr/block_initialization"
 require "active_attr/logger"
 require "active_attr/mass_assignment_security"
@@ -23,6 +24,7 @@ module ActiveAttr
   module Model
     extend ActiveSupport::Concern
     include BasicModel
+    include Persistence::Sugar
     include BlockInitialization
     include Logger
     include MassAssignmentSecurity
