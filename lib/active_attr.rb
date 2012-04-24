@@ -13,6 +13,7 @@ module ActiveAttr
   autoload :AttributeDefinition
   autoload :Attributes
   autoload :BasicModel
+  autoload :BlockInitialization
   autoload :ChainableInitialization
   autoload :Error
   autoload :Logger
