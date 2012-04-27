@@ -70,7 +70,7 @@ module ActiveAttr
       end
 
       it "the attribute default is different per instance" do
-        model_class.new.created_at.should_not == model_class.new.created_at
+        model_class.new.created_at.should_not equal model_class.new.created_at
       end
     end
 
