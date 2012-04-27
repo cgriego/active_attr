@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "activesupport", ">= 3.0.2", "< 4.1"
 
   gem.add_development_dependency "bundler",      "~> 1.0"
-  gem.add_development_dependency "factory_girl", "~> 2.2"
+  gem.add_development_dependency "factory_girl", ">= 2.2", "< 4.0"
   gem.add_development_dependency "rake",         "~> 0.9.0"
   gem.add_development_dependency "rspec",        "~> 2.6"
   gem.add_development_dependency "tzinfo",       "~> 0.3.29"

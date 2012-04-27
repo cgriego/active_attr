@@ -160,9 +160,11 @@ module ActiveAttr
       before do
         Object.const_set("Person", model_class)
 
-        Factory.define :person, :class => :person do |model|
-          model.first_name "Chris"
-          model.last_name "Griego"
+        FactoryGirl.define do
+          factory :person, :class => :person do
+            first_name "Chris"
+            last_name "Griego"
+          end
         end
       end
 
