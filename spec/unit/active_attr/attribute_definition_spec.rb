@@ -76,7 +76,7 @@ module ActiveAttr
 
       it "generates attribute definition code for an attribute with multiple options sorted alphabetically" do
         expected = %{attribute :first_name, :default => "John", :type => String}
-        described_class.new(:first_name, :default => "John", :type => String).inspect.should == expected
+        described_class.new(:first_name, :default => "John", :type => String).inspect.should eq expected
         described_class.new(:first_name, :type => String, :default => "John").inspect.should == expected
       end
 
