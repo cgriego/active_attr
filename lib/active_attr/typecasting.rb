@@ -1,3 +1,4 @@
+require "active_attr/typecasting/array_typecaster"
 require "active_attr/typecasting/big_decimal_typecaster"
 require "active_attr/typecasting/boolean"
 require "active_attr/typecasting/boolean_typecaster"
@@ -13,6 +14,7 @@ module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type
   #
   # The following types are supported for typecasting:
+  # * Array
   # * BigDecimal
   # * Boolean
   # * Date
@@ -48,6 +50,7 @@ module ActiveAttr
     # @since 0.6.0
     def typecaster_for(type)
       typecaster = {
+        Array      => ArrayTypecaster,
         BigDecimal => BigDecimalTypecaster,
         Boolean    => BooleanTypecaster,
         Date       => DateTypecaster,

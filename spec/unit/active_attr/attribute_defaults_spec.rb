@@ -12,6 +12,8 @@ module ActiveAttr
         attribute :first_name, :default => "John"
         attribute :age, :default => nil
         attribute :created_at, :default => lambda { Time.now }
+        attribute :friends, :default => []
+        attribute :family, :default => ['mother', 'father', 'brother', 'sister']
       end
     end
 
@@ -31,6 +33,14 @@ module ActiveAttr
 
       it "includes declared dynamic attribute defaults" do
         subject["created_at"].should be_a_kind_of Time
+      end
+
+      it "includes declared empty array attribute defaults" do
+        subject["friends"].should == []
+      end
+
+      it "includes declared populated array attribute defaults" do
+        subject["family"].should == ['mother', 'father', 'brother', 'sister']
       end
     end
 
