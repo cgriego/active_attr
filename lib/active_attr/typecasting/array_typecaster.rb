@@ -1,14 +1,25 @@
 module ActiveAttr
   module Typecasting
+    # Typecasts an Object to an Array
+    #
+    # @example Usage
+    #   ArrayTypecaster.new.call(1) # => [1]
+    #
+    # @since 0.6.0
     class ArrayTypecaster
-      # Typecasts an Object to an nArray
+      # Typecasts an Object to an Array
+      #
+      # Will typecast any Object except nil to an Array, first by attempting to
+      # call `#to_a`, then by wrapping `value` in an Array (`[value]`).
       #
       # @example Usage
-      #   ArrayTypecaster.new.call([1]) # => [1]
+      #   ArrayTypecaster.new.call(1) # => [1]
+      #
+      # @param [Object] value The object to typecast
       #
       # @return [Array, nil] The result of typecasting
       #
-      # @since #TODO: What is the current version?
+      # @since 0.6.0
       def call(value)
         if value.respond_to? :to_a
           value.to_a
