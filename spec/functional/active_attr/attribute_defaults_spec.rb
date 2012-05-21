@@ -58,6 +58,14 @@ module ActiveAttr
       end
     end
 
+    context "an attribute with a default empty Array" do
+      before { model_class.attribute :roles, :default => [] }
+
+      it "the attribute getter returns an empty array by default" do
+        subject.roles.should == []
+      end
+    end
+
     context "an attribute with a dynamic Time.now default" do
       before { model_class.attribute :created_at, :default => lambda { Time.now } }
 
