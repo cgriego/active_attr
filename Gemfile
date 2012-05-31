@@ -4,6 +4,7 @@ gemspec :development_group => :test
 gem "factory_girl", "< 3.0", :group => :test if RUBY_VERSION < "1.9.2"
 
 group :development do
+  gem "validates_timeliness" # Compatibility testing
   gem "growl"
   gem "guard"
   gem "guard-bundler"
