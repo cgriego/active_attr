@@ -4,6 +4,7 @@ gemspec :development_group => :test
 gem "factory_girl", "< 3.0", :group => :test if RUBY_VERSION < "1.9.2"
 
 group :development do
+  gem "debugger",  :platforms => :mri_19
   gem "growl"
   gem "guard"
   gem "guard-bundler"
@@ -12,7 +13,6 @@ group :development do
   gem "rdiscount"
   gem "rdoc"
   gem "ruby-debug",    :platforms => :mri_18
-  gem "ruby-debug19",  :platforms => :mri_19 if RUBY_VERSION < "1.9.3"
   gem "spec_coverage", :platforms => :mri_19
   gem "travis-lint"
   gem "yard"
