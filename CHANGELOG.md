@@ -1,4 +1,4 @@
-# ActiveAttr 0.6.0 (unreleased) #
+# ActiveAttr 0.6.0 (June 27, 2012) #
 
 * Added AttributeDefinition#inspect
 * Added Attributes.attribute!
