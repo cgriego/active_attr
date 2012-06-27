@@ -218,6 +218,14 @@ module ActiveAttr
         it ".attribute! does not raise" do
           expect { model_class.attribute!(attribute_name) }.not_to raise_error
         end
+
+        it "can be set and get" do
+          model_class.attribute attribute_name
+          model = model_class.new
+          value = mock
+          model.send "#{attribute_name}=", value
+          model.send(attribute_name).should equal value
+        end
       end
 
       shared_examples "defining dangerous attributes" do

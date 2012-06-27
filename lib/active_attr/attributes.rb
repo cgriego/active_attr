@@ -266,6 +266,11 @@ module ActiveAttr
         @attributes = attributes
       end
 
+      # Overrides ActiveModel::AttributeMethods to backport 3.2 fix
+      def instance_method_already_implemented?(method_name)
+        generated_attribute_methods.method_defined?(method_name)
+      end
+
       private
 
       # Expand an attribute name into its generated methods names
