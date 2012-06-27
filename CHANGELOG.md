@@ -3,6 +3,7 @@
 * Added AttributeDefinition#inspect
 * Added Attributes.attribute!
 * Added Attributes.dangerous_attribute?
+* Added missing autoload for BlockInitialization
 * Added Typecasting#typecaster_for
 * Added Typecasting::UnknownTypecasterError
 * Changed Typecasting#typecast_attribute to take a typecaster, not a type
