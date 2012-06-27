@@ -51,51 +51,85 @@ module ActiveAttr
     end
 
     describe ".attribute" do
-      it "creates an attribute with no options" do
-        model_class.attributes.values.should include(AttributeDefinition.new(:first_name))
+      context "a dangerous attribute" do
+        before { model_class.stub(:dangerous_attribute?).and_return(true) }
+
+        it { expect { model_class.attribute(:address) }.to raise_error DangerousAttributeError }
+      end
+
+      context "a harmless attribute" do
+        it "creates an attribute with no options" do
+          model_class.attributes.values.should include(AttributeDefinition.new(:first_name))
+        end
+
+        it "returns the attribute definition" do
+          model_class.attribute(:address).should == AttributeDefinition.new(:address)
+        end
+
+        it "defines an attribute reader that calls #attribute" do
+          subject.should_receive(:attribute).with("first_name")
+          subject.first_name
+        end
+
+        it "defines an attribute reader that can be called via super" do
+          subject.should_receive(:attribute).with("amount")
+          subject.amount
+        end
+
+        it "defines an attribute writer that calls #attribute=" do
+          subject.should_receive(:attribute=).with("first_name", "Ben")
+          subject.first_name = "Ben"
+        end
+
+        it "defines an attribute writer that can be called via super" do
+          subject.should_receive(:attribute=).with("amount", 1)
+          subject.amount = 1
+        end
+
+        it "defining an attribute twice does not give the class two attribute definitions" do
+          Class.new do
+            include Attributes
+            attribute :name
+            attribute :name
+          end.should have(1).attributes
+        end
+
+        it "redefining an attribute replaces the attribute definition" do
+          klass = Class.new do
+            include Attributes
+            attribute :name, :type => Symbol
+            attribute :name, :type => String
+          end
+
+          klass.should have(1).attributes
+          klass.attributes[:name].should == AttributeDefinition.new(:name, :type => String)
+        end
+      end
+    end
+
+    describe ".attribute!" do
+      it "can create an attribute with no options" do
+        attributeless.attribute! :first_name
+        attributeless.attributes.values.should include AttributeDefinition.new(:first_name)
       end
 
       it "returns the attribute definition" do
-        Class.new(model_class).attribute(:address).should == AttributeDefinition.new(:address)
+        attributeless.attribute!(:address).should == AttributeDefinition.new(:address)
       end
 
       it "defines an attribute reader that calls #attribute" do
-        subject.should_receive(:attribute).with("first_name")
-        subject.first_name
-      end
-
-      it "defines an attribute reader that can be called via super" do
-        subject.should_receive(:attribute).with("amount")
-        subject.amount
+        attributeless.attribute! :first_name
+        instance = attributeless.new
+        result = mock
+        instance.should_receive(:attribute).with("first_name").and_return(result)
+        instance.first_name.should equal result
       end
 
       it "defines an attribute writer that calls #attribute=" do
-        subject.should_receive(:attribute=).with("first_name", "Ben")
-        subject.first_name = "Ben"
-      end
-
-      it "defines an attribute writer that can be called via super" do
-        subject.should_receive(:attribute=).with("amount", 1)
-        subject.amount = 1
-      end
-
-      it "defining an attribute twice does not give the class two attribute definitions" do
-        Class.new do
-          include Attributes
-          attribute :name
-          attribute :name
-        end.should have(1).attributes
-      end
-
-      it "redefining an attribute replaces the attribute definition" do
-        klass = Class.new do
-          include Attributes
-          attribute :name, :type => Symbol
-          attribute :name, :type => String
-        end
-
-        klass.should have(1).attributes
-        klass.attributes[:name].should == AttributeDefinition.new(:name, :type => String)
+        attributeless.attribute! :first_name
+        instance = attributeless.new
+        instance.should_receive(:attribute=).with("first_name", "Ben")
+        instance.first_name = "Ben"
       end
     end
 

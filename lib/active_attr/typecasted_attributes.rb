@@ -87,7 +87,7 @@ module ActiveAttr
       def inspect
         inspected_attributes = attribute_names.sort.map { |name| "#{name}: #{_attribute_type(name)}" }
         attributes_list = "(#{inspected_attributes.join(", ")})" unless inspected_attributes.empty?
-        "#{self.name}#{attributes_list}"
+        "#{name}#{attributes_list}"
       end
 
       # Calculates an attribute type

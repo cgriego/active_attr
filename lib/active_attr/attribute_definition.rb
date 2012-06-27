@@ -47,6 +47,7 @@ module ActiveAttr
     #   AttributeDefinition.new(:amount)
     #
     # @param [Symbol, String, #to_sym] name attribute name
+    # @param [Hash{Symbol => Object}] options attribute options
     #
     # @return [ActiveAttr::AttributeDefinition]
     #

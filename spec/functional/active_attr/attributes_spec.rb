@@ -192,41 +192,78 @@ module ActiveAttr
     end
 
     context "defining dangerous attributes" do
-      shared_examples "defining a dangerous attribute" do
-        it "defining an attribute that conflicts with #{described_class} raises DangerousAttributeError" do
-          expect { model_class.attribute(:write_attribute) }.to raise_error DangerousAttributeError, %{an attribute method named "write_attribute" would conflict with an existing method}
+      shared_examples "a dangerous attribute" do
+        it ".dangerous_attribute? is true" do
+          model_class.dangerous_attribute?(attribute_name).should be_true
         end
 
-        it "defining an attribute that conflicts with ActiveModel::AttributeMethods raises DangerousAttributeError" do
-          expect { model_class.attribute(:inspect) }.to raise_error DangerousAttributeError, %{an attribute method named "inspect" would conflict with an existing method}
+        it ".attribute raises DangerousAttributeError" do
+          expect { model_class.attribute(attribute_name) }.to raise_error DangerousAttributeError, %{an attribute method named "#{attribute_name}" would conflict with an existing method}
         end
 
-        it "defining an :id attribute does not raise" do
-          expect { model_class.attribute(:id) }.not_to raise_error
+        it ".attribute! does not raise" do
+          expect { model_class.attribute!(attribute_name) }.not_to raise_error
+        end
+      end
+
+      shared_examples "a whitelisted attribute" do
+        it ".dangerous_attribute? is false" do
+          model_class.dangerous_attribute?(attribute_name).should be_false
         end
 
-        it "defining a :type attribute does not raise" do
-          expect { model_class.attribute(:type) }.not_to raise_error
+        it ".attribute does not raise" do
+          expect { model_class.attribute(attribute_name) }.not_to raise_error
         end
 
-        it "defining an attribute that conflicts with Kernel raises DangerousAttributeError" do
-          expect { model_class.attribute(:puts) }.to raise_error DangerousAttributeError
+        it ".attribute! does not raise" do
+          expect { model_class.attribute!(attribute_name) }.not_to raise_error
+        end
+      end
+
+      shared_examples "defining dangerous attributes" do
+        context "an attribute that conflicts with #{described_class}" do
+          let(:attribute_name) { :write_attribute }
+          include_examples "a dangerous attribute"
         end
 
-        it "defining an attribute that conflicts with Object raises DangerousAttributeError" do
-          expect { model_class.attribute(:class) }.to raise_error DangerousAttributeError
+        context "an attribute that conflicts with ActiveModel::AttributeMethods" do
+          let(:attribute_name) { :inspect }
+          include_examples "a dangerous attribute"
         end
 
-        it "defining an attribute that conflicts with BasicObject raises DangerousAttributeError" do
-          expect { model_class.attribute(:instance_eval) }.to raise_error DangerousAttributeError
+        context "an attribute that conflicts with Kernel" do
+          let(:attribute_name) { :puts }
+          include_examples "a dangerous attribute"
         end
 
-        it "defining an attribute that conflicts with a properly implemented method_missing callback raises DangerousAttributeError" do
-          expect { model_class.attribute(:my_proper_missing_method) }.to raise_error DangerousAttributeError
+        context "an attribute that conflicts with Object" do
+          let(:attribute_name) { :class }
+          include_examples "a dangerous attribute"
         end
 
-        it "defining an attribute that conflicts with a less properly implemented method_missing callback raises DangerousAttributeError" do
-          expect { model_class.attribute(:my_less_proper_missing_method) }.to raise_error DangerousAttributeError
+        context "an attribute that conflicts with BasicObject" do
+          let(:attribute_name) { :instance_eval }
+          include_examples "a dangerous attribute"
+        end
+
+        context "an attribute that conflicts with a properly implemented method_missing callback" do
+          let(:attribute_name) { :my_proper_missing_method }
+          include_examples "a dangerous attribute"
+        end
+
+        context "an attribute that conflicts with a less properly implemented method_missing callback" do
+          let(:attribute_name) { :my_less_proper_missing_method }
+          include_examples "a dangerous attribute"
+        end
+
+        context "an :id attribute" do
+          let(:attribute_name) { :id }
+          include_examples "a whitelisted attribute"
+        end
+
+        context "a :type attribute" do
+          let(:attribute_name) { :type }
+          include_examples "a whitelisted attribute"
         end
       end
 
@@ -252,12 +289,12 @@ module ActiveAttr
 
       context "on a model class" do
         let(:model_class) { dangerous_model_class }
-        include_examples "defining a dangerous attribute"
+        include_examples "defining dangerous attributes"
       end
 
       context "on a child class" do
         let(:model_class) { Class.new(dangerous_model_class) }
-        include_examples "defining a dangerous attribute"
+        include_examples "defining dangerous attributes"
       end
     end
   end

@@ -12,7 +12,7 @@ group :development do
   gem "rb-fsevent"
   gem "rdiscount"
   gem "rdoc"
-  gem "ruby-debug",    :platforms => :mri_18
+  gem "ruby-debug", :platforms => :mri_18
   gem "spec_coverage", :platforms => :mri_19
   gem "travis-lint"
   gem "yard"

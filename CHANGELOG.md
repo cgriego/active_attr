@@ -1,6 +1,8 @@
 # ActiveAttr 0.6.0 (unreleased) #
 
 * Added AttributeDefinition#inspect
+* Added Attributes.attribute!
+* Added Attributes.dangerous_attribute?
 * Added Typecasting#typecaster_for
 * Added Typecasting::UnknownTypecasterError
 * Changed Typecasting#typecast_attribute to take a typecaster, not a type
