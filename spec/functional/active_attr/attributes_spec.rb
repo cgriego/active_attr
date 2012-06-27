@@ -113,6 +113,7 @@ module ActiveAttr
             include ActiveModel::Serializers::Xml
           end
 
+          self.include_root_in_json = true
           attribute :first_name
           attribute :last_name
 
