@@ -41,11 +41,13 @@ module ActiveAttr
     end
 
     let :attributeless do
-      Class.new do
-        include Attributes
+      Class.new.tap do |attributeless|
+        attributeless.class_eval do
+          include Attributes
 
-        def self.name
-          "Foo"
+          def self.name
+            "Foo"
+          end
         end
       end
     end
