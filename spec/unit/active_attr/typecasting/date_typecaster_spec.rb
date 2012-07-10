@@ -14,6 +14,10 @@ module ActiveAttr
           subject.call(nil).should equal nil
         end
 
+        it "returns nil for an invalid String" do
+          subject.call("x").should equal nil
+        end
+
         it "casts a UTC Time to a Date representing the date portion" do
           subject.call(Time.utc(2012, 1, 1, 0, 0, 0)).should eql Date.new(2012, 1, 1)
         end

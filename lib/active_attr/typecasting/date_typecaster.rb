@@ -24,6 +24,7 @@ module ActiveAttr
       # @since 0.5.0
       def call(value)
         value.to_date if value.respond_to? :to_date
+      rescue NoMethodError
       end
     end
   end
