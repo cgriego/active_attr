@@ -1,6 +1,8 @@
 # ActiveAttr #
 
-[![Build History][travis badge]][travis] [![Dependency Status][gemnasium badge]][gemnasium]
+[![Build History][travis badge]][travis]
+[![Dependency Status][gemnasium badge]][gemnasium]
+[![Code Climate][codeclimate badge]][codeclimate]
 
 ActiveAttr is a set of modules that makes it easy to create plain old ruby
 models with functionality found in ORMs, like ActiveRecord, without
@@ -17,6 +19,8 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 * [Contributors][contributors]
 
 [api]: http://rubydoc.info/gems/active_attr
+[codeclimate badge]: https://codeclimate.com/badge.png
+[codeclimate]: https://codeclimate.com/github/cgriego/active_attr
 [contributors]: https://github.com/cgriego/active_attr/contributors
 [gemnasium badge]: https://gemnasium.com/cgriego/active_attr.png
 [gemnasium]: https://gemnasium.com/cgriego/active_attr
