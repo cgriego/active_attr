@@ -90,7 +90,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute_defaults
-      Hash[ self.class.attribute_names.map { |name| [name, _attribute_default(name)] } ]
+      attributes_map { |name| _attribute_default name }
     end
 
     # Applies attribute default values

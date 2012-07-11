@@ -57,7 +57,7 @@ module ActiveAttr
     #
     # @since 0.2.0
     def attributes
-      Hash[self.class.attribute_names.map { |key| [key, send(key)] }]
+      attributes_map { |name| send name }
     end
 
     # Returns the class name plus its attributes
@@ -136,6 +136,21 @@ module ActiveAttr
     def attribute=(name, value)
       @attributes ||= {}
       @attributes[name] = value
+    end
+
+    # Maps all attributes using the given block
+    #
+    # @example Stringify attributes
+    #   person.attributes_map { |name| send(name).to_s }
+    #
+    # @yield [name] block called to return hash value
+    # @yieldparam [String] name The name of the attribute to map.
+    #
+    # @return [Hash{String => Object}] The Hash of mapped attributes
+    #
+    # @since 0.7.0
+    def attributes_map
+      Hash[ self.class.attribute_names.map { |name| [name, yield(name)] } ]
     end
 
     module ClassMethods
