@@ -1,21 +1,32 @@
 # ActiveAttr #
 
-[![Build History][2]][1] [![Dependency Status][5]][4]
+[![Build History][travis badge]][travis] [![Dependency Status][gemnasium badge]][gemnasium]
 
 ActiveAttr is a set of modules that makes it easy to create plain old ruby
 models with functionality found in ORMs, like ActiveRecord, without
 reinventing the wheel. Think of ActiveAttr as the stuff ActiveModel left out.
 
-ActiveAttr is distributed as a rubygem [on rubygems.org][3].
+ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 
-* [API Documentation](http://rubydoc.info/gems/active_attr)
-* [Contributors](https://github.com/cgriego/active_attr/contributors)
+[![Models Models Every Where][speakerdeck slide]][speakerdeck]
+[![ActiveAttr Railscast][railscast poster]][railscast]
 
-[1]: http://travis-ci.org/cgriego/active_attr
-[2]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
-[3]: http://rubygems.org/gems/active_attr
-[4]: https://gemnasium.com/cgriego/active_attr
-[5]: https://gemnasium.com/cgriego/active_attr.png
+* [Slides][speakerdeck]
+* [RailsCast][railscast]
+* [API Documentation][api]
+* [Contributors][contributors]
+
+[api]: http://rubydoc.info/gems/active_attr
+[contributors]: https://github.com/cgriego/active_attr/contributors
+[gemnasium badge]: https://gemnasium.com/cgriego/active_attr.png
+[gemnasium]: https://gemnasium.com/cgriego/active_attr
+[railscast poster]: http://railscasts.com/assets/episodes/stills/326-activeattr.png
+[railscast]: http://railscasts.com/episodes/326-activeattr
+[rubygems]: http://rubygems.org/gems/active_attr
+[speakerdeck slide]: https://speakerd.s3.amazonaws.com/presentations/4f31f1dec583b4001f008ec3/thumb_slide_0.jpg
+[speakerdeck]: https://speakerdeck.com/u/cgriego/p/models-models-every-where
+[travis badge]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
+[travis]: http://travis-ci.org/cgriego/active_attr
 
 ## Modules ##
 
