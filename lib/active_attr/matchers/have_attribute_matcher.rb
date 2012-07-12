@@ -78,7 +78,7 @@ module ActiveAttr
       # @return [String] Description
       # @private
       def description
-        "has #{@description}"
+        "have #{@description}"
       end
 
       # @private
