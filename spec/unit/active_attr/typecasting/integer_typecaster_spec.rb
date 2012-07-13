@@ -10,11 +10,11 @@ module ActiveAttr
           subject.call(value).should equal value
         end
 
-        it "don't casts nil" do
+        it "should not cast nil" do
           subject.call(nil).should eql nil
         end
 
-        it "don't casts blank" do
+        it "should not cast blank" do
           subject.call("").should eql nil
         end
 
