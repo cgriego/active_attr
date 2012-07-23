@@ -1,6 +1,6 @@
 # ActiveAttr 0.7.0 (Unreleased) #
 
-* Changed Typecasting::DateTypecaster to raise on invalid Strings
+* Changed Typecasting::DateTypecaster to not raise on invalid Strings
 
 # ActiveAttr 0.6.0 (June 27, 2012) #
 
