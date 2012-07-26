@@ -43,6 +43,51 @@ module ActiveAttr
         subject.should_receive(:attribute_before_type_cast).with("last_name")
         subject.last_name_before_type_cast
       end
+
+      context "MultiValue" do
+        before do
+          model_class.class_eval do
+            attribute :time, :type => Time
+            attribute :date, :type => Date
+          end
+        end
+
+        it "typecasts MultiValue to time" do
+          subject.time = ActiveAttr::MultiAttr.new(1 => "2010", 2 => "10", 3 => "5")
+          subject.time.should == Time.local(2010, 10, 5)
+        end
+
+        it "typecasts MultiValue to date" do
+          subject.date = ActiveAttr::MultiAttr.new(1 => "2010", 2 => "10", 3 => "5")
+          subject.date.should == Date.new(2010, 10, 5)
+        end
+
+        context "custom class" do
+          it "typecasts MultiValue to custom class" do
+            custom_class = Class.new do
+              attr_accessor :a, :b
+              def initialize(a, b)
+                self.a = a
+                self.b = b
+              end
+            end
+            model_class.class_eval do
+              attribute :custom, :type => custom_class
+            end
+
+            subject.custom = MultiAttr.new(1 => "foo", 2 => "bar")
+            result = subject.custom
+            result.should be_a(custom_class)
+            result.a.should == "foo"
+            result.b.should == "bar"
+          end
+        end
+
+        it "raises ActiveAttr::MultiAttr::MissingParameter on arguments error" do
+          subject.time = MultiAttr.new(1 => "2010", 3 => "5")
+          expect { subject.time }.to raise_error(ActiveAttr::MultiAttr::MissingParameter)
+        end
+      end
     end
 
     describe ".inspect" do

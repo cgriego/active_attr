@@ -19,6 +19,7 @@ module ActiveAttr
   autoload :Logger
   autoload :MassAssignment
   autoload :MassAssignmentSecurity
+  autoload :MultiAttr
   autoload :Model
   autoload :QueryAttributes
   autoload :TypecastedAttributes
