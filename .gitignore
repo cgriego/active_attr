@@ -1,5 +1,6 @@
 *.gem
 .bundle
+.rvmrc
 .yardoc
 coverage
 doc
