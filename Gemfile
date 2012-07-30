@@ -5,6 +5,8 @@ gemspec :development_group => :test
 if RUBY_VERSION < "1.9.2"
   gem "factory_girl", "< 3.0", :group => :test
   gem "strong_parameters", :git => "git://github.com/rails/strong_parameters.git", :group => :test
+else
+  gem "strong_parameters"
 end
 
 group :development do
