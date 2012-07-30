@@ -4,11 +4,11 @@ require "active_attr/mass_assignment_security"
 module ActiveAttr
   describe MassAssignmentSecurity, :mass_assignment do
     context "integrating with strong_parameters", :active_model_version => "~> 3.2.0" do
-      require "strong_parameters"
-
       subject { model_class }
 
       before do
+        require "strong_parameters"
+
         model_class.class_eval do
           include ActiveAttr::MassAssignmentSecurity
           include ActiveModel::ForbiddenAttributesProtection
