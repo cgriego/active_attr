@@ -1,7 +1,11 @@
 source "https://rubygems.org"
 
 gemspec :development_group => :test
-gem "factory_girl", "< 3.0", :group => :test if RUBY_VERSION < "1.9.2"
+
+if RUBY_VERSION < "1.9.2"
+  gem "factory_girl", "< 3.0", :group => :test
+  gem "strong_parameters", :git => "git://github.com/rails/strong_parameters.git", :group => :test
+end
 
 group :development do
   gem "debugger",  :platforms => :mri_19

@@ -27,6 +27,7 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 [railscast poster]: http://railscasts.com/assets/episodes/stills/326-activeattr.png
 [railscast]: http://railscasts.com/episodes/326-activeattr
 [rubygems]: http://rubygems.org/gems/active_attr
+[strong_parameters]: https://github.com/rails/strong_parameters
 [speakerdeck slide]: https://speakerd.s3.amazonaws.com/presentations/4f31f1dec583b4001f008ec3/thumb_slide_0.jpg
 [speakerdeck]: https://speakerdeck.com/u/cgriego/p/models-models-every-where
 [travis badge]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
@@ -182,6 +183,15 @@ blacklists or whitelists including support for mass assignment roles.
     person = Person.new(:first_name => "Chris", :last_name => "Griego")
     person.first_name #=> "Chris"
     person.last_name #=> nil
+
+If you prefer the [Strong Paramters][strong_parameters] approach,
+include the ActiveModel::ForbiddenAttributesProtection module after
+including the MassAssignmentSecurity model.
+
+    class Person
+      include ActiveAttr::MassAssignmentSecurity
+      include ActiveModel::ForbiddenAttributesProtection
+    end
 
 ### Model ###
 
