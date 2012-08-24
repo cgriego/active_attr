@@ -193,6 +193,15 @@ including the MassAssignmentSecurity model.
       include ActiveModel::ForbiddenAttributesProtection
     end
 
+### Serialization ###
+
+The Serialization module is a shortcut for incorporating ActiveModel's
+serialization functionality into your model with one include.
+
+    class Person
+      include ActiveAttr::Model
+    end
+
 ### Model ###
 
 The Model module is a shortcut for incorporating the most common model

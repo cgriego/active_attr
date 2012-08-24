@@ -21,6 +21,7 @@ module ActiveAttr
   autoload :MassAssignmentSecurity
   autoload :Model
   autoload :QueryAttributes
+  autoload :Serialization
   autoload :TypecastedAttributes
   autoload :Typecasting
   autoload :UnknownAttributeError

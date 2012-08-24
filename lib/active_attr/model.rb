@@ -4,8 +4,8 @@ require "active_attr/block_initialization"
 require "active_attr/logger"
 require "active_attr/mass_assignment_security"
 require "active_attr/query_attributes"
+require "active_attr/serialization"
 require "active_attr/typecasted_attributes"
-require "active_model"
 require "active_support/concern"
 
 module ActiveAttr
@@ -29,13 +29,6 @@ module ActiveAttr
     include AttributeDefaults
     include QueryAttributes
     include TypecastedAttributes
-
-    if defined? ActiveModel::Serializable
-      include ActiveModel::Serializable::JSON
-      include ActiveModel::Serializable::XML
-    else
-      include ActiveModel::Serializers::JSON
-      include ActiveModel::Serializers::Xml
-    end
+    include Serialization
   end
 end
