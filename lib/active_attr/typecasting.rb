@@ -47,19 +47,16 @@ module ActiveAttr
     #
     # @since 0.6.0
     def typecaster_for(type)
-      TYPECASTERS[type].new if TYPECASTERS.has_key?(type)
+      case
+      when type == BigDecimal then BigDecimalTypecaster.new
+      when type == Boolean    then BooleanTypecaster.new
+      when type == Date       then DateTypecaster.new
+      when type == DateTime   then DateTimeTypecaster.new
+      when type == Float      then FloatTypecaster.new
+      when type == Integer    then IntegerTypecaster.new
+      when type == Object     then ObjectTypecaster.new
+      when type == String     then StringTypecaster.new
+      end
     end
-
-    TYPECASTERS = {
-      BigDecimal => BigDecimalTypecaster,
-      Boolean    => BooleanTypecaster,
-      Date       => DateTypecaster,
-      DateTime   => DateTimeTypecaster,
-      Float      => FloatTypecaster,
-      Integer    => IntegerTypecaster,
-      Object     => ObjectTypecaster,
-      String     => StringTypecaster,
-    }
-
   end
 end
