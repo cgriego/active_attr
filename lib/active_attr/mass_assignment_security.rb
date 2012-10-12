@@ -18,7 +18,7 @@ module ActiveAttr
   module MassAssignmentSecurity
     extend ActiveSupport::Concern
     include MassAssignment
-    include ActiveModel::MassAssignmentSecurity
+    include ActiveModel::ForbiddenAttributesProtection
 
     # Mass update a model's attributes, honoring attribute permissions
     #
