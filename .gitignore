@@ -7,3 +7,4 @@ doc
 Gemfile.lock
 gemfiles/*.gemfile.lock
 pkg/*
+tmp/
