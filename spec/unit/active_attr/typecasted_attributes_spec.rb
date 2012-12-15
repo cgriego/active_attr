@@ -60,6 +60,10 @@ module ActiveAttr
     end
 
     describe "#attribute_before_type_cast" do
+      it "returns nil when the attribute has not been assigned yet" do
+        subject.attribute_before_type_cast(:amount).should be_nil
+      end
+
       it "returns the assigned attribute value, without typecasting, when given an attribute name as a Symbol" do
         value = :value
         subject.amount = value

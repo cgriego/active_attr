@@ -2,6 +2,7 @@
 
 * Added Serialization
 * Changed Typecasting::DateTypecaster to not raise on invalid Strings
+* #114 Fixed NoMethodError in TypecastedAttributes#attribute_before_type_cast
 
 # ActiveAttr 0.6.0 (June 27, 2012) #
 

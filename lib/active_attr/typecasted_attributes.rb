@@ -46,6 +46,7 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute_before_type_cast(name)
+      @attributes ||= {}
       @attributes[name.to_s]
     end
 
