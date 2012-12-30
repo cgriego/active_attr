@@ -3,6 +3,7 @@ require "active_attr/attributes"
 require "active_attr/attribute_defaults"
 require "active_attr/matchers/have_attribute_matcher"
 require "active_attr/typecasted_attributes"
+require "active_support/core_ext/string/strip"
 
 module ActiveAttr
   module Matchers
@@ -98,7 +99,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name
+                         got: attribute :first_name
+              MESSAGE
+            end
           end
         end
 
@@ -131,7 +137,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name with a default value of "John"} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :first_name, :default => "John"
+                     got: attribute :first_name
+              MESSAGE
+            end
           end
         end
 
@@ -145,7 +156,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name with a default value of "John"} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :first_name, :default => "John"
+                     got: attribute :first_name, :default => "Doe"
+              MESSAGE
+            end
           end
         end
 
@@ -159,7 +175,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name with a default value of "John"} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name, :default => "John"
+                         got: attribute :first_name, :default => "John"
+              MESSAGE
+            end
           end
         end
       end
@@ -180,7 +201,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named admin with a default value of false} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :admin, :default => false
+                     got: attribute :admin
+              MESSAGE
+            end
           end
         end
 
@@ -194,7 +220,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named admin with a default value of false} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :admin, :default => false
+                     got: attribute :admin, :default => nil
+              MESSAGE
+            end
           end
         end
 
@@ -208,7 +239,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named admin with a default value of false} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :admin, :default => false
+                         got: attribute :admin, :default => false
+              MESSAGE
+            end
           end
         end
       end
@@ -229,7 +265,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name with a default value of nil} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name, :default => nil
+                         got: attribute :first_name
+              MESSAGE
+            end
           end
         end
 
@@ -243,7 +284,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name with a default value of nil} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :first_name, :default => nil
+                     got: attribute :first_name, :default => false
+              MESSAGE
+            end
           end
         end
 
@@ -257,7 +303,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name with a default value of nil} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name, :default => nil
+                         got: attribute :first_name, :default => nil
+              MESSAGE
+            end
           end
         end
       end
@@ -278,7 +329,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name of type String} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :first_name, :type => String
+                     got: attribute :first_name
+              MESSAGE
+            end
           end
         end
 
@@ -292,7 +348,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name of type String} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :first_name, :type => String
+                     got: attribute :first_name, :type => Symbol
+              MESSAGE
+            end
           end
         end
 
@@ -306,7 +367,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name of type String} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name, :type => String
+                         got: attribute :first_name, :type => String
+              MESSAGE
+            end
           end
         end
       end
@@ -327,7 +393,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name of type Object} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name, :type => Object
+                         got: attribute :first_name
+              MESSAGE
+            end
           end
         end
 
@@ -341,7 +412,12 @@ module ActiveAttr
           describe "#failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name of type Object} }
+            it do
+              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected: attribute :first_name, :type => Object
+                     got: attribute :first_name, :type => String
+              MESSAGE
+            end
           end
         end
 
@@ -355,7 +431,12 @@ module ActiveAttr
           describe "#negative_failure_message" do
             before { subject.matches?(model_class) }
 
-            it { subject.negative_failure_message.should == %{expected Person to not have attribute named first_name of type Object} }
+            it do
+              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+                expected not: attribute :first_name, :type => Object
+                         got: attribute :first_name, :type => Object
+              MESSAGE
+            end
           end
         end
       end

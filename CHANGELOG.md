@@ -1,3 +1,7 @@
+# ActiveAttr 0.7.1 (Unreleased) #
+
+* HaveAttributeMatcher failure messages now use an expected/got format
+
 # ActiveAttr 0.7.0 (December 15, 2012) #
 
 * Added Serialization

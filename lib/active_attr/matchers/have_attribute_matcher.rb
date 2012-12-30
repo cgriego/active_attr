@@ -1,3 +1,5 @@
+require "active_attr/attribute_definition"
+
 module ActiveAttr
   module Matchers
     # Specify that a model should have an attribute matching the criteria. See
@@ -30,9 +32,10 @@ module ActiveAttr
       def initialize(attribute_name)
         raise TypeError, "can't convert #{attribute_name.class} into Symbol" unless attribute_name.respond_to? :to_sym
         @attribute_name = attribute_name.to_sym
+        @attribute_options = {}
         @description = "attribute named #{attribute_name}"
         @expected_ancestors = ["ActiveAttr::Attributes"]
-        @attribute_expectations = [lambda { attribute_definition }]
+        @attribute_expectations = [lambda { actual_attribute_definition }]
       end
 
       # Specify that the attribute should have the given type
@@ -48,6 +51,7 @@ module ActiveAttr
       #
       # @since 0.5.0
       def of_type(type)
+        @attribute_options[:type] = type
         @description << " of type #{type}"
         @expected_ancestors << "ActiveAttr::TypecastedAttributes"
         @attribute_expectations << lambda { @model_class._attribute_type(attribute_name) == type }
@@ -69,9 +73,10 @@ module ActiveAttr
       #
       # @since 0.5.0
       def with_default_value_of(default_value)
+        @attribute_options[:default] = default_value
         @description << " with a default value of #{default_value.inspect}"
         @expected_ancestors << "ActiveAttr::AttributeDefaults"
-        @attribute_expectations << lambda { attribute_definition[:default] == default_value }
+        @attribute_expectations << lambda { actual_attribute_definition[:default] == default_value }
         self
       end
 
@@ -92,6 +97,9 @@ module ActiveAttr
       def failure_message
         if missing_ancestors.any?
           "expected #{@model_class.name} to include #{missing_ancestors.first}"
+        elsif actual_attribute_definition
+          "expected: #{expected_attribute_definition.inspect}\n" +
+          "     got: #{actual_attribute_definition.inspect}"
         else
           "expected #{@model_class.name} to have #{@description}"
         end
@@ -100,13 +108,18 @@ module ActiveAttr
       # @return [String] Negative failure message
       # @private
       def negative_failure_message
-        "expected #{@model_class.name} to not have #{@description}"
+        "expected not: #{expected_attribute_definition.inspect}\n" +
+        "         got: #{actual_attribute_definition.inspect}"
       end
 
       private
 
-      def attribute_definition
+      def actual_attribute_definition
         @model_class.attributes[attribute_name]
+      end
+
+      def expected_attribute_definition
+        AttributeDefinition.new @attribute_name, @attribute_options
       end
 
       def missing_ancestors
