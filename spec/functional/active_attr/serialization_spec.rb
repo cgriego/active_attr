@@ -16,16 +16,16 @@ module ActiveAttr
       end
     end
 
-    subject { model_class.new }
+    subject(:model) { model_class.new }
 
     it "serializes to/from JSON" do
-      subject.first_name = "Chris"
-      model_class.new.from_json(subject.to_json).first_name.should == "Chris"
+      model.first_name = "Chris"
+      model_class.new.from_json(model.to_json).first_name.should == "Chris"
     end
 
     it "serializes to/from XML" do
-      subject.first_name = "Chris"
-      model_class.new.from_xml(subject.to_xml).first_name.should == "Chris"
+      model.first_name = "Chris"
+      model_class.new.from_xml(model.to_xml).first_name.should == "Chris"
     end
   end
 end

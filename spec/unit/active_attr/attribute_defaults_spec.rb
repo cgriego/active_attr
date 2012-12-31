@@ -3,7 +3,7 @@ require "active_attr/attribute_defaults"
 
 module ActiveAttr
   describe AttributeDefaults do
-    subject { model_class.new }
+    subject(:model) { model_class.new }
 
     let :model_class do
       Class.new do
@@ -16,21 +16,21 @@ module ActiveAttr
     end
 
     describe "#attribute_defaults" do
-      subject { model_class.new.attribute_defaults }
+      subject(:attribute_defaults) { model_class.new.attribute_defaults }
 
       it { should be_a_kind_of Hash }
 
       it "includes declared literal string attribute defaults" do
-        subject["first_name"].should == "John"
+        attribute_defaults["first_name"].should == "John"
       end
 
       it "includes declared nil attribute defaults" do
-        subject.should include "age"
-        subject["age"].should be_nil
+        attribute_defaults.should include "age"
+        attribute_defaults["age"].should be_nil
       end
 
       it "includes declared dynamic attribute defaults" do
-        subject["created_at"].should be_a_kind_of Time
+        attribute_defaults["created_at"].should be_a_kind_of Time
       end
     end
 

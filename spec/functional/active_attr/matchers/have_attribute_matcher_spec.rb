@@ -30,13 +30,13 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { subject.matches?(model_class).should be_false }
+          it { matcher.matches?(model_class).should be_false }
         end
 
         describe "#failure_message" do
-          before { subject.matches?(model_class) }
+          before { matcher.matches?(model_class) }
 
-          it { subject.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::Attributes} }
+          it { matcher.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::Attributes} }
         end
       end
 
@@ -52,13 +52,13 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { subject.matches?(model_class).should be_false }
+          it { matcher.matches?(model_class).should be_false }
         end
 
         describe "#failure_message" do
-          before { subject.matches?(model_class) }
+          before { matcher.matches?(model_class) }
 
-          it { subject.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::AttributeDefaults} }
+          it { matcher.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::AttributeDefaults} }
         end
       end
 
@@ -74,18 +74,18 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { subject.matches?(model_class).should be_false }
+          it { matcher.matches?(model_class).should be_false }
         end
 
         describe "#failure_message" do
-          before { subject.matches?(model_class) }
+          before { matcher.matches?(model_class) }
 
-          it { subject.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::TypecastedAttributes} }
+          it { matcher.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::TypecastedAttributes} }
         end
       end
 
       context "a matcher with just an attribute name" do
-        subject { described_class.new(:first_name) }
+        subject(:matcher) { described_class.new(:first_name) }
 
         it_should_behave_like "a matcher matching a class without ActiveAttr::Attributes"
 
@@ -93,14 +93,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name
                          got: attribute :first_name
               MESSAGE
@@ -110,19 +110,19 @@ module ActiveAttr
 
         context "a class without the attribute" do
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
-            it { subject.failure_message.should == %{expected Person to have attribute named first_name} }
+            it { matcher.failure_message.should == %{expected Person to have attribute named first_name} }
           end
         end
       end
 
       context "a matcher with a default value" do
-        subject { described_class.new(:first_name).with_default_value_of("John") }
+        subject(:matcher) { described_class.new(:first_name).with_default_value_of("John") }
 
         it_should_behave_like "a matcher matching a class without ActiveAttr::Attributes"
         it_should_behave_like "a matcher matching a class without ActiveAttr::AttributeDefaults"
@@ -131,14 +131,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :default => "John"
                      got: attribute :first_name
               MESSAGE
@@ -150,14 +150,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => "Doe" }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :default => "John"
                      got: attribute :first_name, :default => "Doe"
               MESSAGE
@@ -169,14 +169,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => "John" }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name, :default => "John"
                          got: attribute :first_name, :default => "John"
               MESSAGE
@@ -186,7 +186,7 @@ module ActiveAttr
       end
 
       context "a matcher with a default value of false" do
-        subject { described_class.new(:admin).with_default_value_of(false) }
+        subject(:matcher) { described_class.new(:admin).with_default_value_of(false) }
 
         it_should_behave_like "a matcher matching a class without ActiveAttr::Attributes"
         it_should_behave_like "a matcher matching a class without ActiveAttr::AttributeDefaults"
@@ -195,14 +195,14 @@ module ActiveAttr
           before { model_class.attribute :admin }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :admin, :default => false
                      got: attribute :admin
               MESSAGE
@@ -214,14 +214,14 @@ module ActiveAttr
           before { model_class.attribute :admin, :default => nil }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :admin, :default => false
                      got: attribute :admin, :default => nil
               MESSAGE
@@ -233,14 +233,14 @@ module ActiveAttr
           before { model_class.attribute :admin, :default => false }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :admin, :default => false
                          got: attribute :admin, :default => false
               MESSAGE
@@ -250,7 +250,7 @@ module ActiveAttr
       end
 
       context "a matcher with a default value of nil" do
-        subject { described_class.new(:first_name).with_default_value_of(nil) }
+        subject(:matcher) { described_class.new(:first_name).with_default_value_of(nil) }
 
         it_should_behave_like "a matcher matching a class without ActiveAttr::Attributes"
         it_should_behave_like "a matcher matching a class without ActiveAttr::AttributeDefaults"
@@ -259,14 +259,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name, :default => nil
                          got: attribute :first_name
               MESSAGE
@@ -278,14 +278,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => false }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :default => nil
                      got: attribute :first_name, :default => false
               MESSAGE
@@ -297,14 +297,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => nil }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name, :default => nil
                          got: attribute :first_name, :default => nil
               MESSAGE
@@ -314,7 +314,7 @@ module ActiveAttr
       end
 
       context "a matcher with a type" do
-        subject { described_class.new(:first_name).of_type(String) }
+        subject(:matcher) { described_class.new(:first_name).of_type(String) }
 
         it_should_behave_like "a matcher matching a class without ActiveAttr::Attributes"
         it_should_behave_like "a matcher matching a class without ActiveAttr::TypecastedAttributes"
@@ -323,14 +323,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :type => String
                      got: attribute :first_name
               MESSAGE
@@ -342,14 +342,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => Symbol }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :type => String
                      got: attribute :first_name, :type => Symbol
               MESSAGE
@@ -361,14 +361,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => String }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name, :type => String
                          got: attribute :first_name, :type => String
               MESSAGE
@@ -378,7 +378,7 @@ module ActiveAttr
       end
 
       context "a matcher with a type of Object" do
-        subject { described_class.new(:first_name).of_type(Object) }
+        subject(:matcher) { described_class.new(:first_name).of_type(Object) }
 
         it_should_behave_like "a matcher matching a class without ActiveAttr::Attributes"
         it_should_behave_like "a matcher matching a class without ActiveAttr::TypecastedAttributes"
@@ -387,14 +387,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name, :type => Object
                          got: attribute :first_name
               MESSAGE
@@ -406,14 +406,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => String }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should be_false }
           end
 
           describe "#failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :type => Object
                      got: attribute :first_name, :type => String
               MESSAGE
@@ -425,14 +425,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => Object }
 
           describe "#matches?" do
-            it { subject.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should be_true }
           end
 
           describe "#negative_failure_message" do
-            before { subject.matches?(model_class) }
+            before { matcher.matches?(model_class) }
 
             it do
-              subject.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              matcher.negative_failure_message.should == <<-MESSAGE.strip_heredoc.chomp
                 expected not: attribute :first_name, :type => Object
                          got: attribute :first_name, :type => Object
               MESSAGE

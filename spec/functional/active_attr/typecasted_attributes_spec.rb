@@ -3,7 +3,7 @@ require "active_attr/typecasted_attributes"
 
 module ActiveAttr
   describe TypecastedAttributes do
-    subject { model_class.new }
+    subject(:model) { model_class.new }
 
     let :model_class do
       Class.new do
@@ -30,118 +30,118 @@ module ActiveAttr
 
     context "when assigning nil" do
       it "a typeless attribute returns nil" do
-        subject.typeless = nil
-        subject.typeless.should be_nil
+        model.typeless = nil
+        model.typeless.should be_nil
       end
 
       it "an attribute with no known typecaster raises" do
-        subject.unknown = nil
-        expect { subject.unknown }.to raise_error Typecasting::UnknownTypecasterError, "Unable to cast to type Unknown"
+        model.unknown = nil
+        expect { model.unknown }.to raise_error Typecasting::UnknownTypecasterError, "Unable to cast to type Unknown"
       end
 
       it "an attribute with an inline typecaster returns nil" do
-        subject.age = nil
-        subject.age.should be_nil
+        model.age = nil
+        model.age.should be_nil
       end
 
       it "an Object attribute returns nil" do
-        subject.object = nil
-        subject.object.should be_nil
+        model.object = nil
+        model.object.should be_nil
       end
 
       it "a BigDecimal attribute returns nil" do
-        subject.big_decimal = nil
-        subject.big_decimal.should be_nil
+        model.big_decimal = nil
+        model.big_decimal.should be_nil
       end
 
       it "a Boolean attribute returns nil" do
-        subject.boolean = nil
-        subject.boolean.should be_nil
+        model.boolean = nil
+        model.boolean.should be_nil
       end
 
       it "a Date attribute returns nil" do
-        subject.date = nil
-        subject.date.should be_nil
+        model.date = nil
+        model.date.should be_nil
       end
 
       it "a DateTime attribute returns nil" do
-        subject.date_time = nil
-        subject.date_time.should be_nil
+        model.date_time = nil
+        model.date_time.should be_nil
       end
 
       it "a Float attribute returns nil" do
-        subject.float = nil
-        subject.float.should be_nil
+        model.float = nil
+        model.float.should be_nil
       end
 
       it "an Integer attribute returns nil" do
-        subject.integer = nil
-        subject.integer.should be_nil
+        model.integer = nil
+        model.integer.should be_nil
       end
 
       it "a String attribute returns nil" do
-        subject.string = nil
-        subject.string.should be_nil
+        model.string = nil
+        model.string.should be_nil
       end
     end
 
     context "when assigning a valid String" do
       it "a typeless attribute returns the original String" do
         value = "test"
-        subject.typeless = value
-        subject.typeless.should equal value
+        model.typeless = value
+        model.typeless.should equal value
       end
 
       it "an Object attribute returns the original String" do
         value = "test"
-        subject.object = value
-        subject.object.should equal value
+        model.object = value
+        model.object.should equal value
       end
 
       it "a BigDecimal attribute returns a BigDecimal" do
-        subject.big_decimal = "1.1"
-        subject.big_decimal.should eql BigDecimal.new("1.1")
+        model.big_decimal = "1.1"
+        model.big_decimal.should eql BigDecimal.new("1.1")
       end
 
       it "a Boolean attribute returns a Boolean" do
-        subject.boolean = "false"
-        subject.boolean.should eql false
+        model.boolean = "false"
+        model.boolean.should eql false
       end
 
       it "a Date attribute returns a Date" do
-        subject.date = "2012-01-01"
-        subject.date.should eql Date.new(2012, 1, 1)
+        model.date = "2012-01-01"
+        model.date.should eql Date.new(2012, 1, 1)
       end
 
       it "a Date attribute before typecasting returns the original String" do
         value = "2012-01-01"
-        subject.date = value
-        subject.date_before_type_cast.should equal value
+        model.date = value
+        model.date_before_type_cast.should equal value
       end
 
       it "a DateTime attribute returns a DateTime" do
-        subject.date_time = "2012-01-01"
-        subject.date_time.should eql DateTime.new(2012, 1, 1)
+        model.date_time = "2012-01-01"
+        model.date_time.should eql DateTime.new(2012, 1, 1)
       end
 
       it "a Float attribute returns a Float" do
-        subject.float = "1.1"
-        subject.float.should eql 1.1
+        model.float = "1.1"
+        model.float.should eql 1.1
       end
 
       it "an Integer attribute returns an Integer" do
-        subject.integer = "1"
-        subject.integer.should eql 1
+        model.integer = "1"
+        model.integer.should eql 1
       end
 
       it "a String attribute returns the String" do
-        subject.string = "1.0"
-        subject.string.should eql "1.0"
+        model.string = "1.0"
+        model.string.should eql "1.0"
       end
 
       it "an attribute using an inline typecaster returns the result of the inline typecaster" do
-        subject.age = 2
-        subject.age.should == Age.new(2)
+        model.age = 2
+        model.age.should == Age.new(2)
       end
     end
   end

@@ -3,7 +3,7 @@ require "active_attr/logger"
 
 module ActiveAttr
   describe Logger do
-    subject { model_class.new }
+    subject(:model) { model_class.new }
     let(:logger) { double "logger" }
     let(:child_class) { Class.new(parent_class) }
     let(:parent_class) { model_class }
@@ -32,11 +32,11 @@ module ActiveAttr
       end
 
       it "#logger is nil" do
-        subject.logger.should be_nil
+        model.logger.should be_nil
       end
 
       it "#logger? is false" do
-        subject.logger?.should == false
+        model.logger?.should == false
       end
     end
 
@@ -61,11 +61,11 @@ module ActiveAttr
       end
 
       it "#logger is the logger" do
-        subject.logger.should == logger
+        model.logger.should == logger
       end
 
       it "#logger? is true" do
-        subject.logger?.should == true
+        model.logger?.should == true
       end
     end
 
@@ -89,17 +89,17 @@ module ActiveAttr
       end
 
       it "#logger is the logger" do
-        subject.logger.should == logger
+        model.logger.should == logger
       end
 
       it "#logger? is true" do
-        subject.logger?.should == true
+        model.logger?.should == true
       end
     end
 
     context "when the logger is set on a parent class" do
       before { parent_class.logger = logger }
-      subject { child_class.new }
+      subject(:model) { child_class.new }
 
       it "#{described_class}.logger is nil" do
         described_class.logger.should be_nil
@@ -118,17 +118,17 @@ module ActiveAttr
       end
 
       it "#logger is the logger" do
-        subject.logger.should == logger
+        model.logger.should == logger
       end
 
       it "#logger? is true" do
-        subject.logger?.should == true
+        model.logger?.should == true
       end
     end
 
     context "when the logger is set on a child class" do
       before { child_class.logger = logger }
-      subject { parent_class.new }
+      subject(:model) { parent_class.new }
 
       it "#{described_class}.logger is nil" do
         described_class.logger.should be_nil
@@ -147,16 +147,16 @@ module ActiveAttr
       end
 
       it "#logger is nil" do
-        subject.logger.should be_nil
+        model.logger.should be_nil
       end
 
       it "#logger? is false" do
-        subject.logger?.should == false
+        model.logger?.should == false
       end
     end
 
     context "when the logger is set on the instance" do
-      before { subject.logger = logger }
+      before { model.logger = logger }
 
       it "#{described_class}.logger is nil" do
         described_class.logger.should be_nil
@@ -175,11 +175,11 @@ module ActiveAttr
       end
 
       it "#logger is the logger" do
-        subject.logger.should == logger
+        model.logger.should == logger
       end
 
       it "#logger? is true" do
-        subject.logger?.should == true
+        model.logger?.should == true
       end
     end
   end

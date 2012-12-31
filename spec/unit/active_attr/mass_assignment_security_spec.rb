@@ -3,8 +3,6 @@ require "active_attr/mass_assignment_security"
 
 module ActiveAttr
   describe MassAssignmentSecurity, :mass_assignment do
-    subject { model_class }
-
     before do
       model_class.class_eval do
         include MassAssignmentSecurity

@@ -9,10 +9,10 @@ module ActiveAttr
 
     describe "is compliant with Semantic Versioning <http://semver.org/>" do
       let(:gem_version) { Gem::Version.new VERSION }
-      subject { gem_version }
+      subject(:version) { gem_version }
 
-      it { subject.should have_at_least(3).segments }
-      it { subject.should have_at_most(5).segments }
+      it { version.should have_at_least(3).segments }
+      it { version.should have_at_most(5).segments }
 
       describe "major version" do
         subject { gem_version.segments[0] }
@@ -33,10 +33,10 @@ module ActiveAttr
       end
 
       describe "pre-release version" do
-        subject { VERSION.split(".")[3] }
+        subject(:pre_release_version) { VERSION.split(".")[3] }
 
         it "is nil or starts with a letter and is alphanumeric" do
-          (subject.nil? || subject =~ /^[A-Za-z][0-9A-Za-z]*?/).should be_true
+          (pre_release_version.nil? || pre_release_version =~ /^[A-Za-z][0-9A-Za-z]*?/).should be_true
         end
       end
     end

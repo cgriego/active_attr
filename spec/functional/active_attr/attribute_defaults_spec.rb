@@ -6,7 +6,7 @@ require "active_model"
 
 module ActiveAttr
   describe AttributeDefaults do
-    subject { model_class.new }
+    subject(:model) { model_class.new }
 
     let :model_class do
       Class.new.tap do |model_class|
@@ -20,20 +20,20 @@ module ActiveAttr
       before { model_class.attribute :first_name, :default => "John" }
 
       it "the attribute getter returns the string by default" do
-        subject.first_name.should == "John"
+        model.first_name.should == "John"
       end
 
       it "#attributes includes the default attributes" do
-        subject.attributes["first_name"].should == "John"
+        model.attributes["first_name"].should == "John"
       end
 
       it "#read_attribute returns the string by default" do
-        subject.read_attribute("first_name").should == "John"
+        model.read_attribute("first_name").should == "John"
       end
 
       it "assigning nil sets nil as the attribute value" do
-        subject.first_name = nil
-        subject.first_name.should be_nil
+        model.first_name = nil
+        model.first_name.should be_nil
       end
 
       it "mutating the default value does not mutate the attribute definition" do
@@ -46,7 +46,7 @@ module ActiveAttr
       before { model_class.attribute :admin, :default => false }
 
       it "the attribute getter returns false by default" do
-        subject.admin.should == false
+        model.admin.should == false
       end
     end
 
@@ -54,7 +54,7 @@ module ActiveAttr
       before { model_class.attribute :remember_me, :default => true }
 
       it "the attribute getter returns true by default" do
-        subject.remember_me.should == true
+        model.remember_me.should == true
       end
     end
 
@@ -62,7 +62,7 @@ module ActiveAttr
       before { model_class.attribute :roles, :default => [] }
 
       it "the attribute getter returns an empty array by default" do
-        subject.roles.should == []
+        model.roles.should == []
       end
     end
 
@@ -70,11 +70,11 @@ module ActiveAttr
       before { model_class.attribute :created_at, :default => lambda { Time.now } }
 
       it "the attribute getter returns a Time instance" do
-        subject.created_at.should be_a_kind_of Time
+        model.created_at.should be_a_kind_of Time
       end
 
       it "the attribute default is only evaulated once per instance" do
-        subject.created_at.should == subject.created_at
+        model.created_at.should == model.created_at
       end
 
       it "the attribute default is different per instance" do
@@ -86,7 +86,7 @@ module ActiveAttr
       before { model_class.attribute :id, :default => lambda { object_id } }
 
       it "the attribute getter returns the default based on the instance" do
-        subject.id.should == subject.object_id
+        model.id.should == model.object_id
       end
     end
 

@@ -21,19 +21,22 @@ module ActiveAttr
       end
     end
 
-    subject { model_class.new }
-    it_should_behave_like "ActiveModel"
+    subject(:model) { model_class.new }
+
+    it_should_behave_like "ActiveModel" do
+      subject { model_class.new }
+    end
 
     it "reads and writes attributes" do
-      subject.first_name = "Chris"
-      subject.first_name.should eq "Chris"
-      subject.attributes["first_name"].should == "Chris"
+      model.first_name = "Chris"
+      model.first_name.should eq "Chris"
+      model.attributes["first_name"].should == "Chris"
     end
 
     it "can query attributes" do
-      subject.first_name?.should be_false
-      subject.first_name = "Chris"
-      subject.first_name?.should be_true
+      model.first_name?.should be_false
+      model.first_name = "Chris"
+      model.first_name?.should be_true
     end
 
     it "initializes with a block that can use attributes" do
@@ -51,14 +54,14 @@ module ActiveAttr
     it "has a logger" do
       logger = double("logger")
       model_class.logger?.should be_false
-      subject.logger?.should be_false
+      model.logger?.should be_false
 
       model_class.logger = logger
 
       model_class.logger?.should be_true
       model_class.logger.should eq logger
-      subject.logger?.should be_true
-      subject.logger.should == logger
+      model.logger?.should be_true
+      model.logger.should == logger
     end
 
     it "supports mass assignment with security" do
@@ -68,17 +71,17 @@ module ActiveAttr
     end
 
     it "does not use strict mass assignment" do
-      expect { subject.assign_attributes :middle_initial => "J" }.not_to raise_error
+      expect { model.assign_attributes :middle_initial => "J" }.not_to raise_error
     end
 
     it "serializes to/from JSON" do
-      subject.first_name = "Chris"
-      model_class.new.from_json(subject.to_json).first_name.should == "Chris"
+      model.first_name = "Chris"
+      model_class.new.from_json(model.to_json).first_name.should == "Chris"
     end
 
     it "serializes to/from XML" do
-      subject.first_name = "Chris"
-      model_class.new.from_xml(subject.to_xml).first_name.should == "Chris"
+      model.first_name = "Chris"
+      model_class.new.from_xml(model.to_xml).first_name.should == "Chris"
     end
 
     it "supports attribute name translation" do
@@ -86,8 +89,8 @@ module ActiveAttr
     end
 
     it "typecasts attributes" do
-      subject.age = "29"
-      subject.age.should eql 29
+      model.age = "29"
+      model.age.should eql 29
     end
 
     context "attribute defaults" do
@@ -102,7 +105,7 @@ module ActiveAttr
       end
 
       it "are applied" do
-        subject.age_limit.should == 21
+        model.age_limit.should == 21
       end
 
       it "are overridden by mass assigned attributes" do

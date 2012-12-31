@@ -23,10 +23,10 @@ module ActiveAttr
         end
       end
 
-      subject { model_class.new }
+      subject(:model) { model_class.new }
 
       it "correctly defines methods for the attributes instead of relying on method_missing" do
-        subject.id.should be_nil
+        model.id.should be_nil
       end
     end
 
@@ -95,7 +95,7 @@ module ActiveAttr
     context "serializing a model" do
       let(:first_name) { "Chris" }
 
-      let :instance do
+      let :model do
         model_class.new.tap do |model|
           model.first_name = first_name
         end
@@ -129,34 +129,34 @@ module ActiveAttr
         end
 
         it "includes unassigned, defined attributes" do
-          subject.keys.should include("last_name")
-          subject["last_name"].should be_nil
+          serialized_model.keys.should include("last_name")
+          serialized_model["last_name"].should be_nil
         end
       end
 
       describe "#as_json" do
-        subject { instance.as_json["person"] }
+        subject(:serialized_model) { model.as_json["person"] }
         include_examples "serialization method"
       end
 
       describe "#serializable_hash" do
-        subject { instance.serializable_hash }
+        subject(:serialized_model) { model.serializable_hash }
         include_examples "serialization method"
       end
 
       describe "#to_json" do
-        subject { ActiveSupport::JSON.decode(instance.to_json)["person"] }
+        subject(:serialized_model) { ActiveSupport::JSON.decode(model.to_json)["person"] }
         include_examples "serialization method"
       end
 
       describe "#to_xml" do
-        subject { Hash.from_xml(instance.to_xml)["person"] }
+        subject(:serialized_model) { Hash.from_xml(model.to_xml)["person"] }
         include_examples "serialization method"
       end
     end
 
     context "building with FactoryGirl" do
-      subject { FactoryGirl.build(:person) }
+      subject(:model) { FactoryGirl.build(:person) }
 
       before do
         Object.const_set("Person", model_class)
@@ -187,8 +187,8 @@ module ActiveAttr
       end
 
       it "sets the attributes" do
-        subject.first_name.should eq "Chris"
-        subject.last_name.should == "Griego"
+        model.first_name.should eq "Chris"
+        model.last_name.should == "Griego"
       end
     end
 

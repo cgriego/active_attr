@@ -3,15 +3,15 @@ require "active_attr/attribute_definition"
 
 module ActiveAttr
   describe AttributeDefinition do
-    subject { described_class.new(:amount, :default => "default") }
+    subject(:attribute_definition) { described_class.new(:amount, :default => "default") }
 
     describe "#<=>" do
       it "is nil if the right side is not an #{described_class}" do
-        (subject <=> nil).should be_nil
+        (attribute_definition <=> nil).should be_nil
       end
 
       it "prefers neither when both sides use the same attribute name and options" do
-        (subject <=> subject).should == 0
+        (attribute_definition <=> attribute_definition).should == 0
       end
 
       it "prefers the left side when the left side name sorts alphabetically before the right side name" do
@@ -39,7 +39,7 @@ module ActiveAttr
 
     describe "#[]" do
       it "reads an attribute option" do
-        subject[:default].should == "default"
+        attribute_definition[:default].should == "default"
       end
     end
 
@@ -91,13 +91,13 @@ module ActiveAttr
 
     describe "#to_s" do
       it "renders the name as a String" do
-        subject.to_s.should == "amount"
+        attribute_definition.to_s.should == "amount"
       end
     end
 
     describe "#to_sym" do
       it "renders the name as a Symbol" do
-        subject.to_sym.should == :amount
+        attribute_definition.to_sym.should == :amount
       end
     end
   end

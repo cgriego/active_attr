@@ -12,7 +12,7 @@ shared_examples "mass assignment class", :mass_assignment => true do
     end
   end
 
-  let(:person) { subject.new }
+  let(:person) { model_class.new }
   let(:first_name) { "Chris" }
   let(:last_name) { "Griego" }
 
@@ -52,19 +52,19 @@ shared_examples "#assign_attribures", :assign_attributes => true do
   end
 
   it "raises ArgumentError when called with three arguments" do
-    expect { subject.new.assign_attributes({}, {}, nil) }.to raise_error ArgumentError
+    expect { model_class.new.assign_attributes({}, {}, nil) }.to raise_error ArgumentError
   end
 
   it "does not raise when called with two arguments" do
-    expect { subject.new.assign_attributes({}, {}) }.not_to raise_error
+    expect { model_class.new.assign_attributes({}, {}) }.not_to raise_error
   end
 
   it "does not raise when called with a single argument" do
-    expect { subject.new.assign_attributes({}) }.not_to raise_error
+    expect { model_class.new.assign_attributes({}) }.not_to raise_error
   end
 
   it "raises ArgumentError when called with no arguments" do
-    expect { subject.new.assign_attributes }.to raise_error ArgumentError
+    expect { model_class.new.assign_attributes }.to raise_error ArgumentError
   end
 end
 
@@ -81,30 +81,30 @@ end
 
 shared_examples "#initialize", :initialize => true do
   def mass_assign_attributes(attributes)
-    subject.new(attributes)
+    model_class.new(attributes)
   end
 
   def mass_assign_attributes_with_options(attributes, options)
-    subject.new(attributes, options)
+    model_class.new(attributes, options)
   end
 
   it "invokes the superclass initializer" do
-    subject.new.should be_initialized
+    model_class.new.should be_initialized
   end
 
   it "raises ArgumentError when called with three arguments" do
-    expect { subject.new({}, {}, nil) }.to raise_error ArgumentError
+    expect { model_class.new({}, {}, nil) }.to raise_error ArgumentError
   end
 
   it "does not raise when called with two arguments" do
-    expect { subject.new({}, {}) }.not_to raise_error
+    expect { model_class.new({}, {}) }.not_to raise_error
   end
 
   it "does not raise when called with a single argument" do
-    expect { subject.new({}) }.not_to raise_error
+    expect { model_class.new({}) }.not_to raise_error
   end
 
   it "does not raise when called with no arguments" do
-    expect { subject.new }.not_to raise_error
+    expect { model_class.new }.not_to raise_error
   end
 end

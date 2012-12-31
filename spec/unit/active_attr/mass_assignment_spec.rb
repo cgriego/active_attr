@@ -3,7 +3,7 @@ require "active_attr/mass_assignment"
 
 module ActiveAttr
   describe MassAssignment, :mass_assignment do
-    subject do
+    before do
       model_class.class_eval do
         include MassAssignment
       end

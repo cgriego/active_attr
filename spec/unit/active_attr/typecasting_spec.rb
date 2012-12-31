@@ -3,7 +3,7 @@ require "active_attr/typecasting"
 
 module ActiveAttr
   describe Typecasting do
-    subject { model_class.new }
+    subject(:model) { model_class.new }
 
     let :model_class do
       Class.new do
@@ -13,11 +13,11 @@ module ActiveAttr
 
     describe "#typecast_attribute" do
       it "raises an ArgumentError when a nil type is given" do
-        expect { subject.typecast_attribute(nil, "foo") }.to raise_error(ArgumentError, "a typecaster must be given")
+        expect { model.typecast_attribute(nil, "foo") }.to raise_error(ArgumentError, "a typecaster must be given")
       end
 
       it "raises an ArgumentError when the given typecaster argument does not respond to #call" do
-        expect { subject.typecast_attribute(Object.new, "foo") }.to raise_error(ArgumentError, "a typecaster must be given")
+        expect { model.typecast_attribute(Object.new, "foo") }.to raise_error(ArgumentError, "a typecaster must be given")
       end
 
       it "returns the original value when the value is nil" do
@@ -26,8 +26,6 @@ module ActiveAttr
     end
 
     describe "#typecaster_for" do
-      let(:model) { model_class.new }
-
       it "returns BigDecimalTypecaster for BigDecimal" do
         model.typecaster_for(BigDecimal).should be_a_kind_of Typecasting::BigDecimalTypecaster
       end

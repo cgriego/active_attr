@@ -4,12 +4,12 @@ require "active_support/concern"
 
 module ActiveAttr
   describe ChainableInitialization do
-    subject { model_class.new("arg") }
+    subject(:model) { model_class.new("arg") }
 
     shared_examples "chained initialization" do
       describe "#initialize" do
-        it { expect { subject }.not_to raise_error }
-        it { subject.initialized?.should be_true }
+        it { expect { model }.not_to raise_error }
+        it { model.initialized?.should be_true }
       end
     end
 
