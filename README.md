@@ -196,7 +196,7 @@ The Serialization module is a shortcut for incorporating ActiveModel's
 serialization functionality into your model with one include.
 
     class Person
-      include ActiveAttr::Model
+      include ActiveAttr::Serialization
     end
 
 ### Model ###
