@@ -38,7 +38,17 @@ module ActiveAttr
       return value if value.nil?
       typecaster.call(value)
     end
-
+    
+    TYPECASTER_MAP = {
+      BigDecimal => BigDecimalTypecaster,
+      Boolean    => BooleanTypecaster,
+      Date       => DateTypecaster,
+      DateTime   => DateTimeTypecaster,
+      Float      => FloatTypecaster,
+      Integer    => IntegerTypecaster,
+      Object     => ObjectTypecaster,
+      String     => StringTypecaster,
+    }
     # Resolve a Class to a typecaster
     #
     # @param [Class] type The type to cast to
@@ -47,17 +57,7 @@ module ActiveAttr
     #
     # @since 0.6.0
     def typecaster_for(type)
-      typecaster = {
-        BigDecimal => BigDecimalTypecaster,
-        Boolean    => BooleanTypecaster,
-        Date       => DateTypecaster,
-        DateTime   => DateTimeTypecaster,
-        Float      => FloatTypecaster,
-        Integer    => IntegerTypecaster,
-        Object     => ObjectTypecaster,
-        String     => StringTypecaster,
-      }[type]
-
+      typecaster = TYPECASTER_MAP[type]
       typecaster.new if typecaster
     end
   end
