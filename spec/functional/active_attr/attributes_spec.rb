@@ -150,7 +150,7 @@ module ActiveAttr
       end
 
       describe "#to_xml" do
-        subject(:serialized_model) { Hash.from_xml(model.to_xml)["person"] }
+        subject(:serialized_model) { Hash.from_trusted_xml(model.to_xml)["person"] }
         include_examples "serialization method"
       end
     end

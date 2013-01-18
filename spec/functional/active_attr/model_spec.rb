@@ -81,6 +81,8 @@ module ActiveAttr
 
     it "serializes to/from XML" do
       model.first_name = "Chris"
+      model.last_name = "Griego"
+      model.age = 21
       model_class.new.from_xml(model.to_xml).first_name.should == "Chris"
     end
 
