@@ -18,7 +18,7 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 * [Contributors][contributors]
 
 [api]: http://rubydoc.info/gems/active_attr
-[codeclimate badge]: https://codeclimate.com/badge.png
+[codeclimate badge]: https://codeclimate.com/github/cgriego/active_attr.png
 [codeclimate]: https://codeclimate.com/github/cgriego/active_attr
 [contributors]: https://github.com/cgriego/active_attr/contributors
 [railscast poster]: http://railscasts.com/static/episodes/stills/326-activeattr.png
