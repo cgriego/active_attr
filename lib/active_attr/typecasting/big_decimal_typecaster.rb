@@ -27,6 +27,8 @@ module ActiveAttr
       def call(value)
         if value.is_a? BigDecimal
           value
+        elsif value.is_a? Rational
+          value.to_f.to_d
         elsif value.respond_to? :to_d
           value.to_d
         else
