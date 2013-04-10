@@ -6,6 +6,8 @@ if RUBY_VERSION < "1.9.2"
   gem "factory_girl", "< 3.0", :group => :test
 end
 
+gem "activemodel",   "~> 3.2.0"
+gem "activesupport", "~> 3.2.0"
 gem "strong_parameters", :group => :test
 
 group :development do
