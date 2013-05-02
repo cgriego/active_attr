@@ -1,5 +1,6 @@
 # ActiveAttr 0.8.0 (Unreleased) #
 
+* ActiveAttr now supports Rails 4.0.0
 * ActiveAttr now supports Ruby 2.0.0
 * HaveAttributeMatcher failure messages now use an expected/got format
 * Removed MassAssignmentSecurity, sanitizer support has been merged into

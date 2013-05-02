@@ -2,13 +2,10 @@ source "https://rubygems.org"
 
 gemspec :development_group => :test
 
-if RUBY_VERSION < "1.9.2"
-  gem "factory_girl", "< 3.0", :group => :test
-end
-
-gem "activemodel",   "~> 3.2.0"
-gem "activesupport", "~> 3.2.0"
-gem "strong_parameters", ">= 0.2.0", :group => :test
+gem "activemodel",   ">= 4.0.0.rc1"
+gem "activesupport", ">= 4.0.0.rc1"
+gem "actionpack",    ">= 4.0.0.rc1", :group => :test
+gem "protected_attributes", :group => :test
 
 group :development do
   gem "debugger",  :platforms => :mri_19

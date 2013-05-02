@@ -5,4 +5,5 @@ gemspec :development_group => :test, :path => ".."
 git "git://github.com/rails/rails.git" do
   gem "activemodel"
   gem "activesupport"
+  gem "actionpack", :group => :test
 end

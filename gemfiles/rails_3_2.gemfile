@@ -1,0 +1,11 @@
+source "https://rubygems.org"
+
+gemspec :development_group => :test, :path => ".."
+
+if RUBY_VERSION < "1.9.2"
+  gem "factory_girl", "< 3.0", :group => :test
+end
+
+gem "activemodel",   "~> 3.2.0"
+gem "activesupport", "~> 3.2.0"
+gem "strong_parameters", ">= 0.2.0", :group => :test
