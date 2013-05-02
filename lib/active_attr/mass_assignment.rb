@@ -75,7 +75,7 @@ module ActiveAttr
 
     # @since 0.8.0
     def sanitize_for_mass_assignment_if_sanitizer(new_attributes, options={})
-      if new_attributes && !options[:without_protection] && respond_to?(:sanitize_for_mass_assignment)
+      if new_attributes && !options[:without_protection] && respond_to?(:sanitize_for_mass_assignment, true)
         sanitize_for_mass_assignment_with_or_without_role new_attributes, options
       else
         new_attributes
