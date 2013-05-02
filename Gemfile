@@ -8,7 +8,7 @@ end
 
 gem "activemodel",   "~> 3.2.0"
 gem "activesupport", "~> 3.2.0"
-gem "strong_parameters", :group => :test
+gem "strong_parameters", ">= 0.2.0", :group => :test
 
 group :development do
   gem "debugger",  :platforms => :mri_19
