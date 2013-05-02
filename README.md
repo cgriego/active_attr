@@ -24,6 +24,7 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 [railscast poster]: http://railscasts.com/static/episodes/stills/326-activeattr.png
 [railscast]: http://railscasts.com/episodes/326-activeattr
 [rubygems]: http://rubygems.org/gems/active_attr
+[protected_attributes]: https://github.com/rails/protected_attributes
 [strong_parameters]: https://github.com/rails/strong_parameters
 [speakerdeck slide]: https://speakerd.s3.amazonaws.com/presentations/4f31f1dec583b4001f008ec3/thumb_slide_0.jpg
 [speakerdeck]: https://speakerdeck.com/u/cgriego/p/models-models-every-where
@@ -165,14 +166,30 @@ are silently ignored.
     person.first_name #=> "Chris"
     person.last_name #=> "Griego"
 
-#### MassAssignmentSecurity ####
-
-Including the MassAssignmentSecurity module into your class extends the
-MassAssignment methods to honor any declared mass assignment permission
-blacklists or whitelists including support for mass assignment roles.
+MassAssignment supports mass assignment security/sanitization if a sanitizer
+is included in the model. If using Rails 4.0, include ActiveModel's forbidden
+attributes protection module to get support for strong parameters.
 
     class Person
-      include ActiveAttr::MassAssignmentSecurity
+      include ActiveAttr::MassAssignment
+      include ActiveModel::ForbiddenAttributesProtection
+      attr_accessor :first_name, :last_name
+    end
+
+    person = Person.new(ActionController::Parameters.new({
+      :first_name => "Chris",
+      :last_name => "Griego",
+    }).permit(:first_name))
+    person.first_name #=> "Chris"
+    person.last_name #=> nil
+
+If using Rails 3.x or the [Protected Attributes gem][protected_attributes],
+include ActiveModel's mass assignment security module to get support for
+protected attributes, including support for mass assignment roles.
+
+    class Person
+      include ActiveAttr::MassAssignment
+      include ActiveModel::MassAssignmentSecurity
       attr_accessor :first_name, :last_name
       attr_protected :last_name
     end
@@ -181,12 +198,13 @@ blacklists or whitelists including support for mass assignment roles.
     person.first_name #=> "Chris"
     person.last_name #=> nil
 
-If you prefer the [Strong Paramters][strong_parameters] approach,
-include the ActiveModel::ForbiddenAttributesProtection module after
-including the MassAssignmentSecurity model.
+If using the [Strong Paramters gem][strong_parameters] with Rails 3.2,
+include the forbidden attributes protection module after including
+the mass assignment security module.
 
     class Person
-      include ActiveAttr::MassAssignmentSecurity
+      include ActiveAttr::MassAssignment
+      include ActiveModel::MassAssignmentSecurity
       include ActiveModel::ForbiddenAttributesProtection
     end
 

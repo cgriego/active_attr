@@ -18,7 +18,6 @@ module ActiveAttr
   autoload :Error
   autoload :Logger
   autoload :MassAssignment
-  autoload :MassAssignmentSecurity
   autoload :Model
   autoload :QueryAttributes
   autoload :Serialization

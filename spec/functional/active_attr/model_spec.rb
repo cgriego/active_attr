@@ -1,5 +1,6 @@
 require "spec_helper"
 require "active_attr/model"
+require "active_model/mass_assignment_security"
 require "active_support/core_ext/hash/conversions"
 require "active_support/json/decoding"
 
@@ -8,6 +9,7 @@ module ActiveAttr
     let :model_class do
       Class.new do
         include Model
+        include ActiveModel::MassAssignmentSecurity
 
         attribute :first_name
         attribute :last_name
@@ -99,6 +101,7 @@ module ActiveAttr
       let :model_class do
         Class.new do
           include Model
+          include ActiveModel::MassAssignmentSecurity
 
           attribute :start_date
           attribute :end_date, :default => lambda { start_date }

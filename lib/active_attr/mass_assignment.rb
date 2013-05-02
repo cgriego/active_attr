@@ -26,13 +26,20 @@ module ActiveAttr
     #
     # @param [Hash{#to_s => Object}, #each] attributes Attributes used to
     #   populate the model
+    # @param [Hash, #[]] options Options that affect mass assignment
+    #
+    # @option options [Symbol] :as (:default) Mass assignment role
+    # @option options [true, false] :without_protection (false) Bypass mass
+    #   assignment security if true
     #
     # @since 0.1.0
     def assign_attributes(new_attributes, options={})
-      new_attributes.each do |name, value|
+      sanitized_new_attributes = sanitize_for_mass_assignment_if_sanitizer new_attributes, options
+
+      sanitized_new_attributes.each do |name, value|
         writer = "#{name}="
         send writer, value if respond_to? writer
-      end if new_attributes
+      end if sanitized_new_attributes
     end
 
     # Mass update a model's attributes
@@ -62,6 +69,27 @@ module ActiveAttr
     def initialize(attributes=nil, options={})
       assign_attributes attributes, options
       super
+    end
+
+    private
+
+    # @since 0.8.0
+    def sanitize_for_mass_assignment_if_sanitizer(new_attributes, options={})
+      if new_attributes && !options[:without_protection] && respond_to?(:sanitize_for_mass_assignment)
+        sanitize_for_mass_assignment_with_or_without_role new_attributes, options
+      else
+        new_attributes
+      end
+    end
+
+    # Rails 3.0 and 4.0 do not take a role argument for the sanitizer
+    # @since 0.7.0
+    def sanitize_for_mass_assignment_with_or_without_role(new_attributes, options)
+      if method(:sanitize_for_mass_assignment).arity.abs > 1
+        sanitize_for_mass_assignment new_attributes, options[:as] || :default
+      else
+        sanitize_for_mass_assignment new_attributes
+      end
     end
   end
 end

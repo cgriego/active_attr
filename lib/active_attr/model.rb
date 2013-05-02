@@ -2,7 +2,7 @@ require "active_attr/attribute_defaults"
 require "active_attr/basic_model"
 require "active_attr/block_initialization"
 require "active_attr/logger"
-require "active_attr/mass_assignment_security"
+require "active_attr/mass_assignment"
 require "active_attr/query_attributes"
 require "active_attr/serialization"
 require "active_attr/typecasted_attributes"
@@ -25,7 +25,7 @@ module ActiveAttr
     include BasicModel
     include BlockInitialization
     include Logger
-    include MassAssignmentSecurity
+    include MassAssignment
     include AttributeDefaults
     include QueryAttributes
     include TypecastedAttributes
