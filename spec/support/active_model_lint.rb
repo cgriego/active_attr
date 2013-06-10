@@ -4,6 +4,11 @@ require "test/unit/assertions"
 shared_examples_for "ActiveModel" do
   include ActiveModel::Lint::Tests
   include Test::Unit::Assertions
+  attr_writer :assertions
+
+  def assertions
+    @assertions ||= 0
+  end
 
   before { @model = subject }
 
