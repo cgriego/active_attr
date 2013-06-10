@@ -104,14 +104,8 @@ module ActiveAttr
       let :model_class do
         Class.new do
           include Attributes
-
-          if defined? ActiveModel::Serializable
-            include ActiveModel::Serializable::JSON
-            include ActiveModel::Serializable::XML
-          else
-            include ActiveModel::Serializers::JSON
-            include ActiveModel::Serializers::Xml
-          end
+          include ActiveModel::Serializers::JSON
+          include ActiveModel::Serializers::Xml
 
           self.include_root_in_json = true
           attribute :first_name

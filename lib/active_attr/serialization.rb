@@ -19,13 +19,7 @@ module ActiveAttr
     extend ActiveSupport::Concern
     include Attributes
     include MassAssignment
-
-    if defined? ActiveModel::Serializable
-      include ActiveModel::Serializable::JSON
-      include ActiveModel::Serializable::XML
-    else
-      include ActiveModel::Serializers::JSON
-      include ActiveModel::Serializers::Xml
-    end
+    include ActiveModel::Serializers::JSON
+    include ActiveModel::Serializers::Xml
   end
 end
