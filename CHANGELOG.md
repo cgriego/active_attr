@@ -1,3 +1,8 @@
+# ActiveAttr 0.8.1 (June 9, 2013) #
+
+* #121 Fix compatibility with ActiveModel Serializers gem by dropping support
+  for Rails 3.2 edge prior to RC1
+
 # ActiveAttr 0.8.0 (May 2, 2013) #
 
 * ActiveAttr now supports Rails 4.0.0
