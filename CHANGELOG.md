@@ -1,3 +1,8 @@
+# ActiveAttr 0.8.2 (June 16, 2013) #
+
+* #108 Fix grammar in HaveAttributeMatcher#description (Matt Hodan)
+* #110 #116 Improve performance of typecasting (Roman Heinrich)
+
 # ActiveAttr 0.8.1 (June 9, 2013) #
 
 * #121 Fix compatibility with ActiveModel Serializers gem by dropping support
