@@ -10,28 +10,28 @@ module ActiveAttr
 
       describe "#description" do
         it "returns a description appropriate to the expectation" do
-          described_class.new(:first_name).description.should == "has attribute named first_name"
+          described_class.new(:first_name).description.should == "have attribute named first_name"
         end
 
         it "mentions the default value if set" do
-          described_class.new(:first_name).with_default_value_of("John").description.should == %{has attribute named first_name with a default value of "John"}
+          described_class.new(:first_name).with_default_value_of("John").description.should == %{have attribute named first_name with a default value of "John"}
         end
 
         it "mentions the default value if set to nil" do
-          described_class.new(:first_name).with_default_value_of(nil).description.should == %{has attribute named first_name with a default value of nil}
+          described_class.new(:first_name).with_default_value_of(nil).description.should == %{have attribute named first_name with a default value of nil}
         end
 
         it "mentions the default value if set to false" do
-          described_class.new(:admin).with_default_value_of(false).description.should == %{has attribute named admin with a default value of false}
+          described_class.new(:admin).with_default_value_of(false).description.should == %{have attribute named admin with a default value of false}
         end
 
         it "mentions the type if set" do
-          described_class.new(:first_name).of_type(String).description.should == %{has attribute named first_name of type String}
+          described_class.new(:first_name).of_type(String).description.should == %{have attribute named first_name of type String}
         end
 
         it "mentions both the type and default if both are set" do
           description = described_class.new(:first_name).of_type(String).with_default_value_of("John").description
-          description.should == %{has attribute named first_name of type String with a default value of "John"}
+          description.should == %{have attribute named first_name of type String with a default value of "John"}
         end
       end
 
