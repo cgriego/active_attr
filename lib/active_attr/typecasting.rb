@@ -24,6 +24,18 @@ module ActiveAttr
   #
   # @since 0.5.0
   module Typecasting
+    # @private
+    TYPECASTER_MAP = {
+      BigDecimal => BigDecimalTypecaster,
+      Boolean    => BooleanTypecaster,
+      Date       => DateTypecaster,
+      DateTime   => DateTimeTypecaster,
+      Float      => FloatTypecaster,
+      Integer    => IntegerTypecaster,
+      Object     => ObjectTypecaster,
+      String     => StringTypecaster,
+    }.freeze
+
     # Typecasts a value using a Class
     #
     # @param [#call] typecaster The typecaster to use for typecasting
@@ -38,17 +50,7 @@ module ActiveAttr
       return value if value.nil?
       typecaster.call(value)
     end
-    
-    TYPECASTER_MAP = {
-      BigDecimal => BigDecimalTypecaster,
-      Boolean    => BooleanTypecaster,
-      Date       => DateTypecaster,
-      DateTime   => DateTimeTypecaster,
-      Float      => FloatTypecaster,
-      Integer    => IntegerTypecaster,
-      Object     => ObjectTypecaster,
-      String     => StringTypecaster,
-    }
+
     # Resolve a Class to a typecaster
     #
     # @param [Class] type The type to cast to
