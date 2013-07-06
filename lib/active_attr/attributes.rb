@@ -57,7 +57,7 @@ module ActiveAttr
     #
     # @since 0.2.0
     def attributes
-      attributes_map { |name| send name }
+      attributes_map { |name| attribute name }
     end
 
     # Returns the class name plus its attributes

@@ -201,8 +201,8 @@ module ActiveAttr
       end
 
       context "when a getter is overridden" do
-        it "uses the overridden implementation" do
-          model.attributes.should include("last_name" => last_name)
+        it "uses the original value" do
+          model.attributes.should include("last_name" => nil)
         end
       end
     end
@@ -211,7 +211,7 @@ module ActiveAttr
       before { model.first_name = "Ben" }
 
       it "includes the class name and all attribute values in alphabetical order by attribute name" do
-        model.inspect.should == %{#<Foo amount: nil, first_name: "Ben", last_name: "#{last_name}">}
+        model.inspect.should == %{#<Foo amount: nil, first_name: "Ben", last_name: nil>}
       end
 
       it "doesn't format the inspection string for attributes if the model does not have any" do
@@ -219,8 +219,8 @@ module ActiveAttr
       end
 
       context "when a getter is overridden" do
-        it "uses the overridden implementation" do
-          model.inspect.should include %{last_name: "#{last_name}"}
+        it "uses the original value" do
+          model.inspect.should include %{last_name: nil}
         end
       end
     end
