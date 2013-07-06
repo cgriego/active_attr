@@ -225,6 +225,47 @@ module ActiveAttr
       end
     end
 
+    describe "#attribute" do
+      context "when an attribute is not set" do
+        it "raises when getting an undefined attribute" do
+          expect do
+            model.send(:attribute, :initials)
+          end.to raise_error UnknownAttributeError, "unknown attribute: initials"
+        end
+      end
+
+      context "when an attribute is set" do
+        let(:first_name) { "Bob" }
+
+        before { model.write_attribute(:first_name, first_name) }
+
+        it "delegates to read_attribute" do
+          model.should_receive(:read_attribute).with(:first_name).and_return first_name
+          model.send(:attribute, :first_name).should == first_name
+        end
+      end
+    end
+
+    describe "#attribute=" do
+      context "when an attribute is not set" do
+        it "raises when getting an undefined attribute" do
+          expect do
+            model.send(:attribute=, :initials, nil)
+          end.to raise_error UnknownAttributeError, "unknown attribute: initials"
+        end
+      end
+
+      context "when an attribute is set" do
+        let(:first_name) { "Bob" }
+
+        it "delegates to write_attribute" do
+          model.should_receive(:write_attribute).with(:first_name, first_name)
+          model.send(:attribute=, :first_name, first_name)
+        end
+      end
+    end
+
+
     [:[], :read_attribute].each do |method|
       describe "##{method}" do
         context "when an attribute is not set" do
@@ -248,15 +289,15 @@ module ActiveAttr
         end
 
         context "when the getter is overridden" do
-          it "uses the overridden implementation" do
-            model.send(method, :last_name).should == last_name
+          it "uses the original value" do
+            model.send(method, :last_name).should be_nil
           end
         end
 
-        it "raises when getting an undefined attribute" do
+        it "doesn't raise when getting an undefined attribute" do
           expect do
             model.send(method, :initials)
-          end.to raise_error UnknownAttributeError, "unknown attribute: initials"
+          end.to_not raise_error
         end
       end
     end
@@ -284,14 +325,16 @@ module ActiveAttr
           expect { model.send(method, :first_name, nil) }.to change { model.attributes["first_name"] }.from("Ben").to(nil)
         end
 
-        it "uses the overridden implementation when the setter is overridden" do
-          model.send(method, :last_name, "poweski").should == "POWESKI"
+        context "when the setter is overridden" do
+          it "uses the original value" do
+            model.send(method, :last_name, "poweski").should == "poweski"
+          end
         end
 
-        it "raises when setting an undefined attribute" do
+        it "doesn't raise when getting an undefined attribute" do
           expect do
             model.send(method, :initials, "BP")
-          end.to raise_error UnknownAttributeError, "unknown attribute: initials"
+          end.to_not raise_error
         end
       end
     end
