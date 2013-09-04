@@ -46,6 +46,10 @@ module ActiveAttr
         model.typecaster_for(Float).should be_a_kind_of Typecasting::FloatTypecaster
       end
 
+      it "returns HashTypecaster for Hash" do
+        model.typecaster_for(Hash).should be_a_kind_of Typecasting::HashTypecaster
+      end
+
       it "returns IntegerTypecaster for Integer" do
         model.typecaster_for(Integer).should be_a_kind_of Typecasting::IntegerTypecaster
       end
