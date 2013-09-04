@@ -1,3 +1,4 @@
+require "active_attr/typecasting/array_typecaster"
 require "active_attr/typecasting/big_decimal_typecaster"
 require "active_attr/typecasting/boolean"
 require "active_attr/typecasting/boolean_typecaster"
@@ -13,6 +14,7 @@ module ActiveAttr
   # Typecasting provides methods to typecast a value to a different type
   #
   # The following types are supported for typecasting:
+  # * Array
   # * BigDecimal
   # * Boolean
   # * Date
@@ -26,6 +28,7 @@ module ActiveAttr
   module Typecasting
     # @private
     TYPECASTER_MAP = {
+      Array      => ArrayTypeCaster,
       BigDecimal => BigDecimalTypecaster,
       Boolean    => BooleanTypecaster,
       Date       => DateTypecaster,
@@ -33,7 +36,7 @@ module ActiveAttr
       Float      => FloatTypecaster,
       Integer    => IntegerTypecaster,
       Object     => ObjectTypecaster,
-      String     => StringTypecaster,
+      String     => StringTypecaster
     }.freeze
 
     # Typecasts a value using a Class
