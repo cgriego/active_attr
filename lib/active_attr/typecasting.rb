@@ -28,7 +28,7 @@ module ActiveAttr
   module Typecasting
     # @private
     TYPECASTER_MAP = {
-      Array      => ArrayTypeCaster,
+      Array      => ArrayTypecaster,
       BigDecimal => BigDecimalTypecaster,
       Boolean    => BooleanTypecaster,
       Date       => DateTypecaster,
