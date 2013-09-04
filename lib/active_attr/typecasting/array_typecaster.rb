@@ -1,3 +1,5 @@
+require 'json'
+
 module ActiveAttr
   module Typecasting
     # Typecasts an Object to an Array
@@ -21,6 +23,9 @@ module ActiveAttr
       #
       # @since 0.6.0
       def call(value)
+        #treat incoming strings as serialized JSON
+        value = JSON::parse(value) if value.is_a? String
+
         if value.respond_to? :to_a
           value.to_a
         elsif value.nil?
