@@ -217,7 +217,7 @@ module ActiveAttr
         it "can be set and get" do
           model_class.attribute attribute_name
           model = model_class.new
-          value = mock
+          value = double
           model.send "#{attribute_name}=", value
           model.send(attribute_name).should equal value
         end

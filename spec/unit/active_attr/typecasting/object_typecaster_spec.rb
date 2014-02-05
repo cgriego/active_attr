@@ -8,7 +8,7 @@ module ActiveAttr
 
       describe "#call" do
         it "returns the original object for any object" do
-          value = mock
+          value = double
           typecaster.call(value).should equal value
         end
       end

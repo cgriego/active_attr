@@ -21,7 +21,7 @@ module ActiveAttr
       end
 
       it "returns the original value when the value is nil" do
-        model_class.new.typecast_attribute(mock(:call => 1), nil).should be_nil
+        model_class.new.typecast_attribute(double(:call => 1), nil).should be_nil
       end
     end
 

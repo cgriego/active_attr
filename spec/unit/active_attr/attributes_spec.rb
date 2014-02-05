@@ -122,7 +122,7 @@ module ActiveAttr
       it "defines an attribute reader that calls #attribute" do
         attributeless.attribute! :first_name
         model = attributeless.new
-        result = mock
+        result = double
         model.should_receive(:attribute).with("first_name").and_return(result)
         model.first_name.should equal result
       end

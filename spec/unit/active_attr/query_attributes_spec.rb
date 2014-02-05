@@ -45,7 +45,7 @@ module ActiveAttr
       end
 
       it "does not raise when called with a single argument" do
-        expect { model.query_attribute(:a) }.not_to raise_error ArgumentError
+        expect { model.query_attribute(:value) }.not_to raise_error
       end
 
       it "raises ArgumentError when called with no arguments" do
