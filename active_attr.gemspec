@@ -22,5 +22,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "factory_girl", ">= 2.2", "< 5.0"
   gem.add_development_dependency "rake",         ">= 0.9.0", "< 10.1"
   gem.add_development_dependency "rspec",        "~> 2.11"
-  gem.add_development_dependency "tzinfo",       "~> 0.3.29"
 end

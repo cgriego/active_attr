@@ -7,24 +7,20 @@ rvm:
   - 2.1.0
 bundler_args: --without development
 gemfile:
-  - Gemfile
   - gemfiles/rails_3_0.gemfile
   - gemfiles/rails_3_1.gemfile
   - gemfiles/rails_3_2.gemfile
+  - Gemfile
   - gemfiles/rails_head.gemfile
 matrix:
   allow_failures:
     - gemfile: gemfiles/rails_head.gemfile
   exclude:
-    - rvm: 1.9.2
-      gemfile: gemfiles/rails_head.gemfile
     - rvm: ree
-      gemfile: gemfiles/rails_head.gemfile
+      gemfile: Gemfile
     - rvm: 1.9.2
       gemfile: Gemfile
     - rvm: ree
-      gemfile: Gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/rails_3_1.gemfile
-    - rvm: 2.0.0
-      gemfile: gemfiles/rails_3_0.gemfile
+      gemfile: gemfiles/rails_head.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails_head.gemfile
