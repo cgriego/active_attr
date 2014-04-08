@@ -1,6 +1,5 @@
 require "spec_helper"
 require "active_attr/typecasting/string_typecaster"
-require "active_support/basic_object"
 
 module ActiveAttr
   module Typecasting

@@ -1,3 +1,7 @@
+# ActiveAttr 0.8.3 (April 8, 2014) #
+
+* ActiveAttr now supports Rails 4.1.0
+
 # ActiveAttr 0.8.2 (June 16, 2013) #
 
 * #108 Fix grammar in HaveAttributeMatcher#description (Matt Hodan)
