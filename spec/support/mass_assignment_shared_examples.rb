@@ -40,7 +40,7 @@ shared_examples "mass assignment method" do
   end
 end
 
-shared_examples "#assign_attribures", :assign_attributes => true do
+shared_examples "#assign_attributes", :assign_attributes => true do
   def mass_assign_attributes(attributes)
     person.assign_attributes attributes
     person
