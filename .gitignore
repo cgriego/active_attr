@@ -2,6 +2,7 @@
 .bundle
 .rvmrc
 .yardoc
+/.ruby-gemset
 coverage
 doc
 Gemfile.lock
