@@ -103,7 +103,7 @@ module ActiveAttr
             attribute :name, :type => String
           end
 
-          klass.attributes.size.should == 1
+          klass.attributes.size.should eq 1
           klass.attributes[:name].should == AttributeDefinition.new(:name, :type => String)
         end
       end
