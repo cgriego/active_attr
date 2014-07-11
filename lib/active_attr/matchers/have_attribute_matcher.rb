@@ -107,7 +107,7 @@ module ActiveAttr
 
       # @return [String] Negative failure message
       # @private
-      def negative_failure_message
+      def failure_message_when_negated
         "expected not: #{expected_attribute_definition.inspect}\n" +
         "         got: #{actual_attribute_definition.inspect}"
       end
