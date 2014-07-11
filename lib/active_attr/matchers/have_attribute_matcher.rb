@@ -111,6 +111,7 @@ module ActiveAttr
         "expected not: #{expected_attribute_definition.inspect}\n" +
         "         got: #{actual_attribute_definition.inspect}"
       end
+      alias_method :negative_failure_message, :failure_message_when_negated
 
       private
 
