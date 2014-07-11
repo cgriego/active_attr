@@ -18,7 +18,7 @@ group :development do
   gem "rdiscount"
   gem "rdoc"
   gem "ruby-debug", :platforms => :mri_18
-  gem "spec_coverage", :platforms => [:mri_19, :mri_20, :mri_21], :git => "git@github.com:getaroom/spec_coverage.git"
+  gem "spec_coverage", :platforms => [:mri_19, :mri_20, :mri_21], :git => "https://github.com/getaroom/spec_coverage.git"
   gem "travis-lint"
   gem "yard"
 end
