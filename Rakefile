@@ -11,7 +11,7 @@ task :spec => %w(spec:units spec:functionals)
 namespace :spec do
   desc "Run RSpec specs with code coverate analysis"
   RSpec::Core::RakeTask.new(:cov) do |spec|
-    spec.rspec_opts = "--format nested --format SpecCoverage"
+    spec.rspec_opts = "--format documentation --format SpecCoverage"
   end
 
   desc "Run RSpec unit specs"

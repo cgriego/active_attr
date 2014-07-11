@@ -30,7 +30,7 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { matcher.matches?(model_class).should be_false }
+          it { matcher.matches?(model_class).should == false }
         end
 
         describe "#failure_message" do
@@ -52,7 +52,7 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { matcher.matches?(model_class).should be_false }
+          it { matcher.matches?(model_class).should == false }
         end
 
         describe "#failure_message" do
@@ -74,7 +74,7 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { matcher.matches?(model_class).should be_false }
+          it { matcher.matches?(model_class).should == false }
         end
 
         describe "#failure_message" do
@@ -93,7 +93,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -110,7 +110,7 @@ module ActiveAttr
 
         context "a class without the attribute" do
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -131,7 +131,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -150,7 +150,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => "Doe" }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -169,7 +169,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => "John" }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -195,7 +195,7 @@ module ActiveAttr
           before { model_class.attribute :admin }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -214,7 +214,7 @@ module ActiveAttr
           before { model_class.attribute :admin, :default => nil }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -233,7 +233,7 @@ module ActiveAttr
           before { model_class.attribute :admin, :default => false }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -259,7 +259,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -278,7 +278,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => false }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -297,7 +297,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => nil }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -323,7 +323,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -342,7 +342,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => Symbol }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -361,7 +361,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => String }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -387,7 +387,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do
@@ -406,7 +406,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => String }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_false }
+            it { matcher.matches?(model_class).should == false }
           end
 
           describe "#failure_message" do
@@ -425,7 +425,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => Object }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should be_true }
+            it { matcher.matches?(model_class).should == true }
           end
 
           describe "#negative_failure_message" do

@@ -36,9 +36,9 @@ module ActiveAttr
     end
 
     it "can query attributes" do
-      model.first_name?.should be_false
+      model.first_name?.should == false
       model.first_name = "Chris"
-      model.first_name?.should be_true
+      model.first_name?.should == true
     end
 
     it "initializes with a block that can use attributes" do
@@ -55,14 +55,14 @@ module ActiveAttr
 
     it "has a logger" do
       logger = double("logger")
-      model_class.logger?.should be_false
-      model.logger?.should be_false
+      model_class.logger?.should == false
+      model.logger?.should == false
 
       model_class.logger = logger
 
-      model_class.logger?.should be_true
+      model_class.logger?.should == true
       model_class.logger.should eq logger
-      model.logger?.should be_true
+      model.logger?.should == true
       model.logger.should == logger
     end
 
