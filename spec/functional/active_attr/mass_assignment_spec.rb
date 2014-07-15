@@ -75,7 +75,7 @@ module ActiveAttr
           require "strong_parameters"
 
           model_class.class_eval do
-            include ActiveAttr::MassAssignment
+            include MassAssignment
             include ActiveModel::MassAssignmentSecurity
             include ActiveModel::ForbiddenAttributesProtection
             attr_accessor :age
@@ -84,7 +84,7 @@ module ActiveAttr
           require "action_controller"
 
           model_class.class_eval do
-            include ActiveAttr::MassAssignment
+            include MassAssignment
             include ActiveModel::MassAssignmentSecurity
             include ActiveModel::ForbiddenAttributesProtection
             attr_accessor :age

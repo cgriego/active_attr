@@ -40,7 +40,7 @@ module ActiveAttr
   # @since 0.5.0
   module AttributeDefaults
     extend ActiveSupport::Concern
-    include ActiveAttr::ChainableInitialization
+    include ChainableInitialization
     include Attributes
 
     # Applies the attribute defaults

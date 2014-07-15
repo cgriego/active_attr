@@ -11,7 +11,7 @@ module ActiveAttr
     let :model_class do
       Class.new.tap do |model_class|
         model_class.class_eval do
-          include ActiveAttr::AttributeDefaults
+          include AttributeDefaults
         end
       end
     end
@@ -93,8 +93,8 @@ module ActiveAttr
     context "combined with MassAssignment" do
       let :model_class do
         Class.new do
-          include ActiveAttr::MassAssignment
-          include ActiveAttr::AttributeDefaults
+          include MassAssignment
+          include AttributeDefaults
 
           attribute :start_date
           attribute :end_date, :default => lambda { start_date }
@@ -126,8 +126,8 @@ module ActiveAttr
     context "combined with TypecastedAttributes" do
       let :model_class do
         Class.new do
-          include ActiveAttr::TypecastedAttributes
-          include ActiveAttr::AttributeDefaults
+          include TypecastedAttributes
+          include AttributeDefaults
 
           attribute :age, :type => Integer, :default => "21"
           attribute :start_date, :type => String, :default => lambda { Date.today }
