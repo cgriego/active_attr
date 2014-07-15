@@ -198,7 +198,7 @@ protected attributes, including support for mass assignment roles.
     person.first_name #=> "Chris"
     person.last_name #=> nil
 
-If using the [Strong Paramters gem][strong_parameters] with Rails 3.2,
+If using the [Strong Parameters gem][strong_parameters] with Rails 3.2,
 include the forbidden attributes protection module after including
 the mass assignment security module.
 
