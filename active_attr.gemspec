@@ -20,7 +20,6 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "bundler",      "~> 1.0"
   gem.add_development_dependency "factory_girl", ">= 2.2", "< 5.0"
-  gem.add_development_dependency "minitest",     "~> 5.0"
   gem.add_development_dependency "rake",         ">= 0.9.0", "< 10.4"
   gem.add_development_dependency "rspec",        "~> 3.0"
   gem.add_development_dependency "tzinfo"

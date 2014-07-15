@@ -1,13 +1,20 @@
 require "active_model/lint"
-require "minitest/assertions"
 
 shared_examples_for "ActiveModel" do
   include ActiveModel::Lint::Tests
-  include Minitest::Assertions
-  attr_writer :assertions
 
-  def assertions
-    @assertions ||= 0
+  begin
+    require "minitest/assertions"
+    include Minitest::Assertions
+
+    attr_writer :assertions
+
+    def assertions
+      @assertions ||= 0
+    end
+  rescue LoadError
+    require "test/unit/assertions"
+    include Test::Unit::Assertions
   end
 
   before { @model = subject }
