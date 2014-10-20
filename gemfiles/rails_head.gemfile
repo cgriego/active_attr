@@ -10,3 +10,7 @@ end
 
 gem "protected_attributes", :git => "git://github.com/rails/protected_attributes.git", :group => :test
 gem "rack", :git => "git://github.com/rack/rack.git", :group => :test
+
+group :test do
+  gem "test-unit", :require => false
+end
