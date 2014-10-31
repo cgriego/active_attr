@@ -25,6 +25,8 @@ module ActiveAttr
       #
       # @since 0.5.0
       def call(value)
+        return nil if value.nil? || value == ''
+        value = value.gsub(',', '') if value.is_a?(String)
         if value.is_a? BigDecimal
           value
         elsif value.is_a? Rational

@@ -12,16 +12,24 @@ module ActiveAttr
           typecaster.call(value).should equal value
         end
 
-        it "casts nil to a zero BigDecimal" do
-          typecaster.call(nil).should eql BigDecimal.new("0.0")
+        it "casts nil to nil" do
+          typecaster.call(nil).should be_nil
         end
 
         it "casts a numeric String to a BigDecimal" do
           typecaster.call("2").should eql BigDecimal.new("2.0")
         end
 
+        it "correctly casts a numeric String with thousand separator to BigDecimal" do
+          typecaster.call("1,000.00").should eql BigDecimal.new("1000")
+        end
+
         it "casts a alpha String to a zero BigDecimal" do
           typecaster.call("bob").should eql BigDecimal.new("0.0")
+        end
+
+        it "casts an empty String to a BigDecimal" do
+          typecaster.call('').should be_nil
         end
 
         it "casts a Rational to a BigDecimal" do
