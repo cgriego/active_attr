@@ -11,6 +11,7 @@ gemfile:
   - gemfiles/rails_3_1.gemfile
   - gemfiles/rails_3_2.gemfile
   - gemfiles/rails_4_0.gemfile
+  - gemfiles/rails_4_1.gemfile
   - Gemfile
   - gemfiles/rails_head.gemfile
 matrix:
@@ -21,6 +22,10 @@ matrix:
       gemfile: gemfiles/rails_4_0.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_4_0.gemfile
+    - rvm: ree
+      gemfile: gemfiles/rails_4_1.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails_4_1.gemfile
     - rvm: ree
       gemfile: Gemfile
     - rvm: 1.9.2
