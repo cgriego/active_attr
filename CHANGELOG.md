@@ -1,3 +1,7 @@
+# ActiveAttr 0.8.5 (December 22, 2014) #
+
+* ActiveAttr now supports Rails 4.2.0 (Jesse B. Hannah)
+
 # ActiveAttr 0.8.4 (July 11, 2014) #
 
 * ActiveAttr now supports RSpec 3.0.0 (Aaron Mc Adam)
