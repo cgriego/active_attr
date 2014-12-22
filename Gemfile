@@ -2,9 +2,9 @@ source "https://rubygems.org"
 
 gemspec :development_group => :test
 
-gem "activemodel",   "~> 4.1.0"
-gem "activesupport", "~> 4.1.0"
-gem "actionpack",    "~> 4.1.0", :group => :test
+gem "activemodel",   "~> 4.2.0"
+gem "activesupport", "~> 4.2.0"
+gem "actionpack",    "~> 4.2.0", :group => :test
 gem "protected_attributes", :group => :test
 
 group :development do
