@@ -6,11 +6,11 @@ shared_examples_for "ActiveModel" do
   begin
     begin
       require "minitest/assertions"
+      include Minitest::Assertions
     rescue LoadError
       require "minitest/unit"
+      include MiniTest::Assertions
     end
-
-    include Minitest::Assertions
 
     attr_writer :assertions
 
