@@ -35,3 +35,9 @@ matrix:
       gemfile: gemfiles/rails_head.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_head.gemfile
+    - rvm: 1.9.3
+      gemfile: gemfiles/rails_head.gemfile
+    - rvm: 2.0.0
+      gemfile: gemfiles/rails_head.gemfile
+    - rvm: 2.1
+      gemfile: gemfiles/rails_head.gemfile
