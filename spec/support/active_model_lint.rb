@@ -4,7 +4,12 @@ shared_examples_for "ActiveModel" do
   include ActiveModel::Lint::Tests
 
   begin
-    require "minitest/assertions"
+    begin
+      require "minitest/assertions"
+    rescue LoadError
+      require "minitest/unit"
+    end
+
     include Minitest::Assertions
 
     attr_writer :assertions
