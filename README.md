@@ -91,6 +91,7 @@ by providing type conversion for your attributes.
     class Person
       include ActiveAttr::TypecastedAttributes
       attribute :age, :type => Integer
+      attribute :updated_at, :type => Time, :typecaster => ->(value) { Time.at(value) }
     end
 
     person = Person.new
