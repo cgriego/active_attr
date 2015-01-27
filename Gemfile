@@ -22,3 +22,7 @@ group :development do
   gem "travis-lint"
   gem "yard"
 end
+
+group :test do
+  gem "test-unit", :require => false
+end

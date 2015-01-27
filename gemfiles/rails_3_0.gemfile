@@ -8,3 +8,7 @@ end
 
 gem "activemodel",   "~> 3.0.2"
 gem "activesupport", "~> 3.0.2"
+
+group :test do
+  gem "test-unit", :require => false
+end
