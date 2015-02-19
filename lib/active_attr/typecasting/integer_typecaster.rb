@@ -21,7 +21,8 @@ module ActiveAttr
       #
       # @since 0.5.0
       def call(value)
-        value.to_i if value.respond_to? :to_i
+        value.to_i if value.respond_to?(:to_i) && value.present?
+        #value.to_i if value.respond_to? :to_i
       rescue FloatDomainError
       end
     end
