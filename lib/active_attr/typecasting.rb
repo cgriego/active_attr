@@ -7,6 +7,7 @@ require "active_attr/typecasting/float_typecaster"
 require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
+require "active_attr/typecasting/symbol_typecaster"
 require "active_attr/typecasting/unknown_typecaster_error"
 
 module ActiveAttr
@@ -34,6 +35,7 @@ module ActiveAttr
       Integer    => IntegerTypecaster,
       Object     => ObjectTypecaster,
       String     => StringTypecaster,
+      Symbol     => SymbolTypecaster
     }.freeze
 
     # Typecasts a value using a Class

@@ -19,6 +19,7 @@ module ActiveAttr
         attribute :float,       :type => Float
         attribute :integer,     :type => Integer
         attribute :string,      :type => String
+        attribute :symbol,      :type => Symbol
 
         attribute :unknown, :type => Class.new {
           def self.to_s
@@ -83,6 +84,11 @@ module ActiveAttr
         model.string = nil
         model.string.should be_nil
       end
+
+      it "a Symbol attribute returns nil" do
+        model.symbol = nil
+        model.symbol.should be_nil
+      end
     end
 
     context "when assigning a valid String" do
@@ -137,6 +143,11 @@ module ActiveAttr
       it "a String attribute returns the String" do
         model.string = "1.0"
         model.string.should eql "1.0"
+      end
+
+      it "a Symbol attribute returns the Symbol" do
+        model.symbol = "a"
+        model.symbol.should eql :a
       end
 
       it "an attribute using an inline typecaster returns the result of the inline typecaster" do
