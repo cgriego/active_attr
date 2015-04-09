@@ -150,7 +150,11 @@ module ActiveAttr
     #
     # @since 0.7.0
     def attributes_map
-      Hash[ self.class.attribute_names.map { |name| [name, yield(name)] } ]
+      {}.tap do |attributes_hash|
+        self.class.attribute_names.each do |k|
+          attributes_hash[k] = yield(k)
+        end
+      end
     end
 
     module ClassMethods
