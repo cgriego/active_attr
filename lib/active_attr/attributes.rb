@@ -203,6 +203,7 @@ module ActiveAttr
           remove_instance_variable("@attribute_methods_generated") if instance_variable_defined?("@attribute_methods_generated")
           define_attribute_methods([attribute_definition.name]) unless attribute_names.include? attribute_name
           attributes[attribute_name] = attribute_definition
+          @attribute_names = attributes.keys
         end
       end
 
@@ -215,7 +216,7 @@ module ActiveAttr
       #
       # @since 0.5.0
       def attribute_names
-        attributes.keys
+        @attribute_names ||= attributes.keys
       end
 
       # Returns a Hash of AttributeDefinition instances
