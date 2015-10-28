@@ -30,13 +30,13 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { matcher.matches?(model_class).should == false }
+          it { expect(matcher.matches?(model_class)).to eq(false) }
         end
 
         describe "#failure_message" do
           before { matcher.matches?(model_class) }
 
-          it { matcher.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::Attributes} }
+          it { expect(matcher.failure_message).to eq(%{expected #{model_class.name} to include ActiveAttr::Attributes}) }
         end
       end
 
@@ -52,13 +52,13 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { matcher.matches?(model_class).should == false }
+          it { expect(matcher.matches?(model_class)).to eq(false) }
         end
 
         describe "#failure_message" do
           before { matcher.matches?(model_class) }
 
-          it { matcher.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::AttributeDefaults} }
+          it { expect(matcher.failure_message).to eq(%{expected #{model_class.name} to include ActiveAttr::AttributeDefaults}) }
         end
       end
 
@@ -74,13 +74,13 @@ module ActiveAttr
         end
 
         describe "#matches?" do
-          it { matcher.matches?(model_class).should == false }
+          it { expect(matcher.matches?(model_class)).to eq(false) }
         end
 
         describe "#failure_message" do
           before { matcher.matches?(model_class) }
 
-          it { matcher.failure_message.should == %{expected #{model_class.name} to include ActiveAttr::TypecastedAttributes} }
+          it { expect(matcher.failure_message).to eq(%{expected #{model_class.name} to include ActiveAttr::TypecastedAttributes}) }
         end
       end
 
@@ -93,7 +93,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -101,7 +101,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name
                            got: attribute :first_name
                 MESSAGE
@@ -112,13 +112,13 @@ module ActiveAttr
 
         context "a class without the attribute" do
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
-            it { matcher.failure_message.should == %{expected Person to have attribute named first_name} }
+            it { expect(matcher.failure_message).to eq(%{expected Person to have attribute named first_name}) }
           end
         end
       end
@@ -133,14 +133,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :default => "John"
                      got: attribute :first_name
               MESSAGE
@@ -152,14 +152,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => "Doe" }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :default => "John"
                      got: attribute :first_name, :default => "Doe"
               MESSAGE
@@ -171,7 +171,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => "John" }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -179,7 +179,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :default => "John"
                            got: attribute :first_name, :default => "John"
                 MESSAGE
@@ -199,14 +199,14 @@ module ActiveAttr
           before { model_class.attribute :admin }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :admin, :default => false
                      got: attribute :admin
               MESSAGE
@@ -218,14 +218,14 @@ module ActiveAttr
           before { model_class.attribute :admin, :default => nil }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :admin, :default => false
                      got: attribute :admin, :default => nil
               MESSAGE
@@ -237,7 +237,7 @@ module ActiveAttr
           before { model_class.attribute :admin, :default => false }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -245,7 +245,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :admin, :default => false
                            got: attribute :admin, :default => false
                 MESSAGE
@@ -265,7 +265,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -273,7 +273,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :default => nil
                            got: attribute :first_name
                 MESSAGE
@@ -286,14 +286,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => false }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :default => nil
                      got: attribute :first_name, :default => false
               MESSAGE
@@ -305,7 +305,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :default => nil }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -313,7 +313,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :default => nil
                            got: attribute :first_name, :default => nil
                 MESSAGE
@@ -333,14 +333,14 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :type => String
                      got: attribute :first_name
               MESSAGE
@@ -352,14 +352,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => Symbol }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :type => String
                      got: attribute :first_name, :type => Symbol
               MESSAGE
@@ -371,7 +371,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => String }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -379,7 +379,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :type => String
                            got: attribute :first_name, :type => String
                 MESSAGE
@@ -399,7 +399,7 @@ module ActiveAttr
           before { model_class.attribute :first_name }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -407,7 +407,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :type => Object
                            got: attribute :first_name
                 MESSAGE
@@ -420,14 +420,14 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => String }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == false }
+            it { expect(matcher.matches?(model_class)).to eq(false) }
           end
 
           describe "#failure_message" do
             before { matcher.matches?(model_class) }
 
             it do
-              matcher.failure_message.should == <<-MESSAGE.strip_heredoc.chomp
+              expect(matcher.failure_message).to eq <<-MESSAGE.strip_heredoc.chomp
                 expected: attribute :first_name, :type => Object
                      got: attribute :first_name, :type => String
               MESSAGE
@@ -439,7 +439,7 @@ module ActiveAttr
           before { model_class.attribute :first_name, :type => Object }
 
           describe "#matches?" do
-            it { matcher.matches?(model_class).should == true }
+            it { expect(matcher.matches?(model_class)).to eq(true) }
           end
 
           [:negative_failure_message, :failure_message_when_negated].each do |method|
@@ -447,7 +447,7 @@ module ActiveAttr
               before { matcher.matches?(model_class) }
 
               it do
-                matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
+                expect(matcher.send(method)).to eq <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :type => Object
                            got: attribute :first_name, :type => Object
                 MESSAGE

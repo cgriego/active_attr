@@ -5,33 +5,33 @@ module ActiveAttr
   module Matchers
     describe HaveAttributeMatcher do
       describe ".class" do
-        it { described_class.should respond_to(:new).with(1).argument }
+        it { expect(described_class).to respond_to(:new).with(1).argument }
       end
 
       describe "#description" do
         it "returns a description appropriate to the expectation" do
-          described_class.new(:first_name).description.should == "have attribute named first_name"
+          expect(described_class.new(:first_name).description).to eq("have attribute named first_name")
         end
 
         it "mentions the default value if set" do
-          described_class.new(:first_name).with_default_value_of("John").description.should == %{have attribute named first_name with a default value of "John"}
+          expect(described_class.new(:first_name).with_default_value_of("John").description).to eq(%{have attribute named first_name with a default value of "John"})
         end
 
         it "mentions the default value if set to nil" do
-          described_class.new(:first_name).with_default_value_of(nil).description.should == %{have attribute named first_name with a default value of nil}
+          expect(described_class.new(:first_name).with_default_value_of(nil).description).to eq(%{have attribute named first_name with a default value of nil})
         end
 
         it "mentions the default value if set to false" do
-          described_class.new(:admin).with_default_value_of(false).description.should == %{have attribute named admin with a default value of false}
+          expect(described_class.new(:admin).with_default_value_of(false).description).to eq(%{have attribute named admin with a default value of false})
         end
 
         it "mentions the type if set" do
-          described_class.new(:first_name).of_type(String).description.should == %{have attribute named first_name of type String}
+          expect(described_class.new(:first_name).of_type(String).description).to eq(%{have attribute named first_name of type String})
         end
 
         it "mentions both the type and default if both are set" do
           description = described_class.new(:first_name).of_type(String).with_default_value_of("John").description
-          description.should == %{have attribute named first_name of type String with a default value of "John"}
+          expect(description).to eq(%{have attribute named first_name of type String with a default value of "John"})
         end
       end
 
@@ -43,13 +43,13 @@ module ActiveAttr
 
       describe "#of_type" do
         it "chains" do
-          described_class.new(:first_name).of_type(String).should be_a_kind_of described_class
+          expect(described_class.new(:first_name).of_type(String)).to be_a_kind_of described_class
         end
       end
 
       describe "#with_default_value_of" do
         it "chains" do
-          described_class.new(:first_name).with_default_value_of(nil).should be_a_kind_of described_class
+          expect(described_class.new(:first_name).with_default_value_of(nil)).to be_a_kind_of described_class
         end
       end
     end

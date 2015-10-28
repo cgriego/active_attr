@@ -5,17 +5,17 @@ module ActiveAttr
   describe Matchers do
     subject(:dsl) { Object.new.extend described_class }
 
-    it { should respond_to(:have_attribute).with(1).argument }
+    it { is_expected.to respond_to(:have_attribute).with(1).argument }
 
     describe "#have_attribute" do
       subject(:matcher) { dsl.have_attribute(:first_name) }
 
       it "builds a HaveAttributeMatcher" do
-        should be_a_kind_of Matchers::HaveAttributeMatcher
+        is_expected.to be_a_kind_of Matchers::HaveAttributeMatcher
       end
 
       it "uses the given attribute name to construct the matcher" do
-        matcher.send(:attribute_name).should == :first_name
+        expect(matcher.send(:attribute_name)).to eq(:first_name)
       end
     end
   end

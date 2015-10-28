@@ -9,7 +9,7 @@ module ActiveAttr
     shared_examples "chained initialization" do
       describe "#initialize" do
         it { expect { model }.not_to raise_error }
-        it { model.initialized?.should == true }
+        it { expect(model.initialized?).to eq(true) }
       end
     end
 

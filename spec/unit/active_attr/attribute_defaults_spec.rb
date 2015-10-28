@@ -18,25 +18,25 @@ module ActiveAttr
     describe "#attribute_defaults" do
       subject(:attribute_defaults) { model_class.new.attribute_defaults }
 
-      it { should be_a_kind_of Hash }
+      it { is_expected.to be_a_kind_of Hash }
 
       it "includes declared literal string attribute defaults" do
-        attribute_defaults["first_name"].should == "John"
+        expect(attribute_defaults["first_name"]).to eq("John")
       end
 
       it "includes declared nil attribute defaults" do
-        attribute_defaults.should include "age"
-        attribute_defaults["age"].should be_nil
+        expect(attribute_defaults).to include "age"
+        expect(attribute_defaults["age"]).to be_nil
       end
 
       it "includes declared dynamic attribute defaults" do
-        attribute_defaults["created_at"].should be_a_kind_of Time
+        expect(attribute_defaults["created_at"]).to be_a_kind_of Time
       end
     end
 
     describe "#initialize" do
       it "invokes the superclass initializer" do
-        should be_initialized
+        is_expected.to be_initialized
       end
     end
   end

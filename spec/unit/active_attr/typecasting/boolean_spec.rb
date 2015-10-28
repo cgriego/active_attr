@@ -4,7 +4,7 @@ require "active_attr/typecasting/boolean"
 module ActiveAttr
   module Typecasting
     describe Boolean do
-      it { described_class.should be_a Class }
+      it { expect(described_class).to be_a Class }
     end
   end
 end

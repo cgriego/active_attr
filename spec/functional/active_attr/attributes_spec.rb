@@ -26,7 +26,7 @@ module ActiveAttr
       subject(:model) { model_class.new }
 
       it "correctly defines methods for the attributes instead of relying on method_missing" do
-        model.id.should be_nil
+        expect(model.id).to be_nil
       end
     end
 
@@ -53,15 +53,15 @@ module ActiveAttr
         subject { child_class.new }
 
         it "create a reader on the child" do
-          should respond_to :parent
+          is_expected.to respond_to :parent
         end
 
         it "create a writer on the child" do
-          should respond_to :parent=
+          is_expected.to respond_to :parent=
         end
 
         it "add attribute definitions to the child" do
-          child_class.attribute_names.should include "parent"
+          expect(child_class.attribute_names).to include "parent"
         end
       end
 
@@ -69,25 +69,25 @@ module ActiveAttr
         subject { parent_class.new }
 
         it "don't create a reader on the parent" do
-          should_not respond_to :child
+          is_expected.not_to respond_to :child
         end
 
         it "don't create a writer on the parent" do
-          should_not respond_to :child=
+          is_expected.not_to respond_to :child=
         end
 
         it "don't add attribute definitions to the parent" do
-          parent_class.attribute_names.should_not include "child"
+          expect(parent_class.attribute_names).not_to include "child"
         end
       end
 
       context "attributes redefined on the child" do
         it "redefines the child attribute" do
-          child_class.attributes[:redefined].should == AttributeDefinition.new(:redefined, :type => String)
+          expect(child_class.attributes[:redefined]).to eq(AttributeDefinition.new(:redefined, :type => String))
         end
 
         it "does not redefine the parent attribute" do
-          parent_class.attributes[:redefined].should == AttributeDefinition.new(:redefined, :type => Symbol)
+          expect(parent_class.attributes[:redefined]).to eq(AttributeDefinition.new(:redefined, :type => Symbol))
         end
       end
     end
@@ -119,12 +119,12 @@ module ActiveAttr
 
       shared_examples "serialization method" do
         it "includes assigned attributes" do
-          should include("first_name" => first_name)
+          is_expected.to include("first_name" => first_name)
         end
 
         it "includes unassigned, defined attributes" do
-          serialized_model.keys.should include("last_name")
-          serialized_model["last_name"].should be_nil
+          expect(serialized_model.keys).to include("last_name")
+          expect(serialized_model["last_name"]).to be_nil
         end
       end
 
@@ -177,19 +177,19 @@ module ActiveAttr
       end
 
       it "builds an instance of the model class" do
-        should be_a_kind_of Person
+        is_expected.to be_a_kind_of Person
       end
 
       it "sets the attributes" do
-        model.first_name.should eq "Chris"
-        model.last_name.should == "Griego"
+        expect(model.first_name).to eq "Chris"
+        expect(model.last_name).to eq("Griego")
       end
     end
 
     context "defining dangerous attributes" do
       shared_examples "a dangerous attribute" do
         it ".dangerous_attribute? is truthy" do
-          model_class.dangerous_attribute?(attribute_name).should be_truthy
+          expect(model_class.dangerous_attribute?(attribute_name)).to be_truthy
         end
 
         it ".attribute raises DangerousAttributeError" do
@@ -203,7 +203,7 @@ module ActiveAttr
 
       shared_examples "a whitelisted attribute" do
         it ".dangerous_attribute? is falsey" do
-          model_class.dangerous_attribute?(attribute_name).should be_falsey
+          expect(model_class.dangerous_attribute?(attribute_name)).to be_falsey
         end
 
         it ".attribute does not raise" do
@@ -219,7 +219,7 @@ module ActiveAttr
           model = model_class.new
           value = double
           model.send "#{attribute_name}=", value
-          model.send(attribute_name).should equal value
+          expect(model.send(attribute_name)).to equal value
         end
       end
 
