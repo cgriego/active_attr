@@ -9,7 +9,7 @@ module ActiveAttr
       describe "#call" do
         it "returns the original object for any object" do
           value = double
-          typecaster.call(value).should equal value
+          expect(typecaster.call(value)).to equal value
         end
       end
     end

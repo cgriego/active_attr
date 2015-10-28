@@ -19,24 +19,24 @@ module ActiveAttr
 
         it "ignores assigning an attribute protected by role-based security", :active_model_version => ">= 3.1.0" do
           person = mass_assign_attributes(:age => 21)
-          person.age.should be_nil
+          expect(person.age).to be_nil
         end
 
         it "ignores assigning a protected attribute" do
           person = mass_assign_attributes(:first_name => "Chris")
-          person.age.should be_nil
+          expect(person.age).to be_nil
         end
       end
 
       shared_examples "secure mass assignment method with options", :secure_mass_assignment_method_with_options => true do
         it "supports role-based mass assignment security", :active_model_version => ">= 3.1.0" do
           person = mass_assign_attributes_with_options({ :age => 21 }, :as => :admin)
-          person.age.should == 21
+          expect(person.age).to eq(21)
         end
 
         it "skips security if passed the :without_protection option" do
           person = mass_assign_attributes_with_options({ :age => 21 }, :without_protection => true)
-          person.age.should == 21
+          expect(person.age).to eq(21)
         end
       end
 
@@ -103,17 +103,17 @@ module ActiveAttr
 
         it "sets a permitted parameter" do
           person = mass_assign_attributes(ActionController::Parameters.new(:age => 21).permit(:age))
-          person.age.should == 21
+          expect(person.age).to eq(21)
         end
 
         it "does not set forbidden parameters" do
           person = mass_assign_attributes(ActionController::Parameters.new(:age => 21).permit(:first_name))
-          person.age.should be_nil
+          expect(person.age).to be_nil
         end
 
         it "continues to set normal attributes" do
           person = mass_assign_attributes(:age => 21)
-          person.age.should == 21
+          expect(person.age).to eq(21)
         end
       end
 

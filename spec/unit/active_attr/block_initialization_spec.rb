@@ -18,7 +18,7 @@ module ActiveAttr
 
     describe "#initialize" do
       it "invokes the superclass initializer" do
-        should be_initialized
+        is_expected.to be_initialized
       end
 
       it "doesn't raise when not passed a block" do
@@ -32,7 +32,7 @@ module ActiveAttr
           yielded_instance = yielded
         end
 
-        returned_instance.should equal yielded_instance
+        expect(returned_instance).to equal yielded_instance
       end
     end
   end

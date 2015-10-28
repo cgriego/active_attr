@@ -31,45 +31,45 @@ module ActiveAttr
 
     it "reads and writes attributes" do
       model.first_name = "Chris"
-      model.first_name.should eq "Chris"
-      model.attributes["first_name"].should == "Chris"
+      expect(model.first_name).to eq "Chris"
+      expect(model.attributes["first_name"]).to eq("Chris")
     end
 
     it "can query attributes" do
-      model.first_name?.should eq false
+      expect(model.first_name?).to eq false
       model.first_name = "Chris"
-      model.first_name?.should == true
+      expect(model.first_name?).to eq(true)
     end
 
     it "initializes with a block that can use attributes" do
-      model_class.new do |person|
+      expect(model_class.new do |person|
         person.write_attribute :first_name, "Chris"
-      end.read_attribute(:first_name).should == "Chris"
+      end.read_attribute(:first_name)).to eq("Chris")
     end
 
     it "processes mass assignment before yielding to an initialization block" do
       model_class.new(:first_name => "Chris") do |person|
-        person.first_name.should == "Chris"
+        expect(person.first_name).to eq("Chris")
       end
     end
 
     it "has a logger" do
       logger = double("logger")
-      model_class.logger?.should eq false
-      model.logger?.should eq false
+      expect(model_class.logger?).to eq false
+      expect(model.logger?).to eq false
 
       model_class.logger = logger
 
-      model_class.logger?.should eq true
-      model_class.logger.should eq logger
-      model.logger?.should eq true
-      model.logger.should == logger
+      expect(model_class.logger?).to eq true
+      expect(model_class.logger).to eq logger
+      expect(model.logger?).to eq true
+      expect(model.logger).to eq(logger)
     end
 
     it "supports mass assignment with security" do
       person = model_class.new(:first_name => "Chris", :last_name => "Griego")
-      person.first_name.should eq "Chris"
-      person.last_name.should be_nil
+      expect(person.first_name).to eq "Chris"
+      expect(person.last_name).to be_nil
     end
 
     it "does not use strict mass assignment" do
@@ -78,23 +78,23 @@ module ActiveAttr
 
     it "serializes to/from JSON" do
       model.first_name = "Chris"
-      model_class.new.from_json(model.to_json).first_name.should == "Chris"
+      expect(model_class.new.from_json(model.to_json).first_name).to eq("Chris")
     end
 
     it "serializes to/from XML" do
       model.first_name = "Chris"
       model.last_name = "Griego"
       model.age = 21
-      model_class.new.from_xml(model.to_xml).first_name.should == "Chris"
+      expect(model_class.new.from_xml(model.to_xml).first_name).to eq("Chris")
     end
 
     it "supports attribute name translation" do
-      model_class.human_attribute_name(:first_name).should == "First name"
+      expect(model_class.human_attribute_name(:first_name)).to eq("First name")
     end
 
     it "typecasts attributes" do
       model.age = "29"
-      model.age.should eql 29
+      expect(model.age).to eql 29
     end
 
     context "attribute defaults" do
@@ -110,21 +110,21 @@ module ActiveAttr
       end
 
       it "are applied" do
-        model.age_limit.should == 21
+        expect(model.age_limit).to eq(21)
       end
 
       it "are overridden by mass assigned attributes" do
-        model_class.new(:age_limit => 18).age_limit.should == 18
+        expect(model_class.new(:age_limit => 18).age_limit).to eq(18)
       end
 
       it "can access mass assigned attributes" do
-        model_class.new(:start_date => Date.today).end_date.should == Date.today
+        expect(model_class.new(:start_date => Date.today).end_date).to eq(Date.today)
       end
 
       it "can access attributes assigned in the initialization block" do
-        model_class.new do |event|
+        expect(model_class.new do |event|
           event.start_date = Date.today
-        end.end_date.should == Date.today
+        end.end_date).to eq(Date.today)
       end
     end
   end

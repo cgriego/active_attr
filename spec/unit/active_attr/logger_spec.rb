@@ -16,27 +16,27 @@ module ActiveAttr
 
     context "when the logger is not set" do
       it "#{described_class}.logger is nil" do
-        described_class.logger.should be_nil
+        expect(described_class.logger).to be_nil
       end
 
       it "#{described_class}.logger? is false" do
-        described_class.logger?.should == false
+        expect(described_class.logger?).to eq(false)
       end
 
       it ".logger is nil" do
-        model_class.logger.should be_nil
+        expect(model_class.logger).to be_nil
       end
 
       it ".logger? is false" do
-        model_class.logger?.should == false
+        expect(model_class.logger?).to eq(false)
       end
 
       it "#logger is nil" do
-        model.logger.should be_nil
+        expect(model.logger).to be_nil
       end
 
       it "#logger? is false" do
-        model.logger?.should == false
+        expect(model.logger?).to eq(false)
       end
     end
 
@@ -45,27 +45,27 @@ module ActiveAttr
       after { described_class.logger = nil }
 
       it "#{described_class}.logger is the logger" do
-        described_class.logger.should == logger
+        expect(described_class.logger).to eq(logger)
       end
 
       it "#{described_class}.logger? is true" do
-        described_class.logger?.should == true
+        expect(described_class.logger?).to eq(true)
       end
 
       it ".logger is the logger" do
-        model_class.logger.should == logger
+        expect(model_class.logger).to eq(logger)
       end
 
       it ".logger? is true" do
-        model_class.logger?.should == true
+        expect(model_class.logger?).to eq(true)
       end
 
       it "#logger is the logger" do
-        model.logger.should == logger
+        expect(model.logger).to eq(logger)
       end
 
       it "#logger? is true" do
-        model.logger?.should == true
+        expect(model.logger?).to eq(true)
       end
     end
 
@@ -73,27 +73,27 @@ module ActiveAttr
       before { model_class.logger = logger }
 
       it "#{described_class}.logger is nil" do
-        described_class.logger.should be_nil
+        expect(described_class.logger).to be_nil
       end
 
       it "#{described_class}.logger? is false" do
-        described_class.logger?.should == false
+        expect(described_class.logger?).to eq(false)
       end
 
       it ".logger is the logger" do
-        model_class.logger.should == logger
+        expect(model_class.logger).to eq(logger)
       end
 
       it ".logger? is true" do
-        model_class.logger?.should == true
+        expect(model_class.logger?).to eq(true)
       end
 
       it "#logger is the logger" do
-        model.logger.should == logger
+        expect(model.logger).to eq(logger)
       end
 
       it "#logger? is true" do
-        model.logger?.should == true
+        expect(model.logger?).to eq(true)
       end
     end
 
@@ -102,27 +102,27 @@ module ActiveAttr
       subject(:model) { child_class.new }
 
       it "#{described_class}.logger is nil" do
-        described_class.logger.should be_nil
+        expect(described_class.logger).to be_nil
       end
 
       it "#{described_class}.logger? is false" do
-        described_class.logger?.should == false
+        expect(described_class.logger?).to eq(false)
       end
 
       it ".logger is the logger" do
-        child_class.logger.should == logger
+        expect(child_class.logger).to eq(logger)
       end
 
       it ".logger? is true" do
-        child_class.logger?.should == true
+        expect(child_class.logger?).to eq(true)
       end
 
       it "#logger is the logger" do
-        model.logger.should == logger
+        expect(model.logger).to eq(logger)
       end
 
       it "#logger? is true" do
-        model.logger?.should == true
+        expect(model.logger?).to eq(true)
       end
     end
 
@@ -131,27 +131,27 @@ module ActiveAttr
       subject(:model) { parent_class.new }
 
       it "#{described_class}.logger is nil" do
-        described_class.logger.should be_nil
+        expect(described_class.logger).to be_nil
       end
 
       it "#{described_class}.logger? is false" do
-        described_class.logger?.should == false
+        expect(described_class.logger?).to eq(false)
       end
 
       it ".logger is nil" do
-        parent_class.logger.should be_nil
+        expect(parent_class.logger).to be_nil
       end
 
       it ".logger? is false" do
-        parent_class.logger?.should == false
+        expect(parent_class.logger?).to eq(false)
       end
 
       it "#logger is nil" do
-        model.logger.should be_nil
+        expect(model.logger).to be_nil
       end
 
       it "#logger? is false" do
-        model.logger?.should == false
+        expect(model.logger?).to eq(false)
       end
     end
 
@@ -159,27 +159,27 @@ module ActiveAttr
       before { model.logger = logger }
 
       it "#{described_class}.logger is nil" do
-        described_class.logger.should be_nil
+        expect(described_class.logger).to be_nil
       end
 
       it "#{described_class}.logger? is false" do
-        described_class.logger?.should == false
+        expect(described_class.logger?).to eq(false)
       end
 
       it ".logger is nil" do
-        model_class.logger.should be_nil
+        expect(model_class.logger).to be_nil
       end
 
       it ".logger? is false" do
-        model_class.logger?.should == false
+        expect(model_class.logger?).to eq(false)
       end
 
       it "#logger is the logger" do
-        model.logger.should == logger
+        expect(model.logger).to eq(logger)
       end
 
       it "#logger? is true" do
-        model.logger?.should == true
+        expect(model.logger?).to eq(true)
       end
     end
   end

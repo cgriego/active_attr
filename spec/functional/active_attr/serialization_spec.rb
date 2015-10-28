@@ -20,12 +20,12 @@ module ActiveAttr
 
     it "serializes to/from JSON" do
       model.first_name = "Chris"
-      model_class.new.from_json(model.to_json).first_name.should == "Chris"
+      expect(model_class.new.from_json(model.to_json).first_name).to eq("Chris")
     end
 
     it "serializes to/from XML" do
       model.first_name = "Chris"
-      model_class.new.from_xml(model.to_xml).first_name.should == "Chris"
+      expect(model_class.new.from_xml(model.to_xml).first_name).to eq("Chris")
     end
   end
 end

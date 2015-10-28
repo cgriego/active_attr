@@ -9,15 +9,15 @@ module ActiveAttr
       describe "#call" do
         it "returns the original string for a String" do
           value = "abc"
-          typecaster.call(value).should equal value
+          expect(typecaster.call(value)).to equal value
         end
 
         it "casts nil to an empty String" do
-          typecaster.call(nil).should eql ""
+          expect(typecaster.call(nil)).to eql ""
         end
 
         it "returns the string version of a Symbol" do
-          typecaster.call(:value).should eql "value"
+          expect(typecaster.call(:value)).to eql "value"
         end
       end
     end
