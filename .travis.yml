@@ -1,5 +1,4 @@
 language: ruby
-sudo: false
 rvm:
   - ree
   - 1.9.2
