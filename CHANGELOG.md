@@ -1,3 +1,12 @@
+# ActiveAttr 0.9.0 (January 27, 2016) #
+
+* ActiveAttr now supports Rails 5.0.0
+* Following the lead of Rails 5, Serialization no longer includes XML
+  serialization by default. Include the ActiveModel::Serializers::Xml
+  module to get this functionality. With Rails 5. You'll need to
+  install the activemodel-serializers-xml gem, which is not yet
+  published on RubyGems.org
+
 # ActiveAttr 0.8.5 (December 22, 2014) #
 
 * ActiveAttr now supports Rails 4.2.0 (Jesse B. Hannah)
