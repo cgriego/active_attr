@@ -20,6 +20,5 @@ module ActiveAttr
     include Attributes
     include MassAssignment
     include ActiveModel::Serializers::JSON
-    include ActiveModel::Serializers::Xml
   end
 end

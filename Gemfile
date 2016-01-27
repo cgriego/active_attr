@@ -2,14 +2,15 @@ source "https://rubygems.org"
 
 gemspec :development_group => :test
 
-gem "activemodel",   "~> 4.2.0"
-gem "activesupport", "~> 4.2.0"
-gem "actionpack",    "~> 4.2.0", :group => :test
+gem "activemodel",   ">= 5.0.0.beta1", "< 5.1"
+gem "activesupport", ">= 5.0.0.beta1", "< 5.1"
+gem "actionpack",    ">= 5.0.0.beta1", "< 5.1", :group => :test
+gem "activemodel-serializers-xml", :group => :test, :git => "git://github.com/rails/activemodel-serializers-xml.git"
 gem "protected_attributes", :group => :test
 
 group :development do
   gem "debugger", :platforms => :mri_19
-  gem "debugger2", :platforms => [:mri_20, :mri_21]
+  gem "byebug", :platforms => [:mri_20, :mri_21, :mri_22, :mri_23]
   gem "growl"
   gem "guard"
   gem "guard-bundler"
@@ -18,7 +19,7 @@ group :development do
   gem "rdiscount"
   gem "rdoc"
   gem "ruby-debug", :platforms => :mri_18
-  gem "spec_coverage", :platforms => [:mri_19, :mri_20, :mri_21], :git => "https://github.com/getaroom/spec_coverage.git"
-  gem "travis-lint"
+  gem "spec_coverage", :platforms => [:mri_19, :mri_20, :mri_21, :mri_22, :mri_23], :git => "https://github.com/getaroom/spec_coverage.git"
+  gem "travis"
   gem "yard"
 end

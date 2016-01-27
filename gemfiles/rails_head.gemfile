@@ -8,5 +8,6 @@ git "git://github.com/rails/rails.git" do
   gem "actionpack", :group => :test
 end
 
-gem "protected_attributes", :git => "git://github.com/rails/protected_attributes.git", :group => :test
-gem "rack", :git => "git://github.com/rack/rack.git", :group => :test
+gem "activemodel-serializers-xml", :group => :test, :git => "git://github.com/rails/activemodel-serializers-xml.git"
+gem "protected_attributes", :group => :test, :git => "git://github.com/rails/protected_attributes.git"
+gem "rack", :group => :test, :git => "git://github.com/rack/rack.git"

@@ -81,13 +81,6 @@ module ActiveAttr
       model_class.new.from_json(model.to_json).first_name.should == "Chris"
     end
 
-    it "serializes to/from XML" do
-      model.first_name = "Chris"
-      model.last_name = "Griego"
-      model.age = 21
-      model_class.new.from_xml(model.to_xml).first_name.should == "Chris"
-    end
-
     it "supports attribute name translation" do
       model_class.human_attribute_name(:first_name).should == "First name"
     end

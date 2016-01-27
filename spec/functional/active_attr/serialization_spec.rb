@@ -1,5 +1,6 @@
 require "spec_helper"
 require "active_attr/serialization"
+require "active_model/serializers/xml"
 require "active_support/core_ext/hash/conversions"
 require "active_support/json/decoding"
 
@@ -8,6 +9,7 @@ module ActiveAttr
     let :model_class do
       Class.new do
         include Serialization
+        include ActiveModel::Serializers::Xml
         attribute :first_name
 
         def self.name
