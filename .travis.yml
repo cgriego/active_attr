@@ -8,6 +8,7 @@ rvm:
   - 2.1
   - 2.2
   - 2.3.0
+before_install: gem install bundler
 bundler_args: --without development
 gemfile:
   - gemfiles/rails_3_0.gemfile
