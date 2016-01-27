@@ -158,11 +158,11 @@ are silently ignored.
 
     class Person
       include ActiveAttr::MassAssignment
-      attr_accessor :first_name, :last_name
+      attr_accessor :first_name, :last_name, :age
     end
 
-    person = Person.new(:first_name => "Chris")
-    person.attributes = { :last_name => "Griego" }
+    person = Person.new(:first_name => "Christopher", :last_name => "Griego")
+    person.attributes = { :first_name => "Chris", :age => 21 }
     person.first_name #=> "Chris"
     person.last_name #=> "Griego"
 
