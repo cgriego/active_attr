@@ -120,5 +120,56 @@ module ActiveAttr
         end.end_date.should == Date.today
       end
     end
+
+    context "when define validation callbacks" do
+      let :model_class do
+        Class.new do
+          include Model
+
+          attribute :name
+          attribute :status
+
+          validates :name, presence: true, length: {maximum: 6}
+
+          before_validation :remove_whitespaces
+          after_validation :set_status
+
+          private
+
+          def remove_whitespaces
+            name.strip!
+          end
+
+          def set_status
+            self.status = errors.empty?
+          end
+        end
+      end
+
+      before do
+        Object.const_set("Person", model_class)
+      end
+
+      after do
+        Object.send(:remove_const, "Person")
+      end
+
+      it "can call before_validation" do
+        person = Person.new(name: "  bob  ")
+
+        expect(person.valid?).to be(true)
+        expect(person.name).to eq("bob")
+      end
+
+      it "can call after_validation" do
+        person = Person.new(name: "")
+        expect(person.valid?).to be(false)
+        expect(person.status).to be(false)
+
+        person = Person.new(name: "alice")
+        expect(person.valid?).to be(true)
+        expect(person.status).to be(true)
+      end
+    end
   end
 end

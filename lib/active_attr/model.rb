@@ -23,6 +23,7 @@ module ActiveAttr
   module Model
     extend ActiveSupport::Concern
     include BasicModel
+    include ActiveModel::Validations::Callbacks
     include BlockInitialization
     include Logger
     include MassAssignment

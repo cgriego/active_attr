@@ -15,7 +15,6 @@ module ActiveAttr
     extend ActiveModel::Naming
     include ActiveModel::Conversion
     include ActiveModel::Validations
-    include ActiveModel::Validations::Callbacks
 
     # @return [false]
     # @since 0.2.0
