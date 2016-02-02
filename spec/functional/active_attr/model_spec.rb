@@ -129,7 +129,7 @@ module ActiveAttr
           attribute :name
           attribute :status
 
-          validates :name, presence: true, length: {maximum: 6}
+          validates :name, :presence => true, :length => {:maximum => 6}
 
           before_validation :remove_whitespaces
           after_validation :set_status
@@ -151,18 +151,18 @@ module ActiveAttr
       end
 
       it "can call before_validation" do
-        person = model_class.new(name: "  bob  ")
+        person = model_class.new(:name => "  bob  ")
 
         expect(person.valid?).to be(true)
         expect(person.name).to eq("bob")
       end
 
       it "can call after_validation" do
-        person = model_class.new(name: "")
+        person = model_class.new(:name => "")
         expect(person.valid?).to be(false)
         expect(person.status).to be(false)
 
-        person = model_class.new(name: "alice")
+        person = model_class.new(:name => "alice")
         expect(person.valid?).to be(true)
         expect(person.status).to be(true)
       end
