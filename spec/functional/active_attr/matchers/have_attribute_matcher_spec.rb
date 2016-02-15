@@ -167,6 +167,25 @@ module ActiveAttr
           end
         end
 
+        context "a class with the attribute and a different default (lazy evaluation)" do
+          before { model_class.attribute :first_name, :default => lambda { "Doe" } }
+
+          describe "#matches?" do
+            it { matcher.matches?(model_class).should == false }
+          end
+
+          describe "#failure_message" do
+            before { matcher.matches?(model_class) }
+
+            it do
+              matcher.failure_message.should match Regexp.new <<-MESSAGE.strip_heredoc.chomp, Regexp::MULTILINE
+                expected: attribute :first_name, :default => "John"
+                     got: attribute :first_name, :default => #<Proc.+?>
+              MESSAGE
+            end
+          end
+        end
+
         context "a class with the attribute and the right default" do
           before { model_class.attribute :first_name, :default => "John" }
 
@@ -182,6 +201,27 @@ module ActiveAttr
                 matcher.send(method).should == <<-MESSAGE.strip_heredoc.chomp
                   expected not: attribute :first_name, :default => "John"
                            got: attribute :first_name, :default => "John"
+                MESSAGE
+              end
+            end
+          end
+        end
+
+        context "a class with the attribute and the right default (lazy evaluation)" do
+          before { model_class.attribute :first_name, :default => lambda { "John" } }
+
+          describe "#matches?" do
+            it { matcher.matches?(model_class).should == true }
+          end
+
+          [:negative_failure_message, :failure_message_when_negated].each do |method|
+            describe "##{method}" do
+              before { matcher.matches?(model_class) }
+
+              it do
+                matcher.send(method).should match Regexp.new <<-MESSAGE.strip_heredoc.chomp, Regexp::MULTILINE
+                  expected not: attribute :first_name, :default => "John"
+                           got: attribute :first_name, :default => #<Proc.+?>
                 MESSAGE
               end
             end
