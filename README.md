@@ -18,6 +18,7 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 * [Contributors][contributors]
 
 [api]: http://rubydoc.info/gems/active_attr
+[aa extended]: https://github.com/haruska/active_attr_extended
 [codeclimate badge]: https://codeclimate.com/github/cgriego/active_attr.png
 [codeclimate]: https://codeclimate.com/github/cgriego/active_attr
 [contributors]: https://github.com/cgriego/active_attr/contributors
@@ -96,6 +97,10 @@ by providing type conversion for your attributes.
     person = Person.new
     person.age = "29"
     person.age #=> 29
+
+Note: ActiveAttr will not support attributes typecasted as Arrays and Hashes.
+If that functionality is of interest, you might want to see
+[ActiveAttrExtended][aa extended].
 
 ### BasicModel ###
 
