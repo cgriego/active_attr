@@ -165,6 +165,7 @@ module ActiveAttr
       #   attribute :name
       #
       # @param (see AttributeDefinition#initialize)
+      # @option (see AttributeDefinition#initialize)
       #
       # @raise [DangerousAttributeError] if the attribute name conflicts with
       #   existing methods
@@ -192,6 +193,7 @@ module ActiveAttr
       #   attribute! :timeout
       #
       # @param (see AttributeDefinition#initialize)
+      # @option (see AttributeDefinition#initialize)
       #
       # @return [AttributeDefinition] Attribute's definition
       #
