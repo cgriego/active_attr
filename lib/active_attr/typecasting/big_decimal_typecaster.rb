@@ -34,6 +34,8 @@ module ActiveAttr
         else
           BigDecimal.new value.to_s
         end
+      rescue ArgumentError
+        BigDecimal.new "0"
       end
     end
   end
