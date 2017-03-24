@@ -15,8 +15,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = ActiveAttr::VERSION
 
-  gem.add_runtime_dependency "activemodel",   ">= 3.0.2", "< 5.1"
-  gem.add_runtime_dependency "activesupport", ">= 3.0.2", "< 5.1"
+  gem.add_runtime_dependency "activemodel",   ">= 3.0.2", "< 6.0"
+  gem.add_runtime_dependency "activesupport", ">= 3.0.2", "< 6.0"
 
   gem.add_development_dependency "bundler",      "~> 1.0"
   gem.add_development_dependency "factory_girl", ">= 2.2", "< 5.0"
