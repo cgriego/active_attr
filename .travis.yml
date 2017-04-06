@@ -6,8 +6,8 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.10
-  - 2.2.6
-  - 2.3.3
+  - 2.2.7
+  - 2.3.4
   - 2.4.0
 before_install: gem install bundler
 bundler_args: --without development
@@ -56,3 +56,4 @@ matrix:
       gemfile: gemfiles/rails_head.gemfile
     - rvm: 2.1.10
       gemfile: gemfiles/rails_head.gemfile
+cache: bundler
