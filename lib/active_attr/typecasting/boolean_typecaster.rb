@@ -23,7 +23,7 @@ module ActiveAttr
       # is a string that represents false, typecasting returns false.
       # Otherwise typecasting just checks the presence of a value.
       #
-      # @example Typecast a Fixnum
+      # @example Typecast an Integer
       #   typecaster.call(1) #=> true
       #
       # @param [Object] value The object to typecast

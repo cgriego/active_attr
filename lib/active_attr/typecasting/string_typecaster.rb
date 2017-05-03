@@ -11,7 +11,7 @@ module ActiveAttr
       #
       # Attempts to convert using #to_s.
       #
-      # @example Typecast a Fixnum
+      # @example Typecast an Integer
       #   typecaster.call(1) #=> "1"
       #
       # @param [Object, #to_s] value The object to typecast

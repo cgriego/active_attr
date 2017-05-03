@@ -7,7 +7,7 @@ module ActiveAttr
       subject(:typecaster) { described_class.new }
 
       describe "#call" do
-        it "returns the original integer for a FixNum" do
+        it "returns the original integer for an Integer" do
           value = 2
           typecaster.call(value).should equal value
         end

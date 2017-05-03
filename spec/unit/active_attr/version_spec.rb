@@ -17,19 +17,19 @@ module ActiveAttr
       describe "major version" do
         subject { gem_version.segments[0] }
 
-        it { should be_a_kind_of Fixnum }
+        it { should be_a_kind_of Integer }
       end
 
       describe "minor version" do
         subject { gem_version.segments[1] }
 
-        it { should be_a_kind_of Fixnum }
+        it { should be_a_kind_of Integer }
       end
 
       describe "patch version" do
         subject { gem_version.segments[2] }
 
-        it { should be_a_kind_of Fixnum }
+        it { should be_a_kind_of Integer }
       end
 
       describe "pre-release version" do

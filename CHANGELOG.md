@@ -1,3 +1,7 @@
+# Unreleased #
+
+* Documentation and test updates for Ruby 2.4 deprecating Fixnum
+
 # ActiveAttr 0.10.0 (February 7, 2017) #
 
 * ActiveAttr now supports Ruby 2.4.0

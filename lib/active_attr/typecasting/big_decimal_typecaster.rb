@@ -16,7 +16,7 @@ module ActiveAttr
       # Attempt to convert using #to_d, else it creates a BigDecimal using the
       # String representation of the value.
       #
-      # @example Typecast a Fixnum
+      # @example Typecast an Integer
       #   typecaster.call(1).to_s #=> "0.1E1"
       #
       # @param [Object, #to_d, #to_s] value The object to typecast
