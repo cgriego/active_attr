@@ -26,6 +26,10 @@ module ActiveAttr
     end
 
     describe "#typecaster_for" do
+      it "returns ArrayTypecaster for Array" do
+        model.typecaster_for(Array).should be_a_kind_of Typecasting::ArrayTypecaster
+      end
+
       it "returns BigDecimalTypecaster for BigDecimal" do
         model.typecaster_for(BigDecimal).should be_a_kind_of Typecasting::BigDecimalTypecaster
       end

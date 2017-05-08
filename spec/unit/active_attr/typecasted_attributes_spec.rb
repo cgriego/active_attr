@@ -12,6 +12,7 @@ module ActiveAttr
         attribute :amount, :type => String
         attribute :first_name
         attribute :last_name
+        attribute :things, :type => Array
 
         def last_name_before_type_cast
           super
