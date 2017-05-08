@@ -4,6 +4,7 @@ require "active_attr/typecasting/boolean_typecaster"
 require "active_attr/typecasting/date_time_typecaster"
 require "active_attr/typecasting/date_typecaster"
 require "active_attr/typecasting/float_typecaster"
+require "active_attr/typecasting/hash_typecaster"
 require "active_attr/typecasting/integer_typecaster"
 require "active_attr/typecasting/object_typecaster"
 require "active_attr/typecasting/string_typecaster"
@@ -18,6 +19,7 @@ module ActiveAttr
   # * Date
   # * DateTime
   # * Float
+  # * Hash
   # * Integer
   # * Object
   # * String
@@ -31,9 +33,10 @@ module ActiveAttr
       Date       => DateTypecaster,
       DateTime   => DateTimeTypecaster,
       Float      => FloatTypecaster,
+      Hash       => HashTypecaster,
       Integer    => IntegerTypecaster,
       Object     => ObjectTypecaster,
-      String     => StringTypecaster,
+      String     => StringTypecaster
     }.freeze
 
     # Typecasts a value using a Class
