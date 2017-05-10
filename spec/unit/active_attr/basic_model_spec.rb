@@ -15,5 +15,9 @@ module ActiveAttr
 
     subject { model_class.new }
     it_should_behave_like "ActiveModel"
+
+    describe "#persisted?" do
+      specify { subject.should_not be_persisted }
+    end
   end
 end
