@@ -1,4 +1,8 @@
-# ActiveAttr 0.10.1 (February 7, 2017) #
+# ActiveAttr 0.10.2 (July 21, 2017) #
+
+* Add the license to the gemspec (Koichi ITO)
+
+# ActiveAttr 0.10.1 (May 4, 2017) #
 
 * Documentation and test updates for Ruby 2.4 deprecating Fixnum
 * ActiveAttr now supports Rails 5.1
