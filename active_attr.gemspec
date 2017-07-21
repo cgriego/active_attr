@@ -7,6 +7,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Create plain old ruby models without reinventing the wheel.}
   gem.summary       = %q{What ActiveModel left out}
   gem.homepage      = "https://github.com/cgriego/active_attr"
+  gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
