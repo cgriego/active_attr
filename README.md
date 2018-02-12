@@ -18,7 +18,7 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 * [Contributors][contributors]
 
 [api]: http://rubydoc.info/gems/active_attr
-[codeclimate badge]: https://codeclimate.com/github/cgriego/active_attr.png
+[codeclimate badge]: https://codeclimate.com/github/cgriego/active_attr.svg
 [codeclimate]: https://codeclimate.com/github/cgriego/active_attr
 [contributors]: https://github.com/cgriego/active_attr/contributors
 [railscast poster]: http://railscasts.com/static/episodes/stills/326-activeattr.png
@@ -28,7 +28,7 @@ ActiveAttr is distributed as a rubygem [on rubygems.org][rubygems].
 [strong_parameters]: https://github.com/rails/strong_parameters
 [speakerdeck slide]: https://speakerd.s3.amazonaws.com/presentations/4f31f1dec583b4001f008ec3/thumb_slide_0.jpg
 [speakerdeck]: https://speakerdeck.com/u/cgriego/p/models-models-every-where
-[travis badge]: https://secure.travis-ci.org/cgriego/active_attr.png?branch=master
+[travis badge]: https://secure.travis-ci.org/cgriego/active_attr.svg?branch=master
 [travis]: http://travis-ci.org/cgriego/active_attr
 
 ## Modules ##
