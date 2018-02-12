@@ -18,5 +18,6 @@ gemfile:
   - Gemfile
   - gemfiles/rails_head.gemfile
 matrix:
+  fast_finish: true
   allow_failures:
     - gemfile: gemfiles/rails_head.gemfile
