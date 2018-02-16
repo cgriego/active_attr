@@ -1,4 +1,4 @@
-# Unreleased #
+# ActiveAttr 0.10.3 (February 16, 2018) #
 
 * ActiveAttr now supports Rails 5.2
 
