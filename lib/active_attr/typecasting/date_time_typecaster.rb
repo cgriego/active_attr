@@ -25,6 +25,7 @@ module ActiveAttr
       # @since 0.5.0
       def call(value)
         value.to_datetime if value.respond_to? :to_datetime
+      rescue ArgumentError
       end
     end
   end
