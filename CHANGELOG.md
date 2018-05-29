@@ -1,3 +1,8 @@
+# ActiveAttr 0.11.0 (May 29, 2018) #
+
+* #166 Changed Typecasting::DateTimeTypecaster to not raise on invalid
+  Strings (Omoto Kenji)
+
 # ActiveAttr 0.10.3 (February 16, 2018) #
 
 * ActiveAttr now supports Rails 5.2
