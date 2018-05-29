@@ -12,12 +12,16 @@ module ActiveAttr
           typecaster.call(value).should equal value
         end
 
-        it "casts nil to 0" do
-          typecaster.call(nil).should eql 0
+        it "returns nil for nil" do
+          typecaster.call(nil).should be_nil
         end
 
         it "returns the integer version of a String" do
           typecaster.call("2").should eql 2
+        end
+
+        it "returns nil for empty String" do
+          typecaster.call('').should be_nil
         end
 
         it "returns nil for an object that does not respond to #to_i" do

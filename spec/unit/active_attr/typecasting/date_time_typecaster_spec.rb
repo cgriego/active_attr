@@ -16,6 +16,10 @@ module ActiveAttr
           typecaster.call(nil).should equal nil
         end
 
+        it "returns nil for an invalid String" do
+          typecaster.call("x").should equal nil
+        end
+
         it "casts a Date to a DateTime at the beginning of the day with no offset" do
           result = typecaster.call(Date.new(2012, 1, 1))
           result.should eql DateTime.new(2012, 1, 1)

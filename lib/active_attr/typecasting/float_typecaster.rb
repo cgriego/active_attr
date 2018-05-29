@@ -20,7 +20,7 @@ module ActiveAttr
       #
       # @since 0.5.0
       def call(value)
-        value.to_f if value.respond_to? :to_f
+        value.to_f if value.respond_to?(:to_f) && !value.nil? && value != ''
       end
     end
   end
