@@ -33,6 +33,14 @@ module ActiveAttr
             typecaster.call("abc").should equal true
           end
 
+          it "casts a non-empty String starting with number 0 to true" do
+            typecaster.call("0c2").should equal true
+          end
+
+          it "casts a non-empty String starting with number > 0 to true" do
+            typecaster.call("1c2").should equal true
+          end
+
           {
             "t" => true,
             "f" => false,

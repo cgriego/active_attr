@@ -34,7 +34,7 @@ module ActiveAttr
       def call(value)
         case value
         when *FALSE_VALUES then false
-        when Numeric, /^\-?[0-9]/ then !value.to_f.zero?
+        when Numeric, /^\-?\d+(\.\d+)?$/ then !value.to_f.zero?
         else value.present?
         end
       end
