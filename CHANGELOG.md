@@ -1,7 +1,9 @@
-# ActiveAttr 0.12.0 (Unreleased) #
+# ActiveAttr 0.12.0 (August 6, 2018) #
 
 * #167 Changed Typecasting::BooleanTypecaster to cast strings starting
   with a zero character to cast to true (Artin Boghosian)
+* Changed Typecasting::BooleanTypecaster to cast more numeric strings
+  to true
 
 # ActiveAttr 0.11.0 (May 29, 2018) #
 
