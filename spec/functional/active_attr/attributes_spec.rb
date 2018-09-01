@@ -1,7 +1,7 @@
 require "spec_helper"
 require "active_attr/attributes"
 require "active_model"
-require "factory_girl"
+require "factory_bot"
 
 module ActiveAttr
   describe Attributes do
@@ -149,13 +149,13 @@ module ActiveAttr
       end
     end
 
-    context "building with FactoryGirl" do
-      subject(:model) { FactoryGirl.build(:person) }
+    context "building with FactoryBot" do
+      subject(:model) { FactoryBot.build(:person) }
 
       before do
         Object.const_set("Person", model_class)
 
-        FactoryGirl.define do
+        FactoryBot.define do
           factory :person, :class => :person do
             first_name "Chris"
             last_name "Griego"
@@ -164,7 +164,7 @@ module ActiveAttr
       end
 
       after do
-        FactoryGirl.factories.clear
+        FactoryBot.factories.clear
         Object.send :remove_const, "Person"
       end
 
