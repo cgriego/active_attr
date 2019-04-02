@@ -32,10 +32,10 @@ module ActiveAttr
         elsif value.respond_to? :to_d
           value.to_d
         else
-          BigDecimal.new value.to_s
+          BigDecimal(value.to_s)
         end
       rescue ArgumentError
-        BigDecimal.new "0"
+        BigDecimal("0")
       end
     end
   end

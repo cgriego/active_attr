@@ -8,8 +8,9 @@ rvm:
   - 2.1.10
   - 2.2.10
   - 2.3.8
-  - 2.4.5
-  - 2.5.3
+  - 2.4.6
+  - 2.5.5
+  - 2.6.2
 before_install: gem install bundler --version '~> 1.0'
 bundler_args: --without development
 gemfile:
@@ -27,7 +28,9 @@ matrix:
   allow_failures:
     - gemfile: gemfiles/rails_head.gemfile
   exclude:
-    - rvm: 2.5.3
+    - rvm: 2.5.5
+      gemfile: gemfiles/rails_3_0.gemfile
+    - rvm: 2.6.2
       gemfile: gemfiles/rails_3_0.gemfile
     - rvm: ree
       gemfile: gemfiles/rails_4_0.gemfile
@@ -85,5 +88,5 @@ matrix:
       gemfile: gemfiles/rails_head.gemfile
     - rvm: 2.3.8
       gemfile: gemfiles/rails_head.gemfile
-    - rvm: 2.4.5
+    - rvm: 2.4.6
       gemfile: gemfiles/rails_head.gemfile

@@ -112,12 +112,12 @@ module ActiveAttr
       end
 
       it "is false when the attribute is a zero BigDecimal" do
-        model.value = BigDecimal.new("0.0")
+        model.value = BigDecimal("0.0")
         model.value?.should == false
       end
 
       it "is true when the attribute is a non-zero BigDecimal" do
-        model.value = BigDecimal.new("0.1")
+        model.value = BigDecimal("0.1")
         model.value?.should == true
       end
 
@@ -137,12 +137,12 @@ module ActiveAttr
       end
 
       it "is false when the attribute is a negative zero BigDecimal" do
-        model.value = BigDecimal.new("-0.0")
+        model.value = BigDecimal("-0.0")
         model.value?.should == false
       end
 
       it "is true when the attribute is a negative BigDecimal" do
-        model.value = BigDecimal.new("-0.1")
+        model.value = BigDecimal("-0.1")
         model.value?.should == true
       end
 

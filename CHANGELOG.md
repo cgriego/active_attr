@@ -1,3 +1,7 @@
+# ActiveAttr 0.13.0 (Unreleased) #
+
+* ActiveAttr now supports Ruby 2.6
+
 # ActiveAttr 0.12.0 (August 6, 2018) #
 
 * #167 Changed Typecasting::BooleanTypecaster to cast strings starting

@@ -100,7 +100,7 @@ module ActiveAttr
 
       it "a BigDecimal attribute returns a BigDecimal" do
         model.big_decimal = "1.1"
-        model.big_decimal.should eql BigDecimal.new("1.1")
+        model.big_decimal.should eql BigDecimal("1.1")
       end
 
       it "a Boolean attribute returns a Boolean" do
