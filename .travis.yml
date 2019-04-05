@@ -11,7 +11,9 @@ rvm:
   - 2.4.6
   - 2.5.5
   - 2.6.2
-before_install: gem install bundler --version '~> 1.0'
+before_install:
+  - travis_retry gem uninstall bundler --executables
+  - travis_retry gem install bundler --version '~> 1.0'
 bundler_args: --without development
 gemfile:
   - gemfiles/rails_3_0.gemfile
