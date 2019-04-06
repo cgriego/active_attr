@@ -12,8 +12,8 @@ rvm:
   - 2.5.5
   - 2.6.2
 before_install:
-  - travis_retry gem update --system 2.7.9
-  - travis_retry gem install bundler --version '~> 1.0'
+  - travis_retry gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
+  - travis_retry gem install bundler -v '< 2'
 bundler_args: --without development
 gemfile:
   - gemfiles/rails_3_0.gemfile
