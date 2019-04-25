@@ -33,7 +33,7 @@ matrix:
   exclude:
     - rvm: 2.5.5
       gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: 2.6.2
+    - rvm: 2.6.3
       gemfile: gemfiles/rails_3_0.gemfile
     - rvm: ree
       gemfile: gemfiles/rails_4_0.gemfile
