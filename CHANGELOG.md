@@ -1,3 +1,7 @@
+# ActiveAttr 0.13.1 (April 25, 2019) #
+
+* ActiveAttr now supports Rails 6.0
+
 # ActiveAttr 0.13.0 (April 6, 2019) #
 
 * ActiveAttr now supports Ruby 2.6
