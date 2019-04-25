@@ -10,7 +10,7 @@ rvm:
   - 2.3.8
   - 2.4.6
   - 2.5.5
-  - 2.6.2
+  - 2.6.3
 before_install:
   - travis_retry gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - travis_retry gem install bundler -v '< 2'
@@ -24,6 +24,7 @@ gemfile:
   - gemfiles/rails_4_2.gemfile
   - gemfiles/rails_5_0.gemfile
   - gemfiles/rails_5_1.gemfile
+  - gemfiles/rails_5_2.gemfile
   - Gemfile
   - gemfiles/rails_head.gemfile
 matrix:
@@ -67,6 +68,16 @@ matrix:
     - rvm: 2.1.10
       gemfile: gemfiles/rails_5_1.gemfile
     - rvm: ree
+      gemfile: gemfiles/rails_5_2.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails_5_2.gemfile
+    - rvm: 1.9.3
+      gemfile: gemfiles/rails_5_2.gemfile
+    - rvm: 2.0.0
+      gemfile: gemfiles/rails_5_2.gemfile
+    - rvm: 2.1.10
+      gemfile: gemfiles/rails_5_2.gemfile
+    - rvm: ree
       gemfile: Gemfile
     - rvm: 1.9.2
       gemfile: Gemfile
@@ -75,6 +86,12 @@ matrix:
     - rvm: 2.0.0
       gemfile: Gemfile
     - rvm: 2.1.10
+      gemfile: Gemfile
+    - rvm: 2.2.10
+      gemfile: Gemfile
+    - rvm: 2.3.8
+      gemfile: Gemfile
+    - rvm: 2.4.6
       gemfile: Gemfile
     - rvm: ree
       gemfile: gemfiles/rails_head.gemfile
