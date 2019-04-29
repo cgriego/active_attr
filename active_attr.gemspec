@@ -9,6 +9,10 @@ Gem::Specification.new do |gem|
   gem.homepage      = "https://github.com/cgriego/active_attr"
   gem.license       = "MIT"
 
+  gem.metadata = {
+    "changelog_uri" => "https://github.com/cgriego/active_attr/blob/master/CHANGELOG.md",
+  }
+
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
