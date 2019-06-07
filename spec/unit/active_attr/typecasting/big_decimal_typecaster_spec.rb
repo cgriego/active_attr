@@ -24,6 +24,10 @@ module ActiveAttr
           typecaster.call("bob").should eql BigDecimal("0.0")
         end
 
+        it "casts an alpha string coercable object to a zero BigDecimal" do
+          typecaster.call(double(to_s: "bob")).should eql BigDecimal("0.0")
+        end
+
         it "casts a Rational to a BigDecimal" do
           typecaster.call(Rational(1, 2)).should eql BigDecimal("0.5")
         end
