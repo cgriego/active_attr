@@ -9,8 +9,8 @@ gem "activemodel-serializers-xml", :group => :test
 gem "protected_attributes_continued", :group => :test
 
 group :development do
-  gem "debugger", :platforms => :mri_19
-  gem "byebug", :platforms => [:mri_20, :mri_21, :mri_22, :mri_23, :mri_24]
+  gem "debugger" if RUBY_VERSION < "2.0"
+  gem "byebug" unless RUBY_VERSION < "2.0"
   gem "growl"
   gem "guard"
   gem "guard-bundler"
@@ -18,8 +18,7 @@ group :development do
   gem "rb-fsevent"
   gem "rdiscount"
   gem "rdoc"
-  gem "ruby-debug", :platforms => :mri_18
-  gem "spec_coverage", :platforms => [:mri_19, :mri_20, :mri_21, :mri_22, :mri_23, :mri_24], :git => "https://github.com/getaroom/spec_coverage.git"
+  gem "spec_coverage", :git => "https://github.com/getaroom/spec_coverage.git"
   gem "travis"
   gem "yard"
 end
