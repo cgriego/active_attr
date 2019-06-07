@@ -284,7 +284,7 @@ module ActiveAttr
             end
 
             def respond_to?(method_name, include_private=false)
-              super || method_name.to_s == "my_less_proper_missing_method" || (RUBY_VERSION < "1.9" && respond_to_missing?(method_name, include_private))
+              super || method_name.to_s == "my_less_proper_missing_method"
             end
           end
         end

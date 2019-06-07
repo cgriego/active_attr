@@ -18,14 +18,10 @@ module ActiveAttr
   module ChainableInitialization
     class << self
       # A collection of Ruby base objects
-      #   [Object] on Ruby 1.8
-      #   [Object, BasicObject] on Ruby 1.9
+      #   [Object, BasicObject]
       #
       # @private
-      BASE_OBJECTS = [].tap do |base_objects|
-        superclass = Class.new
-        base_objects << superclass while superclass = superclass.superclass
-      end
+      BASE_OBJECTS = [Object, BasicObject]
 
       # Only append the features of this module to the class that inherits
       # directly from one of the BASE_OBJECTS

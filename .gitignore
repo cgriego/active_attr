@@ -3,6 +3,7 @@
 .rvmrc
 .yardoc
 /.ruby-gemset
+/.ruby-version
 coverage
 doc
 Gemfile.lock
