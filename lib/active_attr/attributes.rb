@@ -23,10 +23,6 @@ module ActiveAttr
     extend ActiveSupport::Concern
     include ActiveModel::AttributeMethods
 
-    # Methods deprecated on the Object class which can be safely overridden
-    # @since 0.3.0
-    DEPRECATED_OBJECT_METHODS = %w(id type)
-
     included do
       attribute_method_suffix "" if attribute_method_matchers.none? { |matcher| matcher.prefix == "" && matcher.suffix == "" }
       attribute_method_suffix "="
@@ -251,7 +247,7 @@ module ActiveAttr
       # @since 0.6.0
       def dangerous_attribute?(name)
         attribute_methods(name).detect do |method_name|
-          !DEPRECATED_OBJECT_METHODS.include?(method_name.to_s) && allocate.respond_to?(method_name, true)
+          allocate.respond_to?(method_name, true)
         end unless attribute_names.include? name.to_s
       end
 
