@@ -16,8 +16,8 @@ module ActiveAttr
           typecaster.call(false).should equal false
         end
 
-        it "casts nil to false" do
-          typecaster.call(nil).should equal false
+        it "casts nil to nil" do
+          typecaster.call(nil).should equal nil
         end
 
         it "casts an Object to true" do
@@ -26,7 +26,7 @@ module ActiveAttr
 
         context "when the value is a String" do
           it "casts an empty String to false" do
-            typecaster.call("").should equal false
+            typecaster.call("").should equal nil
           end
 
           it "casts a non-empty String to true" do

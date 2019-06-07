@@ -52,7 +52,7 @@ module ActiveAttr
     private
 
     def attribute?(name)
-      Typecasting::BooleanTypecaster.new.call(read_attribute(name))
+      !!Typecasting::BooleanTypecaster.new.call(read_attribute(name))
     end
   end
 end
