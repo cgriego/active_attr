@@ -34,20 +34,12 @@ matrix:
       gemfile: gemfiles/rails_3_0.gemfile
     - rvm: 2.6.3
       gemfile: gemfiles/rails_3_0.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_4_0.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_4_0.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_4_1.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_4_1.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_4_2.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_4_2.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 1.9.3
@@ -56,8 +48,6 @@ matrix:
       gemfile: gemfiles/rails_5_0.gemfile
     - rvm: 2.1.10
       gemfile: gemfiles/rails_5_0.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_5_1.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_5_1.gemfile
     - rvm: 1.9.3
@@ -66,8 +56,6 @@ matrix:
       gemfile: gemfiles/rails_5_1.gemfile
     - rvm: 2.1.10
       gemfile: gemfiles/rails_5_1.gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_5_2.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_5_2.gemfile
     - rvm: 1.9.3
@@ -76,8 +64,6 @@ matrix:
       gemfile: gemfiles/rails_5_2.gemfile
     - rvm: 2.1.10
       gemfile: gemfiles/rails_5_2.gemfile
-    - rvm: ree
-      gemfile: Gemfile
     - rvm: 1.9.2
       gemfile: Gemfile
     - rvm: 1.9.3
@@ -92,8 +78,6 @@ matrix:
       gemfile: Gemfile
     - rvm: 2.4.6
       gemfile: Gemfile
-    - rvm: ree
-      gemfile: gemfiles/rails_head.gemfile
     - rvm: 1.9.2
       gemfile: gemfiles/rails_head.gemfile
     - rvm: 1.9.3
