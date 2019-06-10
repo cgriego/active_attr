@@ -157,8 +157,8 @@ module ActiveAttr
 
         FactoryBot.define do
           factory :person, :class => :person do
-            first_name "Chris"
-            last_name "Griego"
+            first_name { "Chris" }
+            last_name { "Griego" }
           end
         end
       end
