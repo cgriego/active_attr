@@ -24,8 +24,8 @@ module ActiveAttr
     #   person.first_name #=> "Chris"
     #   person.last_name #=> "Griego"
     #
-    # @param [Hash{#to_s => Object}, #each] attributes Attributes used to
-    #   populate the model
+    # @param [Hash{#to_s => Object}, #each] new_attributes Attributes
+    #   used to populate the model
     # @param [Hash, #[]] options Options that affect mass assignment
     #
     # @option options [Symbol] :as (:default) Mass assignment role

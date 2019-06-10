@@ -24,7 +24,7 @@ module ActiveAttr
 
     # Configure the global default logger
     #
-    # @param [Logger, #debug] logger The new global default logger
+    # @param [Logger, #debug] new_logger The new global default logger
     #
     # @since 0.3.0
     def self.logger=(new_logger)

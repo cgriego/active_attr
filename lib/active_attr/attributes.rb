@@ -269,8 +269,8 @@ module ActiveAttr
 
       # Assign a set of attribute definitions, used when subclassing models
       #
-      # @param [Array<ActiveAttr::AttributeDefinition>] The Array of
-      #   AttributeDefinition instances
+      # @param [Array<ActiveAttr::AttributeDefinition>] attributes The
+      #   Array of AttributeDefinition instances
       #
       # @since 0.2.2
       def attributes=(attributes)
