@@ -9,6 +9,8 @@
 * #143 Changed Attributes to allocate less objects (Chris Grigg)
 * #153 Changed HaveAttributeMatcher#with_default_value_of to support
   Procs (Yoshiyuki Hirano)
+* #145 Add ActiveModel::Validations::Callbacks to ActiveAttr::Model
+  (Kazuki BABA)
 
 # ActiveAttr 0.13.1 (April 25, 2019) #
 
