@@ -76,7 +76,7 @@ module ActiveAttr
         @attribute_options[:default] = default_value
         @description << " with a default value of #{default_value.inspect}"
         @expected_ancestors << "ActiveAttr::AttributeDefaults"
-        @attribute_expectations << lambda { _attribute_default == default_value }
+        @attribute_expectations << lambda { @model_class.allocate.send(:_attribute_default, @attribute_name) == default_value }
         self
       end
 
@@ -128,16 +128,6 @@ module ActiveAttr
 
         @expected_ancestors.reject do |ancestor_name|
           model_ancestor_names.include? ancestor_name
-        end
-      end
-
-      def _attribute_default
-        default = actual_attribute_definition[:default]
-
-        case
-        when default.respond_to?(:call) then instance_exec(&default)
-        when default.duplicable? then default.dup
-        else default
         end
       end
     end

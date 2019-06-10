@@ -14,6 +14,14 @@ module ActiveAttr
           include AttributeDefaults
           include TypecastedAttributes
 
+          def john
+            "John"
+          end
+
+          def doe
+            "Doe"
+          end
+
           def self.name
             "Person"
           end
@@ -168,7 +176,7 @@ module ActiveAttr
         end
 
         context "a class with the attribute and a different default (lazy evaluation)" do
-          before { model_class.attribute :first_name, :default => lambda { "Doe" } }
+          before { model_class.attribute :first_name, :default => lambda { doe } }
 
           describe "#matches?" do
             it { matcher.matches?(model_class).should == false }
@@ -208,7 +216,7 @@ module ActiveAttr
         end
 
         context "a class with the attribute and the right default (lazy evaluation)" do
-          before { model_class.attribute :first_name, :default => lambda { "John" } }
+          before { model_class.attribute :first_name, :default => lambda { john } }
 
           describe "#matches?" do
             it { matcher.matches?(model_class).should == true }
