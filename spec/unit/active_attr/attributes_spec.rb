@@ -134,6 +134,11 @@ module ActiveAttr
         model.should_receive(:attribute=).with("first_name", "Ben")
         model.first_name = "Ben"
       end
+
+      it "returns the new attribute definition" do
+        result = attributeless.attribute! :first_name
+        result.should == AttributeDefinition.new(:first_name)
+      end
     end
 
     describe ".attributes" do

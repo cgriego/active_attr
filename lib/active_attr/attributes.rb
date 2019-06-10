@@ -200,10 +200,8 @@ module ActiveAttr
     #
     # @since 0.7.0
     def attributes_map
-      {}.tap do |attributes_hash|
-        self.class.attribute_names.each do |k|
-          attributes_hash[k] = yield(k)
-        end
+      self.class.attribute_names.each_with_object({}) do |name, hash|
+        hash[name] = yield(name)
       end
     end
 
@@ -256,8 +254,8 @@ module ActiveAttr
           # Force active model to generate attribute methods
           remove_instance_variable("@attribute_methods_generated") if instance_variable_defined?("@attribute_methods_generated")
           define_attribute_methods([attribute_definition.name]) unless attribute_names.include? attribute_name
+          remove_instance_variable("@attribute_names") if instance_variable_defined?("@attribute_names")
           attributes[attribute_name] = attribute_definition
-          @attribute_names = attributes.keys
         end
       end
 
