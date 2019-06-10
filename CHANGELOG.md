@@ -1,4 +1,4 @@
-# ActiveAttr 0.14.0 (Unreleased) #
+# ActiveAttr 0.14.0 (June 10, 2019) #
 
 * Drop support for Ruby versions below 1.9.2
 * #139 Changed Typecasting::BooleanTypecaster to cast nil and empty
