@@ -3,6 +3,9 @@
 * Drop support for Ruby versions below 1.9.2
 * #139 Changed Typecasting::BooleanTypecaster to cast nil and empty
   strings to false (Corin Langosch)
+* Attributes#inspect is now filtered based on filtered_attributes,
+  which defaults to `Rails.application.config.filter_parameters` in
+  Rails apps.
 
 # ActiveAttr 0.13.1 (April 25, 2019) #
 

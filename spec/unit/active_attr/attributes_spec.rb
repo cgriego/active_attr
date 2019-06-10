@@ -9,6 +9,7 @@ module ActiveAttr
     let :model_class do
       Class.new do
         include Attributes
+
         attribute :first_name
         attribute :last_name
         attribute :amount
@@ -151,6 +152,38 @@ module ActiveAttr
       end
     end
 
+    describe "#{described_class}.filter_attributes" do
+      after { described_class.send(:remove_instance_variable, "@filter_attributes") }
+
+      it "defaults to an empty array" do
+        described_class.filter_attributes.should == []
+      end
+
+      it "can be mutated" do
+        described_class.filter_attributes << :password
+        described_class.filter_attributes.should == [:password]
+      end
+
+      it "can be assigned" do
+        described_class.filter_attributes += [:password]
+        described_class.filter_attributes.should == [:password]
+      end
+
+      it "initiailizes new classes using the module config" do
+        described_class.filter_attributes += [:password]
+        model_class.filter_attributes.should == [:password]
+      end
+
+      it "subclasses should inherit from the parent class" do
+        model_class.filter_attributes = [:password]
+        Class.new(model_class).filter_attributes.should == [:password]
+      end
+
+      it "cannot be overridden on instances" do
+        model_class.new.should_not respond_to(:filter_attributes=)
+      end
+    end
+
     describe ".inspect" do
       it "renders the class name" do
         model_class.inspect.should match(/^Foo\(.*\)$/)
@@ -212,6 +245,59 @@ module ActiveAttr
 
       it "includes the class name and all attribute values in alphabetical order by attribute name" do
         model.inspect.should == %{#<Foo amount: nil, first_name: "Ben", last_name: "#{last_name}">}
+      end
+
+      context "filtering attributes with a Symbol" do
+        before { model_class.filter_attributes = [:amount] }
+
+        it "does not filter an attribute with a nil value" do
+          model.inspect.should == %{#<Foo amount: nil, first_name: "Ben", last_name: "#{last_name}">}
+        end
+
+        it "filters filtered attributes that have a value" do
+          model.amount = 100
+          model.inspect.should == %{#<Foo amount: [FILTERED], first_name: "Ben", last_name: "#{last_name}">}
+        end
+      end
+
+      context "filtering attributes with a String" do
+        before { model_class.filter_attributes = ["amount"] }
+
+        it "does not filter an attribute with a nil value" do
+          model.inspect.should == %{#<Foo amount: nil, first_name: "Ben", last_name: "#{last_name}">}
+        end
+
+        it "filters filtered attributes that have a value" do
+          model.amount = 100
+          model.inspect.should == %{#<Foo amount: [FILTERED], first_name: "Ben", last_name: "#{last_name}">}
+        end
+      end
+
+      context "filtering attributes with a partial attribute name" do
+        before { model_class.filter_attributes = [:name] }
+
+        it "filters filtered attributes that have a value and whose attribute contains the filtered attribute name" do
+          model.inspect.should == %{#<Foo amount: nil, first_name: [FILTERED], last_name: [FILTERED]>}
+        end
+      end
+
+      context "filtering attributes with a Regexp" do
+        before { model_class.filter_attributes = [/name/i] }
+
+        it "filters filtered attributes that have a value and whose attribute matches the Regexp" do
+          model.inspect.should == %{#<Foo amount: nil, first_name: [FILTERED], last_name: [FILTERED]>}
+        end
+      end
+
+      context "filtering attributes with a Proc with 2 arguments" do
+        before do
+          model.amount = 100
+          model_class.filter_attributes = [->(key, value) { value.reverse! if key =~ /name/ }]
+        end
+
+        it "filters filtered attributes that have a value by mutating the attributes" do
+          model.inspect.should == %{#<Foo amount: 100, first_name: "neB", last_name: "iksewoP">}
+        end
       end
 
       it "doesn't format the inspection string for attributes if the model does not have any" do

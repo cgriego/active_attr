@@ -5,6 +5,12 @@ require "active_model"
 require "active_support/concern"
 require "active_support/hash_with_indifferent_access"
 
+begin
+  require "active_support/parameter_filter"
+rescue LoadError
+  require "action_dispatch/http/parameter_filter"
+end
+
 module ActiveAttr
   # Attributes provides a set of class methods for defining an attributes
   # schema and instance methods for reading and writing attributes.
@@ -23,7 +29,42 @@ module ActiveAttr
     extend ActiveSupport::Concern
     include ActiveModel::AttributeMethods
 
+    # @private
+    # @since 0.14.0
+    FILTERED = '[FILTERED]'.freeze
+
+    # @private
+    # @since 0.14.0
+    PARAMETER_FILTER = if defined?(ActiveSupport::ParameterFilter)
+      ActiveSupport::ParameterFilter
+    else
+      ActionDispatch::Http::ParameterFilter
+    end
+
+    # Specifies attributes which won't be exposed while calling #inspect
+    #
+    # @return [Array<#to_s, Regexp, Proc>] filter_attributes Configured
+    # global default filtered attributes
+    #
+    # @since 0.14.0
+    def self.filter_attributes
+      @filter_attributes ||= []
+    end
+
+    # Configure the global default filtered attributes
+    #
+    # @param [Array<#to_s, Regexp, Proc>] new_filter_attributes The new
+    # global default filtered attributes
+    #
+    # @since 0.14.0
+    def self.filter_attributes=(new_filter_attributes)
+      @filter_attributes = new_filter_attributes
+    end
+
     included do
+      class_attribute :filter_attributes, :instance_writer => false
+      self.filter_attributes = Attributes.filter_attributes
+
       attribute_method_suffix "" if attribute_method_matchers.none? { |matcher| matcher.prefix == "" && matcher.suffix == "" }
       attribute_method_suffix "="
     end
@@ -66,7 +107,20 @@ module ActiveAttr
     #
     # @since 0.2.0
     def inspect
-      attribute_descriptions = attributes.sort.map { |key, value| "#{key}: #{value.inspect}" }.join(", ")
+      inspection_filter = PARAMETER_FILTER.new(filter_attributes)
+      original_attributes = attributes
+      filtered_attributes = inspection_filter.filter(original_attributes)
+
+      attribute_descriptions = filtered_attributes.sort.map { |key, value|
+        inspect_value = case
+        when original_attributes[key].nil? then nil.inspect
+        when value == FILTERED then FILTERED
+        else value.inspect
+        end
+
+        "#{key}: #{inspect_value}"
+      }.join(", ")
+
       separator = " " unless attribute_descriptions.empty?
       "#<#{self.class.name}#{separator}#{attribute_descriptions}>"
     end
