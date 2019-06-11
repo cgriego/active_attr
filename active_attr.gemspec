@@ -4,7 +4,7 @@ require File.expand_path("../lib/active_attr/version", __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Chris Griego", "Ben Poweski"]
   gem.email         = ["cgriego@gmail.com", "bpoweski@gmail.com"]
-  gem.description   = %q{Create plain old ruby models without reinventing the wheel.}
+  gem.description   = %q{Create plain old Ruby models without reinventing the wheel.}
   gem.summary       = %q{What ActiveModel left out}
   gem.homepage      = "https://github.com/cgriego/active_attr"
   gem.license       = "MIT"
