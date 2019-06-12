@@ -3,6 +3,7 @@ require "active_attr/dangerous_attribute_error"
 require "active_attr/unknown_attribute_error"
 require "active_model"
 require "active_support/concern"
+require "active_support/core_ext/class/attribute"
 require "active_support/hash_with_indifferent_access"
 
 begin
