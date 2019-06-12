@@ -1,3 +1,5 @@
+require "active_support/core_ext/object/blank"
+
 module ActiveAttr
   module Typecasting
     # Typecasts an Object to an Integer
@@ -21,7 +23,7 @@ module ActiveAttr
       #
       # @since 0.5.0
       def call(value)
-        value.to_i if value.respond_to? :to_i
+        value.to_i if value.present? && value.respond_to?(:to_i)
       rescue FloatDomainError
       end
     end

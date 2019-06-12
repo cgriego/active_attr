@@ -1,6 +1,7 @@
 require "bigdecimal"
 require "bigdecimal/util"
 require "active_support/core_ext/big_decimal/conversions"
+require "active_support/core_ext/object/blank"
 
 module ActiveAttr
   module Typecasting
@@ -29,6 +30,8 @@ module ActiveAttr
           value
         elsif value.is_a? Rational
           value.to_f.to_d
+        elsif value.blank?
+          nil
         elsif value.respond_to? :to_d
           value.to_d
         else

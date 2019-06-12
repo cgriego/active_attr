@@ -1,3 +1,5 @@
+require "active_support/core_ext/object/blank"
+
 module ActiveAttr
   module Typecasting
     # Typecasts an Object to a Float
@@ -20,7 +22,7 @@ module ActiveAttr
       #
       # @since 0.5.0
       def call(value)
-        value.to_f if value.respond_to? :to_f
+        value.to_f if value.present? && value.respond_to?(:to_f)
       end
     end
   end

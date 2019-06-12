@@ -1,6 +1,7 @@
-# ActiveAttr 0.15.0 (Unreleased) #
+# ActiveAttr 0.15.0 (June 12, 2019) #
 
 * Add missing ActiveSupport require for Attributes
+* Change numeric typecasters to cast nil and empty strings to nil
 
 # ActiveAttr 0.14.0 (June 10, 2019) #
 
