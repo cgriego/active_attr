@@ -40,7 +40,7 @@ module ActiveAttr
         end
       end
 
-      context "white listing attributes" do
+      context "allowing attributes" do
         before do
           model_class.class_eval do
             attr_accessible :first_name, :last_name, :name
@@ -53,7 +53,7 @@ module ActiveAttr
         describe "#initialize", :initialize, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
       end
 
-      context "black listing attributes" do
+      context "denying attributes" do
         before do
           model_class.class_eval do
             attr_protected :age

@@ -201,28 +201,6 @@ module ActiveAttr
         end
       end
 
-      shared_examples "a whitelisted attribute" do
-        it ".dangerous_attribute? is falsey" do
-          model_class.dangerous_attribute?(attribute_name).should be_falsey
-        end
-
-        it ".attribute does not raise" do
-          expect { model_class.attribute(attribute_name) }.not_to raise_error
-        end
-
-        it ".attribute! does not raise" do
-          expect { model_class.attribute!(attribute_name) }.not_to raise_error
-        end
-
-        it "can be set and get" do
-          model_class.attribute attribute_name
-          model = model_class.new
-          value = double
-          model.send "#{attribute_name}=", value
-          model.send(attribute_name).should equal value
-        end
-      end
-
       shared_examples "defining dangerous attributes" do
         context "an attribute that conflicts with #{described_class}" do
           let(:attribute_name) { :write_attribute }
@@ -257,16 +235,6 @@ module ActiveAttr
         context "an attribute that conflicts with a less properly implemented method_missing callback" do
           let(:attribute_name) { :my_less_proper_missing_method }
           include_examples "a dangerous attribute"
-        end
-
-        context "an :id attribute" do
-          let(:attribute_name) { :id }
-          include_examples "a whitelisted attribute"
-        end
-
-        context "a :type attribute" do
-          let(:attribute_name) { :type }
-          include_examples "a whitelisted attribute"
         end
       end
 
