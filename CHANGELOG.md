@@ -1,3 +1,7 @@
+# ActiveAttr 0.15.1 (Unreleased) #
+
+* ActiveAttr now supports Ruby 2.7
+
 # ActiveAttr 0.15.0 (June 12, 2019) #
 
 * Add missing ActiveSupport require for Attributes
