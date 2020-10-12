@@ -2,16 +2,7 @@ language: ruby
 dist: trusty # for Ruby 1.9
 sudo: false
 rvm:
-  - 1.9.2
-  - 1.9.3
-  - 2.0.0
-  - 2.1.10
-  - 2.2.10
-  - 2.3.8
-  - 2.4.10
-  - 2.5.8
-  - 2.6.6
-  - 2.7.1
+  - truffleruby-head
 before_install:
   - travis_retry gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - travis_retry gem install bundler -v '< 2'
