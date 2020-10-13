@@ -32,6 +32,7 @@ gemfile:
 matrix:
   allow_failures:
     - gemfile: gemfiles/rails_head.gemfile
+    - rvm: truffleruby-head
   exclude:
     - rvm: 1.9.2
       gemfile: gemfiles/rails_4_0.gemfile
