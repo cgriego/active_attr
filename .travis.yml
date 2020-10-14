@@ -12,6 +12,7 @@ rvm:
   - 2.5.8
   - 2.6.6
   - 2.7.1
+  - truffleruby-head
 before_install:
   - travis_retry gem uninstall -v '>= 2' -i $(rvm gemdir)@global -ax bundler || true
   - travis_retry gem install bundler -v '< 2'
@@ -31,6 +32,7 @@ gemfile:
 matrix:
   allow_failures:
     - gemfile: gemfiles/rails_head.gemfile
+    - rvm: truffleruby-head
   exclude:
     - rvm: 1.9.2
       gemfile: gemfiles/rails_4_0.gemfile
@@ -106,3 +108,6 @@ matrix:
       gemfile: gemfiles/rails_4_1.gemfile
     - rvm: 2.7.1
       gemfile: gemfiles/rails_4_2.gemfile
+    - rvm: truffleruby-head
+      gemfile: gemfiles/rails_3_0.gemfile
+    
