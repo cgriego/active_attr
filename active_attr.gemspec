@@ -22,9 +22,9 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 1.9.2"
 
-  gem.add_runtime_dependency "actionpack",    ">= 3.0.2", "< 6.1"
-  gem.add_runtime_dependency "activemodel",   ">= 3.0.2", "< 6.1"
-  gem.add_runtime_dependency "activesupport", ">= 3.0.2", "< 6.1"
+  gem.add_runtime_dependency "actionpack",    ">= 3.0.2", "< 6.2"
+  gem.add_runtime_dependency "activemodel",   ">= 3.0.2", "< 6.2"
+  gem.add_runtime_dependency "activesupport", ">= 3.0.2", "< 6.2"
 
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "factory_bot",  "< 5.0"
