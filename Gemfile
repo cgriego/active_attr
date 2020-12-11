@@ -9,8 +9,7 @@ gem "activemodel-serializers-xml", :group => :test
 gem "protected_attributes_continued", :group => :test
 
 group :development do
-  gem "debugger" if RUBY_VERSION < "2.0"
-  gem "byebug" unless RUBY_VERSION < "2.0"
+  gem "byebug"
   gem "growl"
   gem "guard"
   gem "guard-bundler"
@@ -19,6 +18,5 @@ group :development do
   gem "rdiscount"
   gem "rdoc"
   gem "spec_coverage", :git => "https://github.com/getaroom/spec_coverage.git"
-  gem "travis"
   gem "yard"
 end

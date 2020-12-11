@@ -1,6 +1,5 @@
 # ActiveAttr #
 
-[![Build History][travis badge]][travis]
 [![Code Climate][codeclimate badge]][codeclimate]
 
 ActiveAttr is a set of modules that makes it easy to create plain old Ruby
@@ -26,8 +25,6 @@ ActiveAttr is distributed as a Ruby gem [on rubygems.org][rubygems].
 [protected_attributes]: https://github.com/westonganger/protected_attributes_continued
 [strong_parameters]: https://github.com/rails/strong_parameters
 [speakerdeck]: https://speakerdeck.com/u/cgriego/p/models-models-every-where
-[travis badge]: https://secure.travis-ci.org/cgriego/active_attr.svg?branch=master
-[travis]: http://travis-ci.org/cgriego/active_attr
 
 ## Modules ##
 
