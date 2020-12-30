@@ -11,6 +11,7 @@ jobs:
     name: Ruby ${{ matrix.ruby }} with ${{ matrix.gemfile }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby:
         - 2.1.9
@@ -138,23 +139,18 @@ jobs:
     env:
       Rails: ${{ matrix.rails }}
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-      BUNDLER_VERSION: 1.17.3
 
     steps:
     - name: Checkout code
       uses: actions/checkout@master
+    - name: Nokogiri support for TruffleRuby
+      run: sudo apt-get -yqq install libxml2-dev libxslt-dev
+      if: ${{ matrix.ruby == 'truffleruby-head' }}
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-    - name: Set up Bundler cache
-      uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-gems
-    - name: Build and run tests
-      run: |
-        gem install bundler --version ${{ env.BUNDLER_VERSION }} --no-document
-        bundle _${{ env.BUNDLER_VERSION }}_ config path vendor/bundle
-        bundle _${{ env.BUNDLER_VERSION }}_ install --jobs 4 --retry 3
-        bundle _${{ env.BUNDLER_VERSION }}_ exec rake --trace
+        bundler: 1
+        bundler-cache: true
+    - name: Run tests
+      run: bundle exec rake --trace
