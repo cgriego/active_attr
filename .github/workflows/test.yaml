@@ -11,6 +11,7 @@ jobs:
     name: Ruby ${{ matrix.ruby }} with ${{ matrix.gemfile }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby:
         - 2.1.9
