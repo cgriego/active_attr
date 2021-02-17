@@ -10,6 +10,7 @@ jobs:
   test:
     name: Ruby ${{ matrix.ruby }} with ${{ matrix.gemfile }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ contains(matrix.ruby, 'head') || contains(matrix.gemfile, 'head') }}
     strategy:
       fail-fast: false
       matrix:
@@ -111,8 +112,12 @@ jobs:
           gemfile: gemfiles/rails_head.gemfile
         - ruby: 2.5.8
           gemfile: gemfiles/rails_3_0.gemfile
+        - ruby: 2.5.8
+          gemfile: gemfiles/rails_head.gemfile
         - ruby: 2.6.6
           gemfile: gemfiles/rails_3_0.gemfile
+        - ruby: 2.6.6
+          gemfile: gemfiles/rails_head.gemfile
         - ruby: 2.7.2
           gemfile: gemfiles/rails_3_0.gemfile
         - ruby: 2.7.2
