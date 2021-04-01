@@ -95,7 +95,7 @@ module ActiveAttr
     #
     # @since 0.2.0
     def attributes
-      attributes_map { |name| send name }
+      attributes_map { |name| attribute name }
     end
 
     # Returns the class name plus its attributes
@@ -141,11 +141,8 @@ module ActiveAttr
     #
     # @since 0.2.0
     def read_attribute(name)
-      if respond_to? name
-        send name.to_s
-      else
-        raise UnknownAttributeError, "unknown attribute: #{name}"
-      end
+      @attributes ||= {}
+      @attributes[name.to_s]
     end
     alias_method :[], :read_attribute
 
@@ -163,11 +160,8 @@ module ActiveAttr
     #
     # @since 0.2.0
     def write_attribute(name, value)
-      if respond_to? "#{name}="
-        send "#{name}=", value
-      else
-        raise UnknownAttributeError, "unknown attribute: #{name}"
-      end
+      @attributes ||= {}
+      @attributes[name.to_s] = value
     end
     alias_method :[]=, :write_attribute
 
@@ -177,16 +171,22 @@ module ActiveAttr
     #
     # @since 0.2.1
     def attribute(name)
-      @attributes ||= {}
-      @attributes[name]
+      if self.class.attribute_names.include? name.to_s
+        read_attribute(name)
+      else
+        raise UnknownAttributeError, "unknown attribute: #{name}"
+      end
     end
 
     # Write an attribute to the attributes hash
     #
     # @since 0.2.1
     def attribute=(name, value)
-      @attributes ||= {}
-      @attributes[name] = value
+      if self.class.attribute_names.include? name.to_s
+        write_attribute(name, value)
+      else
+        raise UnknownAttributeError, "unknown attribute: #{name}"
+      end
     end
 
     # Maps all attributes using the given block
