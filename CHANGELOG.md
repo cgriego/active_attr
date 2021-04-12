@@ -1,3 +1,7 @@
+# ActiveAttr 0.15.3 (April 12, 2021)
+
+* #185 Fixed ReDoS vulnerability in BooleanTypecaster#call (ねず)
+
 # ActiveAttr 0.15.2 (February 17, 2021)
 
 * ActiveAttr now supports Ruby 3.0
