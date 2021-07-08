@@ -19,10 +19,10 @@ jobs:
         - 2.2.10
         - 2.3.8
         - 2.4.10
-        - 2.5.8
-        - 2.6.6
-        - 2.7.2
-        - 3.0.0
+        - 2.5.9
+        - 2.6.8
+        - 2.7.4
+        - 3.0.2
         - truffleruby-head
         gemfile:
         - gemfiles/rails_3_0.gemfile
@@ -110,43 +110,43 @@ jobs:
           gemfile: Gemfile
         - ruby: 2.4.10
           gemfile: gemfiles/rails_head.gemfile
-        - ruby: 2.5.8
+        - ruby: 2.5.9
           gemfile: gemfiles/rails_3_0.gemfile
-        - ruby: 2.5.8
+        - ruby: 2.5.9
           gemfile: gemfiles/rails_head.gemfile
-        - ruby: 2.6.6
+        - ruby: 2.6.8
           gemfile: gemfiles/rails_3_0.gemfile
-        - ruby: 2.6.6
+        - ruby: 2.6.8
           gemfile: gemfiles/rails_head.gemfile
-        - ruby: 2.7.2
+        - ruby: 2.7.4
           gemfile: gemfiles/rails_3_0.gemfile
-        - ruby: 2.7.2
+        - ruby: 2.7.4
           gemfile: gemfiles/rails_3_1.gemfile
-        - ruby: 2.7.2
+        - ruby: 2.7.4
           gemfile: gemfiles/rails_3_2.gemfile
-        - ruby: 2.7.2
+        - ruby: 2.7.4
           gemfile: gemfiles/rails_4_0.gemfile
-        - ruby: 2.7.2
+        - ruby: 2.7.4
           gemfile: gemfiles/rails_4_1.gemfile
-        - ruby: 2.7.2
+        - ruby: 2.7.4
           gemfile: gemfiles/rails_4_2.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_3_0.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_3_1.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_3_2.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_4_0.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_4_1.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_4_2.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_5_0.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_5_1.gemfile
-        - ruby: 3.0.0
+        - ruby: 3.0.2
           gemfile: gemfiles/rails_5_2.gemfile
         - ruby: truffleruby-head
           gemfile: gemfiles/rails_3_0.gemfile
