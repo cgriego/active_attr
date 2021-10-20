@@ -111,7 +111,7 @@ module ActiveAttr
       default = self.class.attributes[attribute_name][:default]
 
       case
-      when default.respond_to?(:call) then instance_exec(&default)
+      when default.is_a?(Proc) then instance_exec(&default)
       when default.duplicable? then default.dup
       else default
       end
