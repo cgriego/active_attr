@@ -20,11 +20,11 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = ActiveAttr::VERSION
 
-  gem.required_ruby_version = ">= 2.1.0"
+  gem.required_ruby_version = [">= 2.1.0", "< 3.2"]
 
-  gem.add_runtime_dependency "actionpack",    ">= 3.0.2", "< 7.1"
-  gem.add_runtime_dependency "activemodel",   ">= 3.0.2", "< 7.1"
-  gem.add_runtime_dependency "activesupport", ">= 3.0.2", "< 7.1"
+  gem.add_runtime_dependency "actionpack",    ">= 3.1.2", "< 7.2"
+  gem.add_runtime_dependency "activemodel",   ">= 3.1.2", "< 7.2"
+  gem.add_runtime_dependency "activesupport", ">= 3.1.2", "< 7.2"
 
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "factory_bot",  "< 5.0"

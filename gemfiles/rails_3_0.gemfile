@@ -1,6 +1,0 @@
-source "https://rubygems.org"
-
-gemspec :development_group => :test, :path => ".."
-
-gem "activemodel",   "~> 3.0.2"
-gem "activesupport", "~> 3.0.2"

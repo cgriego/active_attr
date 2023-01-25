@@ -349,6 +349,11 @@ module ActiveAttr
         attribute_method_matchers.map { |matcher| matcher.method_name name }
       end
 
+      # Because of this rename https://github.com/rails/rails/commit/251445601eb2e00bc15aacf261a85f919ab7f9de
+      def attribute_method_matchers
+        ActiveModel.version >= Gem::Version.new("7.1.a") ? attribute_method_patterns : super
+      end
+
       # Ruby inherited hook to assign superclass attributes to subclasses
       #
       # @since 0.2.2
