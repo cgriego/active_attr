@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = ActiveAttr::VERSION
 
-  gem.required_ruby_version = [">= 2.1.0", "< 3.2"]
+  gem.required_ruby_version = [">= 2.1.0", "< 3.3"]
 
   gem.add_runtime_dependency "actionpack",    ">= 3.1.2", "< 7.2"
   gem.add_runtime_dependency "activemodel",   ">= 3.1.2", "< 7.2"
