@@ -183,6 +183,12 @@ jobs:
           gemfile: gemfiles/rails_4_1.gemfile
         - ruby: truffleruby-head
           gemfile: gemfiles/rails_4_2.gemfile
+        - ruby: truffleruby-head
+          gemfile: gemfiles/rails_5_0.gemfile
+        - ruby: truffleruby-head
+          gemfile: gemfiles/rails_5_1.gemfile
+        - ruby: truffleruby-head
+          gemfile: gemfiles/rails_5_2.gemfile
     env:
       Rails: ${{ matrix.rails }}
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
