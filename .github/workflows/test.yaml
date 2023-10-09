@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Ruby ${{ matrix.ruby }} with ${{ matrix.gemfile }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     continue-on-error: ${{ contains(matrix.ruby, 'head') || contains(matrix.gemfile, 'head') }}
     strategy:
       fail-fast: false
