@@ -1,8 +1,8 @@
-# ActiveAttr 0.16.0 (October 11, 2023)
+# ActiveAttr 0.16.0 (October 30, 2023)
 
 * ActiveAttr now supports Ruby 3.1
 * ActiveAttr now supports Ruby 3.2
-* ActiveAttr now supports Rails 7.1 (thanks )
+* ActiveAttr now supports Rails 7.1 (thanks @mathieujobin)
 
 # ActiveAttr 0.15.4 (December 16, 2021)
 
