@@ -2,13 +2,13 @@ source "https://rubygems.org"
 
 gemspec :development_group => :test, :path => ".."
 
-git "git://github.com/rails/rails.git", :branch => "main" do
+git "https://github.com/rails/rails.git", :branch => "main" do
   gem "activemodel"
   gem "activesupport"
   gem "actionpack"
 end
 
-gem "activemodel-serializers-xml", :group => :test, :git => "git://github.com/rails/activemodel-serializers-xml.git"
+gem "activemodel-serializers-xml", :group => :test, :git => "https://github.com/rails/activemodel-serializers-xml.git"
 gem "rexml", :group => :test
-gem "protected_attributes_continued", :group => :test, :git => "git://github.com/westonganger/protected_attributes_continued"
-gem "rack", :group => :test, :git => "git://github.com/rack/rack.git"
+gem "protected_attributes_continued", :group => :test, :git => "https://github.com/westonganger/protected_attributes_continued.git"
+gem "rack", :group => :test, :git => "https://github.com/rack/rack.git", :branch => "main"

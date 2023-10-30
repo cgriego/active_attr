@@ -211,7 +211,7 @@ module ActiveAttr
       end
 
       it "returns false when compared to another type" do
-        should_not == Struct.new(:attributes).new("first_name" => "Ben")
+        should_not == Struct.new(:attributes).new({ "first_name" => "Ben" })
       end
     end
 
