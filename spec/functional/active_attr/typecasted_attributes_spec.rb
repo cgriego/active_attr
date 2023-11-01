@@ -35,8 +35,7 @@ module ActiveAttr
       end
 
       it "an attribute with no known typecaster raises" do
-        model.unknown = nil
-        expect { model.unknown }.to raise_error Typecasting::UnknownTypecasterError, "Unable to cast to type Unknown"
+        expect { model.unknown = nil  }.to raise_error Typecasting::UnknownTypecasterError, "Unable to cast to type Unknown"
       end
 
       it "an attribute with an inline typecaster returns nil" do
