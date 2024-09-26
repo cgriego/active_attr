@@ -2,9 +2,9 @@ source "https://rubygems.org"
 
 gemspec :development_group => :test
 
-gem "activemodel",   "~> 7.1.0"
-gem "activesupport", "~> 7.1.0"
-gem "actionpack",    "~> 7.1.0"
+gem "activemodel",   "~> 7.2.0"
+gem "activesupport", "~> 7.2.0"
+gem "actionpack",    "~> 7.2.0"
 gem "activemodel-serializers-xml", :group => :test
 gem "rexml", :group => :test
 gem "protected_attributes_continued", :group => :test
