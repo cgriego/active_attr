@@ -8,3 +8,4 @@ gem "actionpack",    "~> 6.0.0"
 gem "activemodel-serializers-xml", :group => :test
 gem "rexml", :group => :test
 gem "protected_attributes_continued", :group => :test
+gem "factory_bot", "< 6", :group => :test if RUBY_VERSION < "2.7"

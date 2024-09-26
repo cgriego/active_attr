@@ -214,6 +214,7 @@ jobs:
     env:
       Rails: ${{ matrix.rails }}
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      BUNDLE_WITHOUT: development
 
     steps:
     - name: Checkout code
