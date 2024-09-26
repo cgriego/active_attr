@@ -10,5 +10,5 @@ end
 
 gem "activemodel-serializers-xml", :group => :test, :git => "https://github.com/rails/activemodel-serializers-xml.git"
 gem "rexml", :group => :test
-gem "protected_attributes_continued", :group => :test, :git => "https://github.com/westonganger/protected_attributes_continued.git"
+gem "protected_attributes_continued", :group => :test
 gem "rack", :group => :test, :git => "https://github.com/rack/rack.git", :branch => "main"
