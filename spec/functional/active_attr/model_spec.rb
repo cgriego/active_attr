@@ -1,3 +1,4 @@
+ # frozen_string_literal: true
 require "spec_helper"
 require "active_attr/model"
 require "active_model/mass_assignment_security"
@@ -141,7 +142,7 @@ module ActiveAttr
           private
 
           def remove_whitespaces
-            name.strip!
+            self.name = name.strip
           end
 
           def set_status
