@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "factory_bot",  "< 7.0"
   gem.add_development_dependency "minitest"
-  gem.add_development_dependency "rake",         ">= 0.9.0", "< 13.1"
+  gem.add_development_dependency "rake",         ">= 0.9.0", "< 13.3"
   gem.add_development_dependency "rspec",        "~> 3.0"
   gem.add_development_dependency "tzinfo"
 end
