@@ -48,6 +48,10 @@ module ActiveAttr
     #
     # @param [Symbol, String, #to_sym] name attribute name
     # @param [Hash{Symbol => Object}] options attribute options
+    # @option options [Object] :default default value
+    # @option options [Object] :type type to coerce the value to
+    # @option options [Object] :typecaster object responding to `#call(value)`
+    #                          that returns the coerced value
     #
     # @return [ActiveAttr::AttributeDefinition]
     #
