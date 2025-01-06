@@ -48,7 +48,11 @@ module ActiveAttr
     def typecast_attribute(typecaster, value)
       raise ArgumentError, "a typecaster must be given" unless typecaster.respond_to?(:call)
       return value if value.nil?
-      typecaster.call(value)
+      if typecaster.is_a? Proc
+        instance_exec value, &typecaster
+      else
+        typecaster.call(value)
+      end
     end
 
     # Resolve a Class to a typecaster
