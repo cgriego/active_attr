@@ -285,7 +285,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     - name: Nokogiri support for TruffleRuby
       run: sudo apt-get -yqq install libxml2-dev libxslt-dev
       if: ${{ matrix.ruby == 'truffleruby-head' }}
