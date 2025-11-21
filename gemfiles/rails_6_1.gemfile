@@ -8,3 +8,4 @@ gem "actionpack",    "~> 6.1.0"
 gem "activemodel-serializers-xml", :group => :test
 gem "rexml", :group => :test
 gem "protected_attributes_continued", :group => :test
+gem "concurrent-ruby", "< 1.3.5" # as https://github.com/rails/rails/pull/49372 was never backported

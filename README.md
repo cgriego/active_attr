@@ -1,7 +1,6 @@
 # ActiveAttr #
 
 [![Build History][build badge]][build history]
-[![Code Climate][codeclimate badge]][codeclimate]
 
 ActiveAttr is a set of modules that makes it easy to create plain old Ruby
 models with functionality found in ORMs, like ActiveRecord, without
@@ -17,8 +16,6 @@ ActiveAttr is distributed as a Ruby gem [on rubygems.org][rubygems].
 * [Contributors][contributors]
 
 [api]: http://rubydoc.info/gems/active_attr
-[codeclimate badge]: https://codeclimate.com/github/cgriego/active_attr.svg
-[codeclimate]: https://codeclimate.com/github/cgriego/active_attr
 [contributors]: https://github.com/cgriego/active_attr/contributors
 [railscast poster]: http://railscasts.com/static/episodes/stills/326-activeattr.png
 [railscast]: http://railscasts.com/episodes/326-activeattr
@@ -26,8 +23,8 @@ ActiveAttr is distributed as a Ruby gem [on rubygems.org][rubygems].
 [protected_attributes]: https://github.com/westonganger/protected_attributes_continued
 [strong_parameters]: https://github.com/rails/strong_parameters
 [speakerdeck]: https://speakerdeck.com/u/cgriego/p/models-models-every-where
-[build badge]: https://github.com/cgriego/active_attr/workflows/Test/badge.svg?event=push
-[build history]: https://github.com/cgriego/active_attr/actions?query=workflow%3ATest
+[build badge]: https://github.com/cgriego/active_attr/actions/workflows/test.yaml/badge.svg
+[build history]: https://github.com/cgriego/active_attr/actions/workflows/test.yaml
 
 ## Modules ##
 
