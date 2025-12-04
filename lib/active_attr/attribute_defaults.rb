@@ -70,8 +70,7 @@ module ActiveAttr
     def apply_defaults(defaults=attribute_defaults)
       @attributes ||= {}
       defaults.each do |name, value|
-        # instance variable is used here to avoid any dirty tracking in attribute setter methods
-        @attributes[name] = value unless @attributes.has_key? name
+        write_attribute(name, value)  unless @attributes.has_key? name
       end
     end
 

@@ -46,17 +46,19 @@ module ActiveAttr
     #
     # @since 0.5.0
     def attribute_before_type_cast(name)
-      @attributes ||= {}
-      @attributes[name.to_s]
+      @before_type_cast_attributes ||= {}
+      @before_type_cast_attributes[name.to_s]
     end
 
     private
 
-    # Reads the attribute and typecasts the result
+    # Write the attribute and typecasts the result
     #
-    # @since 0.5.0
-    def attribute(name)
-      typecast_attribute(_attribute_typecaster(name), super)
+    # @since 0.9.0
+    def attribute=(name, value)
+      @before_type_cast_attributes ||= {}
+      @before_type_cast_attributes[name] = value
+      super(name, typecast_attribute(_attribute_typecaster(name), value))
     end
 
     # Calculates an attribute type
