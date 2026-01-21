@@ -19,12 +19,17 @@ module ActiveAttr
         attribute :float,       :type => Float
         attribute :integer,     :type => Integer
         attribute :string,      :type => String
+        attribute :self_care,   :type => Hash, :typecaster => lambda { |value| { value: value, instance_predefined_value: predefined } }
 
         attribute :unknown, :type => Class.new {
           def self.to_s
             "Unknown"
           end
         }
+
+        def predefined
+          :predefined_value
+        end
       end
     end
 
@@ -142,6 +147,11 @@ module ActiveAttr
       it "an attribute using an inline typecaster returns the result of the inline typecaster" do
         model.age = 2
         model.age.should == Age.new(2)
+      end
+
+      it "an inline proc/lambda typecaster executes in the instance context" do
+        model.self_care = :a_value
+        model.self_care.should == { value: :a_value, instance_predefined_value: :predefined_value }
       end
     end
   end
