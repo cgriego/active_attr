@@ -82,21 +82,12 @@ module ActiveAttr
 
       before { model.freeze }
 
-      it "raises when using a generated attribute setter" do
-        expect { model.first_name = "Ben" }.to raise_error(frozen_error_class)
-      end
-
       it "raises when using assign_attributes" do
         expect { model.assign_attributes(:first_name => "Ben") }.to raise_error(frozen_error_class)
       end
 
       it "raises when using attributes=" do
         expect { model.attributes = { :first_name => "Ben" } }.to raise_error(frozen_error_class)
-      end
-
-      it "does not raise when reading attributes" do
-        expect { model.first_name }.not_to raise_error
-        expect { model.attributes }.not_to raise_error
       end
     end
 

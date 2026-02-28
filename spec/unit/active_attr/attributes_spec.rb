@@ -372,6 +372,10 @@ module ActiveAttr
           expect { model[:first_name] = "Ben" }.to raise_error(frozen_error_class)
         end
 
+        it "raises when using a generated attribute setter" do
+          expect { model.first_name = "Ben" }.to raise_error(frozen_error_class)
+        end
+
         it "does not raise when reading with read_attribute" do
           expect { model.read_attribute(:first_name) }.not_to raise_error
         end
