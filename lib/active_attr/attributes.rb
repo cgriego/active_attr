@@ -171,6 +171,17 @@ module ActiveAttr
     end
     alias_method :[]=, :write_attribute
 
+    # Freeze the model and its attributes, preventing further modification.
+    #
+    # @return [self]
+    #
+    # @since 0.17.3
+    def freeze
+      @attributes ||= {}
+      @attributes.freeze
+      super
+    end
+
     private
 
     # Read an attribute from the attributes hash

@@ -1,4 +1,5 @@
 require "spec_helper"
+require "active_attr/attributes"
 require "active_attr/mass_assignment"
 require "active_model"
 require "active_model/mass_assignment_security"
@@ -64,6 +65,38 @@ module ActiveAttr
         describe "#assign_attributes", :assign_attributes, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
         describe "#attributes=", :attributes=, :secure_mass_assignment_method
         describe "#initialize", :initialize, :secure_mass_assignment_method, :secure_mass_assignment_method_with_options
+      end
+    end
+
+    context "integrating with Attributes (frozen model)" do
+      let :model_class do
+        Class.new do
+          include Attributes
+          include MassAssignment
+          attribute :first_name
+          attribute :last_name
+        end
+      end
+
+      subject(:model) { model_class.new }
+
+      before { model.freeze }
+
+      it "raises when using a generated attribute setter" do
+        expect { model.first_name = "Ben" }.to raise_error(frozen_error_class)
+      end
+
+      it "raises when using assign_attributes" do
+        expect { model.assign_attributes(:first_name => "Ben") }.to raise_error(frozen_error_class)
+      end
+
+      it "raises when using attributes=" do
+        expect { model.attributes = { :first_name => "Ben" } }.to raise_error(frozen_error_class)
+      end
+
+      it "does not raise when reading attributes" do
+        expect { model.first_name }.not_to raise_error
+        expect { model.attributes }.not_to raise_error
       end
     end
 
