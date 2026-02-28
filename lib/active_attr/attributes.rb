@@ -171,6 +171,7 @@ module ActiveAttr
     end
     alias_method :[]=, :write_attribute
 
+    # @private
     def freeze
       @attributes ||= {}
       @attributes.freeze
