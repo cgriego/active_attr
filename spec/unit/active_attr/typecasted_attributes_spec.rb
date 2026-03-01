@@ -75,6 +75,14 @@ module ActiveAttr
         model.amount = value
         model.attribute_before_type_cast('amount').should equal value
       end
+
+      context "when frozen" do
+        before { model.freeze }
+
+        it "does not raise" do
+          expect { model.attribute_before_type_cast(:amount) }.not_to raise_error
+        end
+      end
     end
   end
 end
