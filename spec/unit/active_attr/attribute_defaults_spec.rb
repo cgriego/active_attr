@@ -47,5 +47,28 @@ module ActiveAttr
         should be_initialized
       end
     end
+
+    describe "#freeze" do
+      context "when frozen before defaults are applied" do
+        subject(:frozen_model) do
+          model_class.new.tap do |m|
+            m.instance_variable_set(:@attributes, {})
+            m.freeze
+          end
+        end
+
+        it "raises when apply_defaults is called with missing keys" do
+          expect { frozen_model.apply_defaults }.to raise_error(frozen_error_class)
+        end
+      end
+
+      context "when frozen after initialization (defaults already applied)" do
+        before { model.freeze }
+
+        it "does not raise when apply_defaults is called" do
+          expect { model.apply_defaults }.not_to raise_error
+        end
+      end
+    end
   end
 end

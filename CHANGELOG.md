@@ -1,3 +1,7 @@
+# ActiveAttr 0.18.0 (Unreleased)
+
+* Frozen models now correctly raise a frozen object error when an attempt is made to modify them
+
 # ActiveAttr 0.17.2 (November 21, 2025)
 
 * ActiveAttr now supports Ruby 3.4

@@ -352,6 +352,48 @@ module ActiveAttr
       end
     end
 
+    describe "#freeze" do
+      it "returns self" do
+        model.freeze.should equal model
+      end
+
+      it "makes the model frozen" do
+        model.freeze.should be_frozen
+      end
+
+      context "when frozen" do
+        before { model.freeze }
+
+        it "raises when writing with write_attribute" do
+          expect { model.write_attribute(:first_name, "Ben") }.to raise_error(frozen_error_class)
+        end
+
+        it "raises when writing with []=" do
+          expect { model[:first_name] = "Ben" }.to raise_error(frozen_error_class)
+        end
+
+        it "raises when using a generated attribute setter" do
+          expect { model.first_name = "Ben" }.to raise_error(frozen_error_class)
+        end
+
+        it "does not raise when reading with read_attribute" do
+          expect { model.read_attribute(:first_name) }.not_to raise_error
+        end
+
+        it "does not raise when reading with []" do
+          expect { model[:first_name] }.not_to raise_error
+        end
+
+        it "does not raise when calling #attributes" do
+          expect { model.attributes }.not_to raise_error
+        end
+
+        it "does not raise when calling #inspect" do
+          expect { model.inspect }.not_to raise_error
+        end
+      end
+    end
+
     [:[]=, :write_attribute].each do |method|
       describe "##{method}" do
         it "raises ArgumentError with one argument" do
